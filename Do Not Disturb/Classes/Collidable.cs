@@ -14,10 +14,7 @@ namespace Do_Not_Disturb.Classes
         protected Vector2 acceleration;
         protected Rectangle hitbox;
 
-        public Vector2 Position
-        {
-            get { return position; }
-        }
+        
         public Vector2 Velocity
         {
             get { return position; }
@@ -33,5 +30,12 @@ namespace Do_Not_Disturb.Classes
             this.position = position;
             this.hitbox = hitbox;
         }
+
+        /*
+        public bool IsCollidingWithTerrain()
+        {
+
+        }
+        */
     }
 }

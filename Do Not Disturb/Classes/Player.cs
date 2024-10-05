@@ -84,6 +84,12 @@ namespace Do_Not_Disturb.Classes
             Debug.WriteLine(velocity.ToString());
             Debug.WriteLine(velocity.ToPoint().ToString());
         }
+
+        public void Draw(SpriteBatch sb)
+        {
+            sb.Draw(spriteSheet, hitbox, new Rectangle(0, 0, 32, 32), Color.White);
+            sb.DrawString(Game1.font, position.X.ToString() + position.Y.ToString(), new Vector2(0,0), Color.Black);
+        }
        
         public void Draw()
         {
