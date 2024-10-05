@@ -155,6 +155,7 @@ namespace Do_Not_Disturb.Classes
             sb.Draw(spriteSheet, new Rectangle(Camera.RelativePosition(position).ToPoint(), hitbox.Size), new Rectangle(0, 0, 32, 32), Color.White);
             sb.DrawString(Game1.font, velocity.X.ToString(), new Vector2(0,0), Color.Black);
             sb.DrawString(Game1.font, acceleration.X.ToString(), new Vector2(0, 100), Color.Black);
+            sb.DrawString(Game1.font, CollisionAccuracy.ToString(), new Vector2(100, 0), Color.Black);
         }
 
     }
