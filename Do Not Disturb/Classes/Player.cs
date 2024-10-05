@@ -35,40 +35,7 @@ namespace Do_Not_Disturb.Classes
         const float maxYVelocity = 60;
         const float gravity = 70;
 
-        public bool Grounded
-        {
-            get
-            {
-                if (IsCollidingWithTerrain(new Rectangle(hitbox.X, hitbox.Y + 5, hitbox.Width, hitbox.Height)))
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-        }
-
-        public virtual int CollisionAccuracy
-        {
-            get
-            {
-
-                // Min accuracy is 1
-                if (velocity.X == 0 &&
-                    velocity.Y == 0)
-                {
-                    return 1;
-                }
-
-                return (int)(velocity.Length() / 4f);  //Use the magnitude of the velocity to get the accuracy
-
-
-
-
-            }
-        }
+        
 
         public Player(Vector2 position, Rectangle rect) : base (position, rect)
         {

@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Do_Not_Disturb.Classes;
+using System.Collections.Generic;
 
 namespace Do_Not_Disturb
 {
@@ -20,8 +21,13 @@ namespace Do_Not_Disturb
         private SpriteBatch _spriteBatch;
         private KeyboardState kbs;
         private KeyboardState prevKBS;
+<<<<<<< Updated upstream
         private Player player;
         private GameStates gameState;
+=======
+        public static List<Collidable> collidableList = new();
+      
+>>>>>>> Stashed changes
 
         public Game1()
         {
@@ -42,7 +48,7 @@ namespace Do_Not_Disturb
             _graphics.PreferredBackBufferHeight = 1000;
             _graphics.PreferredBackBufferWidth = 1000;
             _graphics.ApplyChanges();
-            player = new Player(new Vector2(0, 0), new Rectangle(0, 0, 96, 96));
+            collidableList.Add(new Player(new Vector2(0, 0), new Rectangle(0, 0, 96, 96)));
 
             Camera.globalOffset = new Vector2(_graphics.PreferredBackBufferWidth / 2, _graphics.PreferredBackBufferHeight / 2);
 
@@ -63,10 +69,11 @@ namespace Do_Not_Disturb
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            player.Update(gameTime, kbs);
+            
 
             prevKBS = kbs;
             kbs = Keyboard.GetState();
+<<<<<<< Updated upstream
             
             switch (gameState){
                 case GameStates.Menu:
@@ -92,6 +99,21 @@ namespace Do_Not_Disturb
                 }
             }
            
+=======
+           
+           foreach (Collidable collidable in collidableList)
+            {
+                if (collidable is Player)
+                {
+                    ((Player)collidable).Update(gameTime, kbs);
+                }
+                else
+                {
+                    collidable.Update(gameTime);
+                }
+                
+            }
+>>>>>>> Stashed changes
 
             base.Update(gameTime);
         }

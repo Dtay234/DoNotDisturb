@@ -7,12 +7,47 @@ using Microsoft.Xna.Framework;
 
 namespace Do_Not_Disturb.Classes
 {
-    internal abstract class Collidable
+    public abstract class Collidable
     {
         protected Vector2 position;
         protected Vector2 velocity;
         protected Vector2 acceleration;
         protected Rectangle hitbox;
+
+        public bool Grounded
+        {
+            get
+            {
+                if (IsCollidingWithTerrain(new Rectangle(hitbox.X, hitbox.Y + 5, hitbox.Width, hitbox.Height)))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        public virtual int CollisionAccuracy
+        {
+            get
+            {
+
+                // Min accuracy is 1
+                if (velocity.X == 0 &&
+                    velocity.Y == 0)
+                {
+                    return 1;
+                }
+
+                return (int)(velocity.Length() / 4f);  //Use the magnitude of the velocity to get the accuracy
+
+
+
+
+            }
+        }
 
         public Vector2 Position
         {
@@ -21,6 +56,10 @@ namespace Do_Not_Disturb.Classes
         public Vector2 Velocity
         {
             get { return velocity; }
+            set
+            {
+                velocity = value;
+            }
         }
         public Vector2 Acceleration
         {
@@ -34,7 +73,7 @@ namespace Do_Not_Disturb.Classes
             this.hitbox = hitbox;
         }
 
-
+        
 
         
         public bool IsCollidingWithTerrain()
@@ -69,5 +108,6 @@ namespace Do_Not_Disturb.Classes
             return false;
         }
 
+        public abstract void Update(GameTime gameTime);
     }
 }
