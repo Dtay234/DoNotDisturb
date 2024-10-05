@@ -113,7 +113,7 @@ namespace Do_Not_Disturb
 
                 case GameStates.Game:
                 {
-                        Level level = new Level(2000, 2000);
+                        
                         foreach (GameObject obj in objects)
                         {
                             if (obj is Player)
