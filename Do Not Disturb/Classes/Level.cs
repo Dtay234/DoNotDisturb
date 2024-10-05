@@ -20,7 +20,6 @@ namespace Do_Not_Disturb.Classes
         {
             this.windowHeight = windowHeight;
             this.windowWidth = windowWidth;
-            this.objects = new List<GameObject>();
 
             new Geometry(new Rectangle(0, 0, 10, windowHeight), BlockTypes.ARedBlock);
             new Geometry(new Rectangle(windowWidth, 0, 10, windowHeight), BlockTypes.ARedBlock);
@@ -40,12 +39,35 @@ namespace Do_Not_Disturb.Classes
             int height = 0;
             bool inBlock = true;
 
-            foreach(String line in allLines)
+            for(int row = 0; row < allLines.Length; row++)
             {
-                string[] letters = line.Split(',');
-                foreach(String chr in letters)
+                string[] letters = allLines[row].Split(',');
+                for(int col = 0; col < letters.Length; col++)
                 {
-                    
+                    switch(letters[col])
+                    {
+                        case "-1":
+                            break;
+
+                        case "2":
+                            new Geometry(new Rectangle(row * 66, col * 66, 32, 32), BlockTypes.TopVertLongBlock);
+                            break;
+
+                        case "4":
+                            break;
+
+                        case "10":
+                            new Geometry(new Rectangle(row * 66, col * 66, 32, 32), BlockTypes.LeftHorLongBlock);
+                            break;
+
+                        case "11":
+                            new Geometry(new Rectangle(row * 66, col * 66, 32, 32), BlockTypes.BotVertLongBlock);
+                            break;
+
+                        case "12":
+                            new Geometry(new Rectangle(row * 66, col * 66, 32, 32), BlockTypes.BotVertLongBlock);
+                            break;
+                    }
                 }
 
             }

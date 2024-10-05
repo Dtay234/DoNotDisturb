@@ -19,7 +19,8 @@ namespace Do_Not_Disturb.Classes
         Jumping,
         Hiding,
         Crouching,
-        Idle
+        Idle,
+        Pushing
 
     }
     internal class Player : GameObject
@@ -135,13 +136,22 @@ namespace Do_Not_Disturb.Classes
         
         public void UpdateAnimations()
         {
-            if (velocity.X != 0)
+            if (acceleration.X > 0 && velocity.X > 0)
             {
-                animation.ChangeAnimation(PlayerMovement.Walking);
+                faceDirection = FaceDirection.Right;
+            }
+            else if (acceleration.X < 0 && velocity.X < 0)
+            {
+                faceDirection = FaceDirection.Left;
+            }
+
+            if (velocity.X != 0 && state != PlayerMovement.Pushing)
+            {
+                animation.ChangeAnimation(PlayerMovement.Walking, (int)faceDirection, true);
             }
             else
             {
-                animation.ChangeAnimation(PlayerMovement.Standing);
+                animation.ChangeAnimation(PlayerMovement.Standing, (int)faceDirection);
             }
         }
         
