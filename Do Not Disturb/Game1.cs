@@ -27,7 +27,6 @@ namespace Do_Not_Disturb
         private KeyboardState kbs;
         private KeyboardState prevKBS;
         private GameStates gameState = GameStates.Menu;
-        private Animation animation;
         
      
 
@@ -50,7 +49,7 @@ namespace Do_Not_Disturb
 
             //objects.Add(new Bubble(new Vector2(300, 600), new Rectangle(100000, 10000, 20, 20)));
 
-            new HangingSheet(new Vector2(200, 600), 5, 5);
+            
             Level level = new Level(2000, 2000);
             _graphics.PreferredBackBufferHeight = 1080;
             _graphics.PreferredBackBufferWidth = 1920;

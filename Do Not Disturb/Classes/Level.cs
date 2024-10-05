@@ -26,7 +26,7 @@ namespace Do_Not_Disturb.Classes
             new Geometry(new Rectangle(windowWidth, 0, 10, windowHeight), BlockTypes.NormalLongBlock);
             new Geometry(new Rectangle(0, 0, windowWidth, 10), BlockTypes.NormalLongBlock);
             new Geometry(new Rectangle(0, windowWidth, windowWidth, 10), BlockTypes.NormalLongBlock);
-            new HangingSheet(new Vector2(200, 600), 5, 5);
+            
             objects.Add(new Block(new Vector2(500, 500), new Rectangle(0, 0, 100, 100), BlockTypes.NormalLongBlock));
             objects.Add(new Bubble(new Vector2(1000, 1950), new Rectangle(0, 0, 20, 20)));
 
@@ -45,7 +45,7 @@ namespace Do_Not_Disturb.Classes
                 string[] letters = line.Split(',');
                 foreach(String chr in letters)
                 {
-                    if()
+                    
                 }
 
             }
