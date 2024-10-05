@@ -128,7 +128,7 @@ namespace Do_Not_Disturb.Classes
 
 
 
-            Movement(gameTime);
+            base.Update(gameTime);
             
         }
         

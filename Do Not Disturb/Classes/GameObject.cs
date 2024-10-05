@@ -28,7 +28,7 @@ namespace Do_Not_Disturb.Classes
         {
             get
             {
-                if (Game1.Collide(new Rectangle(hitbox.X, hitbox.Y + 5, hitbox.Width, hitbox.Height)))
+                if (Game1.CheckGrounded(this))
                 {
                     return true;
                 }
@@ -91,11 +91,20 @@ namespace Do_Not_Disturb.Classes
 
         public void Movement(GameTime gt)
         {
+            if (Grounded)
+            {
+                acceleration.Y = 0;
+            }
+            else
+            {
+                acceleration.Y = gravity;
+            }
+
             float time = (float)gt.ElapsedGameTime.TotalSeconds;
 
             int iterationCounter = 1;       // Number of collision checks we've done
 
-            Point lastSafePosition = new Point((int)position.X, (int)position.Y);        //Last point before a collision
+            Point lastSafePosition = new Point((int)Math.Round(position.X), (int)Math.Round(position.Y));        //Last point before a collision
 
             if (!Grounded)
             {
@@ -120,7 +129,7 @@ namespace Do_Not_Disturb.Classes
 
                 if (!Game1.Collide(hitbox))
                 {
-                    lastSafePosition = new Point((int)position.X, (int)position.Y);      //Store old position in case we collide
+                    lastSafePosition = new Point((int)Math.Round(position.X), (int)Math.Round(position.Y));      //Store old position in case we collide
                 }
 
                 //Cap velocity
@@ -146,7 +155,27 @@ namespace Do_Not_Disturb.Classes
                     break;
                 }
 
-                
+                Geometry geo = null;
+                GameObject obj = null;
+
+                if (Game1.Collide(hitbox, out geo, out obj))
+                {
+                    hitbox = new Rectangle(lastSafePosition, hitbox.Size);
+                    position = lastSafePosition.ToVector2();
+
+
+                    if (geo != null)
+                    {
+                        velocity.Y = 0;
+                    }
+                    if (obj != null && obj is Collidable)
+                    {
+                        ((Collidable)obj).OnCollision_V(this);
+                    }
+
+                    break;
+                }
+
 
                 iterationCounter++;
             }
@@ -155,12 +184,12 @@ namespace Do_Not_Disturb.Classes
             //Do the same thing but in the X direction
             iterationCounter = 1;
 
-            while (!Game1.Collide(hitbox) && iterationCounter <= CollisionAccuracy)
+            while (iterationCounter <= CollisionAccuracy)
             {
 
                 if (!Game1.Collide(hitbox))
                 {
-                    lastSafePosition = new Point((int)position.X, (int)position.Y);
+                    lastSafePosition = new Point((int)Math.Round(position.X), (int)Math.Round(position.Y));
                 }
 
                 //Cap velocity
@@ -169,10 +198,6 @@ namespace Do_Not_Disturb.Classes
                     velocity.X = maxXVelocity * Math.Sign(velocity.X);
                 }
 
-                if (!Grounded)
-                {
-                    tempVelocity.X = velocity.X / 1.2f;
-                }
 
                 position.X += tempVelocity.X * (time * iterationCounter / CollisionAccuracy);
 
@@ -197,8 +222,10 @@ namespace Do_Not_Disturb.Classes
                     }
                     if (obj != null && obj is Collidable)
                     {
-                        ((Collidable)obj).OnCollision(this);
+                        ((Collidable)obj).OnCollision_H(this);
                     }
+
+                    bool temp = Game1.Collide(hitbox);
 
                     break;
                 }
@@ -211,7 +238,10 @@ namespace Do_Not_Disturb.Classes
         }
 
 
-        public abstract void Update(GameTime gameTime);
+        public virtual void Update(GameTime gameTime)
+        {
+            Movement(gameTime);
+        }
 
         public abstract void Draw(SpriteBatch sb);
 

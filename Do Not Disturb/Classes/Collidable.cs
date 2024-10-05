@@ -18,6 +18,7 @@ namespace Do_Not_Disturb.Classes
             
         }
 
-        public abstract void OnCollision(GameObject obj);
+        public abstract void OnCollision_H(GameObject obj);
+        public abstract void OnCollision_V(GameObject obj);
     }
 }
