@@ -57,9 +57,14 @@ namespace Do_Not_Disturb.Classes
         public override void OnCollision_H(GameObject obj)
         {
             acceleration.X = obj.Velocity.X;
+            if (velocity.X == 0)
+            {
+                velocity.X = 1;
+            }
+            
 
             obj.Velocity = new Vector2(0, obj.Velocity.Y);
-                    }
+        }
 
         public override void OnCollision_V(GameObject obj)
         {
