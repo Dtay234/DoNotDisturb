@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Do_Not_Disturb.Classes;
+using System.Collections.Generic;
 
 namespace Do_Not_Disturb
 {
@@ -15,12 +16,15 @@ namespace Do_Not_Disturb
     public class Game1 : Game
     {
         public static SpriteFont font;
+        public static Texture2D pixel;
 
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private KeyboardState kbs;
         private KeyboardState prevKBS;
-        private Player player;
+        private GameStates gameState;
+        public static List<Collidable> collidableList = new();
+     
 
         public Game1()
         {
@@ -41,7 +45,7 @@ namespace Do_Not_Disturb
             _graphics.PreferredBackBufferHeight = 1000;
             _graphics.PreferredBackBufferWidth = 1000;
             _graphics.ApplyChanges();
-            player = new Player(new Vector2(0, 0), new Rectangle(0, 0, 96, 96));
+            collidableList.Add(new Player(new Vector2(0, 0), new Rectangle(0, 0, 96, 96)));
 
             Camera.globalOffset = new Vector2(_graphics.PreferredBackBufferWidth / 2, _graphics.PreferredBackBufferHeight / 2);
 
@@ -53,6 +57,7 @@ namespace Do_Not_Disturb
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             Player.spriteSheet = Content.Load<Texture2D>("Images/RedPanda");
+            pixel = Content.Load<Texture2D>("Images/WhitePixel");
             font = Content.Load<SpriteFont>("Fonts/File");
             Geometry.LoadBlocks(Content);
         }
@@ -62,12 +67,47 @@ namespace Do_Not_Disturb
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            player.Update(gameTime, kbs);
+            
 
             prevKBS = kbs;
             kbs = Keyboard.GetState();
+            
+            switch (gameState){
+                case GameStates.Menu:
+                {
+                    break;
+                }
+
+                case GameStates.PauseScreen:
+                {
+                    break;
+                }
+
+                case GameStates.Game:
+                {
+                        foreach (Collidable collidable in collidableList)
+                        {
+                            if (collidable is Player)
+                            {
+                                ((Player)collidable).Update(gameTime, kbs);
+                            }
+                            else
+                            {
+                                collidable.Update(gameTime);
+                            }
+
+                        }
+
+                        break;
+                }
+
+                case GameStates.Loading:
+                {
+                        break;
+                }
+            }
            
-           
+
 
             base.Update(gameTime);
         }
@@ -83,7 +123,11 @@ namespace Do_Not_Disturb
             {
                 box.Draw(_spriteBatch);
             }
-            player.Draw(_spriteBatch);
+            foreach (Collidable collidable in collidableList)
+            {
+                collidable.Draw(_spriteBatch);
+                _spriteBatch.Draw(pixel, collidable.Hitbox, Color.White);
+            }
 
             _spriteBatch.End();
             base.Draw(gameTime);
