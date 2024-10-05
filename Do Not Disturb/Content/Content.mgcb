@@ -92,7 +92,7 @@
 /processorParam:TextureFormat=Color
 /build:Images/RBlueBlock.png
 
-#begin Images/RedPanda.png
+#begin Images/Red_Panda_Sprite_Sheet.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -102,7 +102,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Images/RedPanda.png
+/build:Images/Red_Panda_Sprite_Sheet.png
 
 #begin Images/Title.png
 /importer:TextureImporter
