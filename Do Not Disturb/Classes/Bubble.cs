@@ -31,9 +31,6 @@ namespace Do_Not_Disturb.Classes
         public override void Update(GameTime gameTime)
         {
            
-
-
-
             timer -= gameTime.ElapsedGameTime.TotalSeconds;
             this.hitbox = new Rectangle(position.ToPoint(), hitbox.Size);
 
@@ -43,7 +40,7 @@ namespace Do_Not_Disturb.Classes
 
         public override void Draw(SpriteBatch sb)
         {
-            
+
         }
 
         public override void OnCollision_H(GameObject obj)
