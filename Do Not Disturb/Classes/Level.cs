@@ -28,8 +28,8 @@ namespace Do_Not_Disturb.Classes
             new Geometry(new Rectangle(0, 0, windowWidth, 10), BlockTypes.ARedBlock);
             new Geometry(new Rectangle(0, windowWidth, windowWidth, 10), BlockTypes.ARedBlock);
             
-            objects.Add(new Block(new Vector2(500, 500), new Rectangle(0, 0, 100, 100), BlockTypes.ARedBlock));
-            objects.Add(new Bubble(new Vector2(1000, 1950), new Rectangle(0, 0, 20, 20)));
+            new Block(new Vector2(500, 500), new Rectangle(0, 0, 100, 100), BlockTypes.ARedBlock);
+            new Bubble(new Vector2(1000, 1950), new Rectangle(0, 0, 20, 20));
 
         }
 
