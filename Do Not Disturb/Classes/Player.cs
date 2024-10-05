@@ -27,7 +27,7 @@ namespace Do_Not_Disturb.Classes
         public static Texture2D spriteSheet;
         public static Keys lastPressed;
         private PlayerMovement state;
-        
+        public static Animation<PlayerMovement> animation;
 
         
 
@@ -35,6 +35,7 @@ namespace Do_Not_Disturb.Classes
         {
             acceleration.Y = 70;
             Camera.Focus = this;
+            animation = new("player.txt");
         }
 
         public override void Update(GameTime gt)

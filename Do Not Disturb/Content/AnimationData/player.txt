@@ -2,23 +2,23 @@
 
 @32x32,8:2
 
-// Standing,
+//Standing
 #,#,6,15      
 
-// LookBack
+//LookBack
 #,#,6,15        
 
-// Walking
+//Walking
 #,#,8,5
 
 //Jumping
 #,#,8,5
 
-// Hiding
+//Hiding
 #,#,5,15
 
-// Crouching
+//Crouching
 #,#,8,5
 
-// Idle
+//Idle
 #,#,8,15

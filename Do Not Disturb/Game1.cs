@@ -27,7 +27,6 @@ namespace Do_Not_Disturb
         private KeyboardState kbs;
         private KeyboardState prevKBS;
         private GameStates gameState = GameStates.Menu;
-        private Animation animation;
 
        
 
