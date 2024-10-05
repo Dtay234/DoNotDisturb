@@ -7,6 +7,7 @@ using System.IO;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Do_Not_Disturb.Classes.Puzzle;
+using System.Data;
 
 namespace Do_Not_Disturb.Classes
 {
@@ -15,6 +16,7 @@ namespace Do_Not_Disturb.Classes
         private int windowHeight;
         private int windowWidth;
         private List<GameObject> objects;
+        private string filePath;
         
         public Level(int windowHeight, int windowWidth)
         {
@@ -26,13 +28,14 @@ namespace Do_Not_Disturb.Classes
             new Geometry(new Rectangle(0, 0, windowWidth, 10), BlockTypes.ARedBlock);
             new Geometry(new Rectangle(0, windowWidth, windowWidth, 10), BlockTypes.ARedBlock);
             
-            objects.Add(new Block(new Vector2(500, 500), new Rectangle(0, 0, 100, 100), BlockTypes.ARedBlock));
-            objects.Add(new Bubble(new Vector2(1000, 1950), new Rectangle(0, 0, 20, 20)));
+            new Block(new Vector2(500, 500), new Rectangle(0, 0, 100, 100), BlockTypes.ARedBlock);
+            new Bubble(new Vector2(1000, 1950), new Rectangle(0, 0, 20, 20));
 
         }
 
         public Level(String filename)
         {
+            filePath = filename;
             String[] allLines = File.ReadAllLines(filename);
 
             int width = 0;
@@ -41,7 +44,12 @@ namespace Do_Not_Disturb.Classes
 
             for(int row = 0; row < allLines.Length; row++)
             {
+                if(row == 0)
+                {
+                    
+                }
                 string[] letters = allLines[row].Split(',');
+                
                 for(int col = 0; col < letters.Length; col++)
                 {
                     switch(letters[col])
@@ -50,22 +58,22 @@ namespace Do_Not_Disturb.Classes
                             break;
 
                         case "2":
-                            new Geometry(new Rectangle(row * 66, col * 66, 32, 32), BlockTypes.TopVertLongBlock);
+                            new Geometry(new Rectangle(col * 66, row * 66, 66, 66), BlockTypes.TopVertLongBlock);
                             break;
 
                         case "4":
                             break;
 
                         case "10":
-                            new Geometry(new Rectangle(row * 66, col * 66, 32, 32), BlockTypes.LeftHorLongBlock);
+                            new Geometry(new Rectangle(col * 66, row * 66, 66, 66), BlockTypes.LeftHorLongBlock);
                             break;
 
                         case "11":
-                            new Geometry(new Rectangle(row * 66, col * 66, 32, 32), BlockTypes.BotVertLongBlock);
+                            new Geometry(new Rectangle(col * 66, row * 66, 66, 66), BlockTypes.BotVertLongBlock);
                             break;
 
                         case "12":
-                            new Geometry(new Rectangle(row * 66, col * 66, 32, 32), BlockTypes.BotVertLongBlock);
+                            new Geometry(new Rectangle(col * 66, row * 66, 66, 66), BlockTypes.BotVertLongBlock);
                             break;
                     }
                 }
@@ -74,8 +82,11 @@ namespace Do_Not_Disturb.Classes
 
         }
 
-        
+        public string GetFilePath()
+        {
+            return filePath;
+        }
 
-        
+
     }
 }

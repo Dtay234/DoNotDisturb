@@ -25,7 +25,7 @@ namespace Do_Not_Disturb.Classes
             int sign = 0;
 
             
-            if (Grounded)
+            if (true)
             {
                 sign = Math.Sign(velocity.X);
                 acceleration.X = -Math.Sign(velocity.X) * 80;

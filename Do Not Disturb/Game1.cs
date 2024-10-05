@@ -18,7 +18,7 @@ namespace Do_Not_Disturb
     {
         public static SpriteFont font;
         public static Texture2D pixel;
-        private static List<GameObject> objects = new();
+        public static List<GameObject> objects = new();
         public static Texture2D title;
         public static Texture2D loading;
 
@@ -27,6 +27,7 @@ namespace Do_Not_Disturb
         private KeyboardState kbs;
         private KeyboardState prevKBS;
         private GameStates gameState = GameStates.Menu;
+        private Level lastLevel;
         
      
 
@@ -45,16 +46,18 @@ namespace Do_Not_Disturb
 
             //remove this later
 
-            objects.Add(new Block(new Vector2(500, 500), new Rectangle(0, 0, 100, 100), BlockTypes.ARedBlock));
+            new Block(new Vector2(500, 500), new Rectangle(0, 0, 100, 100), BlockTypes.ARedBlock);
 
             //objects.Add(new Bubble(new Vector2(300, 600), new Rectangle(100000, 10000, 20, 20)));
 
-            
             Level level = new Level("../../../Content/levels/level0.csv");
+            lastLevel = level;
             _graphics.PreferredBackBufferHeight = 1080;
             _graphics.PreferredBackBufferWidth = 1920;
             _graphics.ApplyChanges();
-            objects.Add(new Player(new Vector2(500, 350)));
+
+            Player.spriteSheet = Content.Load<Texture2D>("Images/RedPanda");
+            new Player(new Vector2(500, 350));
 
             Camera.globalOffset = new Vector2(_graphics.PreferredBackBufferWidth / 2, _graphics.PreferredBackBufferHeight / 2);
 
@@ -65,11 +68,12 @@ namespace Do_Not_Disturb
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            Player.spriteSheet = Content.Load<Texture2D>("Images/Red_Panda_Sprite_Sheet");
+            Player.spriteSheet = Content.Load<Texture2D>("Images/RedPanda");
             pixel = Content.Load<Texture2D>("Images/WhitePixel");
             font = Content.Load<SpriteFont>("Fonts/File");
             title = Content.Load<Texture2D>("Images/Title");
             loading = Content.Load<Texture2D>("Images/LoadingSpriteSheet");
+            Bubble.sprite = Content.Load<Texture2D>("Images/BubbleSprite");
             Geometry.LoadBlocks(Content);
 
             Vector2 loadingScreenPosition = new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
@@ -113,17 +117,26 @@ namespace Do_Not_Disturb
                 case GameStates.Game:
                 {
                         
-                        foreach (GameObject obj in objects)
+                        for (int i = 0; i < objects.Count; i++) 
                         {
+                            GameObject obj = objects[i];
+
                             if (obj is Player)
                             {
-                                ((Player)obj).Update(gameTime, kbs);
+                                ((Player)obj).Update(gameTime, kbs, prevKBS);
                             }
+                            
                             else
                             {
                                 obj.Update(gameTime);
                             }
 
+                        }
+
+                        GameObject temp;
+                        if ((temp = objects.Find(x => x is Bubble && ((Bubble)x).popped)) != null)
+                        {
+                            objects.Remove(temp);
                         }
 
                         break;
@@ -156,6 +169,11 @@ namespace Do_Not_Disturb
                     }
                 case GameStates.Game:
                     {
+                        if (kbs.IsKeyDown(Keys.R))
+                        {
+                            ResetLevel();
+                        }
+
                         foreach (Geometry box in Geometry.map)
                         {
                             box.Draw(_spriteBatch);
@@ -251,6 +269,12 @@ namespace Do_Not_Disturb
             }
 
             return temp1 || temp2;
+        }
+
+        public void ResetLevel()
+        {
+           
+            lastLevel = new Level(lastLevel.GetFilePath());
         }
     }
 }

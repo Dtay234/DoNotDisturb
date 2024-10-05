@@ -13,7 +13,7 @@ namespace Do_Not_Disturb.Classes
 {
     public enum BlockTypes
     {
-        ARedBlock,
+        ARedBlock = 1,
         RBlueBlock,
         EGreenBlock,
         LeftHorLongBlock,
@@ -58,6 +58,7 @@ namespace Do_Not_Disturb.Classes
         private Rectangle boundBox;
         private BlockTypes type;
 
+
         public Rectangle BoundBox
         {
             get { return boundBox; }
@@ -73,7 +74,7 @@ namespace Do_Not_Disturb.Classes
         public void Draw(SpriteBatch sb)
         {
             Vector2 temp = Camera.RelativePosition(boundBox.Location.ToVector2());
-            sb.Draw(boxSprites[type], new Rectangle(temp.ToPoint(), BoundBox.Size), null, Color.White);
+            sb.Draw(boxSprites[type], new Rectangle(temp.ToPoint(), BoundBox.Size), new Rectangle(0, 0, 66, 66), Color.White);
         }
 
         public static void LoadBlocks(ContentManager Content)
@@ -88,5 +89,7 @@ namespace Do_Not_Disturb.Classes
                 
             }
         }
+
+
     }
 }

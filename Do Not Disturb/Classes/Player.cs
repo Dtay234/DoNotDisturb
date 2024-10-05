@@ -30,7 +30,10 @@ namespace Do_Not_Disturb.Classes
         private PlayerMovement state;
         public static Animation<PlayerMovement> animation;
 
-        
+        public override int CollisionAccuracy
+        {
+            get { return 20;  }
+        }
 
         public Player(Vector2 position) : base (position, new Rectangle(0, 0, 75, 44))
         {
@@ -44,7 +47,7 @@ namespace Do_Not_Disturb.Classes
 
         }
 
-        public void Update(GameTime gameTime, KeyboardState kState)
+        public void Update(GameTime gameTime, KeyboardState kState, KeyboardState prev)
         {
             if (Grounded)
             {
@@ -53,6 +56,11 @@ namespace Do_Not_Disturb.Classes
             else
             {
                 acceleration.Y = gravity;
+            }
+
+            if (kState.IsKeyDown(Keys.T) && !prev.IsKeyDown(Keys.T)) 
+            {
+                ShootBubble();
             }
 
             //Horizontal movement
@@ -112,6 +120,8 @@ namespace Do_Not_Disturb.Classes
                 acceleration.X = -Math.Sign(velocity.X) * 80;
             }
 
+           
+
             // if velocity changes sign in this update, set it to 0
             if (sign != Math.Sign(velocity.X + acceleration.X * gameTime.ElapsedGameTime.TotalSeconds)
                 && sign != 0)
@@ -128,14 +138,20 @@ namespace Do_Not_Disturb.Classes
                 acceleration.X = 0;
             }
 
-            UpdateAnimations();
+            UpdateAnimations(kState);
             animation.Update(gameTime);
             base.Update(gameTime);
             
         }
         
-        public void UpdateAnimations()
+        public void UpdateAnimations(KeyboardState kb)
         {
+            if (!Grounded && state != PlayerMovement.Jumping)
+            {
+                animation.ChangeAnimation(PlayerMovement.Jumping, (int)faceDirection, true);
+                return;
+            }
+
             if (acceleration.X > 0 && velocity.X > 0)
             {
                 faceDirection = FaceDirection.Right;
@@ -145,7 +161,12 @@ namespace Do_Not_Disturb.Classes
                 faceDirection = FaceDirection.Left;
             }
 
-            if (velocity.X != 0 && state != PlayerMovement.Pushing)
+            if (kb.IsKeyDown(Keys.S) && state != PlayerMovement.Crouching)
+            {
+                animation.ChangeAnimation(PlayerMovement.Crouching, (int)faceDirection, true);
+            }
+
+            else if (velocity.X != 0 && state != PlayerMovement.Pushing)
             {
                 animation.ChangeAnimation(PlayerMovement.Walking, (int)faceDirection, true);
             }
@@ -153,6 +174,8 @@ namespace Do_Not_Disturb.Classes
             {
                 animation.ChangeAnimation(PlayerMovement.Standing, (int)faceDirection);
             }
+
+            
         }
         
 
@@ -162,14 +185,14 @@ namespace Do_Not_Disturb.Classes
             Vector2 bubblePos = new Vector2();
             if(state.Equals(FaceDirection.Left))
             {
-                bubblePos = new Vector2(position.X - 50, position.Y);
+                bubblePos = new Vector2(position.X - 100, position.Y);
             } else
             {
-                bubblePos = new Vector2(position.X + 50, position.Y);
+                bubblePos = new Vector2(position.X + 100, position.Y);
                 
 
             }
-
+            new Bubble(bubblePos, new Rectangle(0, 0, 40, 40));
         }
      
 

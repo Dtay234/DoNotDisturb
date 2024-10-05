@@ -87,6 +87,7 @@ namespace Do_Not_Disturb.Classes
         {
             this.position = position;
             this.hitbox = new Rectangle(position.ToPoint(), hitbox.Size);
+            Game1.objects.Add(this);
         }
 
 
