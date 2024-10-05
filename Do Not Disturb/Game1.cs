@@ -65,7 +65,7 @@ namespace Do_Not_Disturb
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            Player.spriteSheet = Content.Load<Texture2D>("Images/Red_Panda_Sprite_Sheet");
+            Player.spriteSheet = Content.Load<Texture2D>("Images/RedPanda");
             pixel = Content.Load<Texture2D>("Images/WhitePixel");
             font = Content.Load<SpriteFont>("Fonts/File");
             title = Content.Load<Texture2D>("Images/Title");

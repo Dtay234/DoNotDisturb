@@ -50,22 +50,22 @@ namespace Do_Not_Disturb.Classes
                             break;
 
                         case "2":
-                            new Geometry(new Rectangle(row * 66, col * 66, 32, 32), BlockTypes.TopVertLongBlock);
+                            new Geometry(new Rectangle(row * 66, col * 66, 66, 66), BlockTypes.TopVertLongBlock);
                             break;
 
                         case "4":
                             break;
 
                         case "10":
-                            new Geometry(new Rectangle(row * 66, col * 66, 32, 32), BlockTypes.LeftHorLongBlock);
+                            new Geometry(new Rectangle(row * 66, col * 66, 66, 66), BlockTypes.LeftHorLongBlock);
                             break;
 
                         case "11":
-                            new Geometry(new Rectangle(row * 66, col * 66, 32, 32), BlockTypes.BotVertLongBlock);
+                            new Geometry(new Rectangle(row * 66, col * 66, 66, 66), BlockTypes.BotVertLongBlock);
                             break;
 
                         case "12":
-                            new Geometry(new Rectangle(row * 66, col * 66, 32, 32), BlockTypes.BotVertLongBlock);
+                            new Geometry(new Rectangle(row * 66, col * 66, 66, 66), BlockTypes.BotVertLongBlock);
                             break;
                     }
                 }
