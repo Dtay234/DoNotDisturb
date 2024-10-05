@@ -138,8 +138,8 @@ namespace Do_Not_Disturb.Classes
 
             sb.Draw(Player.spriteSheet, 
                 new Rectangle(
-                    Camera.RelativePosition(destination.Location.ToVector2()).ToPoint(), 
-                    new Point(Player.spriteSheet.Width, Player.spriteSheet.Height)),
+                    Camera.RelativePosition(destination.Location.ToVector2()).ToPoint() - new Point(hitboxOffset[0], hitboxOffset[1]), 
+                    new Point(spriteSize[0], spriteSize[1])),
                 source, 
                 Color.White );
         }

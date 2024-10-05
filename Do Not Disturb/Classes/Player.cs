@@ -31,7 +31,7 @@ namespace Do_Not_Disturb.Classes
 
         
 
-        public Player(Vector2 position, Rectangle rect) : base (position, rect)
+        public Player(Vector2 position) : base (position, new Rectangle(0, 0, 75, 44))
         {
             acceleration.Y = 70;
             Camera.Focus = this;

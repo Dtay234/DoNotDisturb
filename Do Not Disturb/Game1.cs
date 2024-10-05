@@ -54,7 +54,7 @@ namespace Do_Not_Disturb
             _graphics.PreferredBackBufferHeight = 1080;
             _graphics.PreferredBackBufferWidth = 1920;
             _graphics.ApplyChanges();
-            objects.Add(new Player(new Vector2(100, 100), new Rectangle(0, 0, 96, 96)));
+            objects.Add(new Player(new Vector2(100, 100)));
 
             Camera.globalOffset = new Vector2(_graphics.PreferredBackBufferWidth / 2, _graphics.PreferredBackBufferHeight / 2);
 
