@@ -14,7 +14,11 @@ namespace Do_Not_Disturb.Classes
     
     internal class Animation<T> where T : Enum
     {
-
+        private enum FaceDirection
+        {
+            Left,
+            Right
+        }
 
         private const int fps = 60;
         private int animationFrame;
@@ -26,6 +30,9 @@ namespace Do_Not_Disturb.Classes
         private double timer;
         private const double timePerFrame = 1 / (double)fps;
         T currentAnimation;
+        FaceDirection faceDirection;
+        Queue<T> queue;
+
 
         public Animation(string filePath, Texture2D texture)
         {
@@ -34,6 +41,7 @@ namespace Do_Not_Disturb.Classes
             string[] file = File.ReadAllLines("../../../Content/AnimationData/" + filePath);
             data = new();
             spritesheet = texture;
+            queue = new();
             
 
             for (int i = 0; i < file.Length; i++)
@@ -101,17 +109,41 @@ namespace Do_Not_Disturb.Classes
             {
                 animationFrame = 0;
             }
+
+            if (animationFrame == 0 && queue.Count > 0)
+            {
+                ChangeAnimation(queue.Dequeue(), (int)faceDirection, false);
+            }
         }
 
-        public void ChangeAnimation(T newAnimation)
+        public void ChangeAnimation(T newAnimation, int i, bool reset = false)
         {
-            if (!currentAnimation.Equals(newAnimation))
+            if (animationFrame != 0 && reset == false && queue.Count == 0)
+            {
+                queue.Enqueue(newAnimation);
+                return;
+            }
+
+            if (!currentAnimation.Equals(newAnimation) && reset)
             {
                 currentAnimation = newAnimation;
                 animationFrame = 0;
                 frameCounter = 0;
                 timer = 0;
             }
+
+            if (!currentAnimation.Equals(newAnimation) && animationFrame == 0)
+            {
+                currentAnimation = newAnimation;
+                animationFrame = 0;
+                frameCounter = 0;
+                timer = 0;
+            }
+
+
+
+
+            faceDirection = (FaceDirection)i;
             
         }
 
@@ -135,13 +167,18 @@ namespace Do_Not_Disturb.Classes
             }
 
             Rectangle source = new Rectangle(x, y, spriteSize[0], spriteSize[1]);
+            
 
             sb.Draw(Player.spriteSheet, 
                 new Rectangle(
                     Camera.RelativePosition(destination.Location.ToVector2()).ToPoint() - new Point(hitboxOffset[0], hitboxOffset[1]), 
                     new Point(spriteSize[0], spriteSize[1])),
                 source, 
-                Color.White );
+                Color.White,
+                0f,
+                Vector2.Zero,
+                faceDirection == FaceDirection.Right ? SpriteEffects.None : SpriteEffects.FlipHorizontally,
+                0);
         }
     }
 }
