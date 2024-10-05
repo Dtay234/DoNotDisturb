@@ -35,7 +35,7 @@ namespace Do_Not_Disturb.Classes
         {
             acceleration.Y = 70;
             Camera.Focus = this;
-            animation = new("player.txt");
+            animation = new("player.txt", spriteSheet);
         }
 
         public override void Update(GameTime gt)
@@ -127,16 +127,24 @@ namespace Do_Not_Disturb.Classes
                 acceleration.X = 0;
             }
 
-
-
+            UpdateAnimations();
+            animation.Update(gameTime);
             base.Update(gameTime);
             
         }
         
-        private void UpdateAnimations()
+        public void UpdateAnimations()
         {
-            
+            if (velocity.X != 0)
+            {
+                animation.ChangeAnimation(PlayerMovement.Walking);
+            }
+            else
+            {
+                animation.ChangeAnimation(PlayerMovement.Standing);
+            }
         }
+        
 
 
         public void ShootBubble()
@@ -162,6 +170,7 @@ namespace Do_Not_Disturb.Classes
             sb.DrawString(Game1.font, velocity.X.ToString(), new Vector2(0,0), Color.Black);
             sb.DrawString(Game1.font, acceleration.X.ToString(), new Vector2(0, 100), Color.Black);
             sb.DrawString(Game1.font, CollisionAccuracy.ToString(), new Vector2(100, 0), Color.Black);
+            animation.Draw(sb, hitbox);
         }
 
     }
