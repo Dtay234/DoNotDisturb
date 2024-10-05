@@ -59,7 +59,7 @@ namespace Do_Not_Disturb.Classes
             acceleration.X = obj.Velocity.X;
             if (velocity.X == 0)
             {
-                velocity.X = 1;
+                velocity.X = 1 * Math.Sign(acceleration.X);
             }
             
 
