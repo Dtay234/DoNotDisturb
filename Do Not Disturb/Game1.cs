@@ -33,12 +33,17 @@ namespace Do_Not_Disturb
         {
             // TODO: Add your initialization logic here
 
+            
+
             //remove this later
             new Geometry(new Rectangle(0, 700, 1000, 100), BlockTypes.NormalLongBlock);
+            new Geometry(new Rectangle(900, 0, 100, 1000), BlockTypes.NormalLongBlock);
             _graphics.PreferredBackBufferHeight = 1000;
             _graphics.PreferredBackBufferWidth = 1000;
             _graphics.ApplyChanges();
-            player = new Player(new Vector2(0, 0), new Rectangle(0, 0, 32, 32));
+            player = new Player(new Vector2(0, 0), new Rectangle(0, 0, 96, 96));
+
+            Camera.globalOffset = new Vector2(_graphics.PreferredBackBufferWidth / 2, _graphics.PreferredBackBufferHeight / 2);
 
             base.Initialize();
         }

@@ -20,11 +20,11 @@ namespace Do_Not_Disturb.Classes
         }
         public Vector2 Velocity
         {
-            get { return position; }
+            get { return velocity; }
         }
         public Vector2 Acceleration
         {
-            get { return position; }
+            get { return acceleration; }
         }
         public Rectangle Hitbox { get { return hitbox; } }
 

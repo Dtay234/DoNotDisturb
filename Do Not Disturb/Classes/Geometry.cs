@@ -40,7 +40,8 @@ namespace Do_Not_Disturb.Classes
 
         public void Draw(SpriteBatch sb)
         {
-            sb.Draw(boxSprites[type], BoundBox, null, Color.White);
+            Vector2 temp = Camera.RelativePosition(boundBox.Location.ToVector2());
+            sb.Draw(boxSprites[type], new Rectangle(temp.ToPoint(), BoundBox.Size), null, Color.White);
         }
 
         public static void LoadBlocks(ContentManager Content)

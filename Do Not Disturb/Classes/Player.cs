@@ -31,9 +31,6 @@ namespace Do_Not_Disturb.Classes
         public static Texture2D spriteSheet;
         public static Keys lastPressed;
         private PlayerMovement state;
-        private Vector2 position;
-        private Vector2 velocity;
-        private Vector2 acceleration;
         const float maxXVelocity = 100;
         const float maxYVelocity = 60;
         const float gravity = 70;
@@ -76,6 +73,7 @@ namespace Do_Not_Disturb.Classes
         public Player(Vector2 position, Rectangle rect) : base (position, rect)
         {
             acceleration.Y = 70;
+            Camera.Focus = this;
         }
 
         public void Update(GameTime gameTime, KeyboardState kState)
@@ -270,7 +268,7 @@ namespace Do_Not_Disturb.Classes
 
         public void Draw(SpriteBatch sb)
         {
-            sb.Draw(spriteSheet, hitbox, new Rectangle(0, 0, 32, 32), Color.White);
+            sb.Draw(spriteSheet, new Rectangle(Camera.RelativePosition(position).ToPoint(), hitbox.Size), new Rectangle(0, 0, 32, 32), Color.White);
             sb.DrawString(Game1.font, velocity.X.ToString(), new Vector2(0,0), Color.Black);
             sb.DrawString(Game1.font, acceleration.X.ToString(), new Vector2(0, 100), Color.Black);
         }
