@@ -81,8 +81,7 @@ namespace Do_Not_Disturb.Classes
             velocity += acceleration;
             position += velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            Debug.WriteLine(velocity.ToString());
-            Debug.WriteLine(velocity.ToPoint().ToString());
+            hitbox = new Rectangle(position.ToPoint(), new Point(20, 20));
         }
 
         public void Draw(SpriteBatch sb)
