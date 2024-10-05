@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Do_Not_Disturb.Classes.Puzzle
 {
+    /*
     internal class HangingSheet : PuzzleElement
     {
         
@@ -24,14 +25,14 @@ namespace Do_Not_Disturb.Classes.Puzzle
 
                 for (int j = 1; j < length; j++)
                 {
-                    points[i].AddLast(new Vector2(0, j * 20));
+                    points[i].AddLast(new Vector2(0, j * 30));
                 }
             }
         }
 
         public void Update(GameTime gt)
         {
-
+            
         }
 
         public void Draw(SpriteBatch sb)
@@ -40,11 +41,20 @@ namespace Do_Not_Disturb.Classes.Puzzle
             {
                 for (int j = 0; j < points[i].Count; j++)
                 {
-                    Point loc = location.ToPoint() + new Point(10 * i, 20 * j + 20);
+                    Point loc = Camera.RelativePosition(location).ToPoint() + new Point(10 * i);
+                    Point offset = Point.Zero;
+                    var vec = points[i].First;
 
-                    sb.Draw(Game1.pixel, new Rectangle(loc.X, loc.Y, 3, 3), Color.Blue);
+                    for (int k = 0; k < j; k++)
+                    {
+
+                        offset += vec.Value.ToPoint();
+                        vec = vec.Next;
+                    }
+                    sb.Draw(Game1.pixel, new Rectangle(loc + offset, new Point(4, 4)), Color.Blue);
                 }
             }
         }
     }
+    */
 }

@@ -17,12 +17,12 @@ namespace Do_Not_Disturb.Classes
 
         public static Vector2 CameraOffset(Vector2 position)
         {
-            return (position - Focus.Position) + globalOffset;
+            return (position - Focus.Hitbox.Center.ToVector2()) + globalOffset;
         }
 
         public static Vector2 RelativePosition(Vector2 position)
         {
-            return (position - Focus.Position) + globalOffset;
+            return (position - Focus.Hitbox.Center.ToVector2()) + globalOffset;
         }
     }
 }
