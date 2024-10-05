@@ -21,6 +21,7 @@ namespace Do_Not_Disturb
         private KeyboardState kbs;
         private KeyboardState prevKBS;
         private Player player;
+        private GameStates gameState;
 
         public Game1()
         {
@@ -66,7 +67,30 @@ namespace Do_Not_Disturb
 
             prevKBS = kbs;
             kbs = Keyboard.GetState();
-           
+            
+            switch (gameState){
+                case GameStates.Menu:
+                {
+                    break;
+                }
+
+                case GameStates.PauseScreen:
+                {
+                    break;
+                }
+
+                case GameStates.Game:
+                {
+                        player.Update(gameTime);
+
+                        break;
+                }
+
+                case GameStates.Loading:
+                {
+                        break;
+                }
+            }
            
 
             base.Update(gameTime);
