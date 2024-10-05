@@ -145,7 +145,7 @@ namespace Do_Not_Disturb.Classes
                 faceDirection = FaceDirection.Left;
             }
 
-            if (velocity.X != 0 && state != PlayerMovement.Jumping)
+            if (velocity.X != 0 && state != PlayerMovement.Pushing)
             {
                 animation.ChangeAnimation(PlayerMovement.Walking, (int)faceDirection, true);
             }
