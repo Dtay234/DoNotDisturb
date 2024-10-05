@@ -78,7 +78,15 @@ namespace Do_Not_Disturb.Classes
 
         public void Update(GameTime gameTime, KeyboardState kState)
         {
-           
+           if (Grounded)
+            {
+                acceleration.Y = 0;
+            }
+           else
+            {
+                acceleration.Y = gravity;
+            }
+
             //Horizontal movement
             if (kState.IsKeyDown(Keys.A) &&
                 !kState.IsKeyDown(Keys.D))
