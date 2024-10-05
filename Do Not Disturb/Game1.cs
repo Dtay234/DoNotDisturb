@@ -50,11 +50,11 @@ namespace Do_Not_Disturb
             //objects.Add(new Bubble(new Vector2(300, 600), new Rectangle(100000, 10000, 20, 20)));
 
             
-            Level level = new Level(2000, 2000);
+            Level level = new Level("../../../Content/levels/level0.csv");
             _graphics.PreferredBackBufferHeight = 1080;
             _graphics.PreferredBackBufferWidth = 1920;
             _graphics.ApplyChanges();
-            objects.Add(new Player(new Vector2(100, 100)));
+            objects.Add(new Player(new Vector2(500, 350)));
 
             Camera.globalOffset = new Vector2(_graphics.PreferredBackBufferWidth / 2, _graphics.PreferredBackBufferHeight / 2);
 
