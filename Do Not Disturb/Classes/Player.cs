@@ -30,7 +30,6 @@ namespace Do_Not_Disturb.Classes
         public static Texture2D spriteSheet;
         public static Keys lastPressed;
         private PlayerMovement state;
-        
         private Vector2 position;
         private Vector2 velocity;
         private Vector2 acceleration;
@@ -79,5 +78,9 @@ namespace Do_Not_Disturb.Classes
             position += velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
        
+        public void Draw()
+        {
+
+        }
     }
 }
