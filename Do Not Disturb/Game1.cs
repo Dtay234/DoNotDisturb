@@ -28,8 +28,8 @@ namespace Do_Not_Disturb
         private KeyboardState prevKBS;
         private GameStates gameState = GameStates.Menu;
         private Animation animation;
-        
-     
+
+       
 
         public Game1()
         {
@@ -50,7 +50,8 @@ namespace Do_Not_Disturb
 
             //objects.Add(new Bubble(new Vector2(300, 600), new Rectangle(100000, 10000, 20, 20)));
 
-            new HangingSheet(new Vector2(200, 600), 5, 5);
+          
+
             Level level = new Level(5000, 5000);
             
             _graphics.PreferredBackBufferHeight = 1080;
@@ -84,7 +85,10 @@ namespace Do_Not_Disturb
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            
+
+           
+
+
 
             prevKBS = kbs;
             kbs = Keyboard.GetState();
@@ -169,6 +173,7 @@ namespace Do_Not_Disturb
                                 Camera.RelativePosition(obj.Hitbox.Location.ToVector2()).ToPoint(),
                                 obj.Hitbox.Size), Color.White);
                         }
+
                         break;
                     }
                 case GameStates.PauseScreen:

@@ -72,7 +72,7 @@ namespace Do_Not_Disturb.Classes
                     velocity.X = maxXVelocity / 2;
                 acceleration.X = velocity.X < 0 ? maxXVelocity * 5f : maxXVelocity * 2f;
 
-                //faceDirection = FaceDirection.Right;
+                faceDirection = FaceDirection.Right;
             }
 
 
@@ -132,6 +132,11 @@ namespace Do_Not_Disturb.Classes
             
         }
         
+        private void UpdateAnimations()
+        {
+            
+        }
+
 
         public void ShootBubble()
         {

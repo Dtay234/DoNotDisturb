@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Graphics;
 using System.Net.Mime;
 using Microsoft.Xna.Framework.Content;
+using System.IO;
 
 namespace Do_Not_Disturb.Classes
 {
@@ -15,7 +16,8 @@ namespace Do_Not_Disturb.Classes
         ARedBlock,
         RBlueBlock,
         EGreenBlock,
-        NormalLongBlock
+        NormalLongBlock,
+        //FlatLongBlock
     }
     public class Geometry
     {
@@ -23,6 +25,7 @@ namespace Do_Not_Disturb.Classes
 
         public static List<Geometry> map = new List<Geometry>();
         public static Dictionary<BlockTypes, Texture2D> boxSprites = new();
+        public static Dictionary<BlockTypes, Point> boxDimensions = new();
         private Rectangle boundBox;
         private BlockTypes type;
 
@@ -49,6 +52,9 @@ namespace Do_Not_Disturb.Classes
             foreach (BlockTypes block in Enum.GetValues(typeof(BlockTypes)))
             {
                 boxSprites.Add(block, Content.Load<Texture2D>("Images/" + block.ToString()));
+
+                boxDimensions.Add(block, new Point(boxSprites[block].Width, boxSprites[block].Height));
+                
             }
         }
     }

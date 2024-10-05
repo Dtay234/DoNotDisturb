@@ -15,6 +15,8 @@ namespace Do_Not_Disturb.Classes
             Left,
             Right
         }
+        protected FaceDirection faceDirection;
+
         protected Vector2 position;
         protected Vector2 velocity;
         protected Vector2 acceleration;
