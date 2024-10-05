@@ -18,12 +18,13 @@ namespace Do_Not_Disturb
         public static SpriteFont font;
         public static Texture2D pixel;
         public static List<Collidable> collidableList = new();
+        public static Texture2D title;
 
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private KeyboardState kbs;
         private KeyboardState prevKBS;
-        private GameStates gameState = GameStates.Game;
+        private GameStates gameState = GameStates.Menu;
         
      
 
@@ -44,8 +45,8 @@ namespace Do_Not_Disturb
             new Geometry(new Rectangle(0, 700, 1000, 100), BlockTypes.NormalLongBlock);
             new Geometry(new Rectangle(900, 0, 100, 1000), BlockTypes.NormalLongBlock);
 
-            _graphics.PreferredBackBufferHeight = 1000;
-            _graphics.PreferredBackBufferWidth = 1000;
+            _graphics.PreferredBackBufferHeight = 1080;
+            _graphics.PreferredBackBufferWidth = 1920;
             _graphics.ApplyChanges();
             collidableList.Add(new Player(new Vector2(0, 0), new Rectangle(0, 0, 96, 96)));
 
@@ -61,6 +62,7 @@ namespace Do_Not_Disturb
             Player.spriteSheet = Content.Load<Texture2D>("Images/RedPanda");
             pixel = Content.Load<Texture2D>("Images/WhitePixel");
             font = Content.Load<SpriteFont>("Fonts/File");
+            title = Content.Load<Texture2D>("Images/Title");
             Geometry.LoadBlocks(Content);
         }
 
@@ -77,6 +79,12 @@ namespace Do_Not_Disturb
             switch (gameState){
                 case GameStates.Menu:
                 {
+                    kbs = Keyboard.GetState();
+                        if (kbs.IsKeyDown(Keys.Enter))
+                        {
+                            gameState = GameStates.Game;
+                        }
+                     prevKBS = kbs;
                     break;
                 }
 
@@ -116,22 +124,40 @@ namespace Do_Not_Disturb
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.DeepSkyBlue);
 
             _spriteBatch.Begin();
 
+            switch (gameState)
+            {
+                case GameStates.Menu:
+                {
+                        _spriteBatch.Draw(title, new Rectangle(150,150,652,260), Color.White);
+                        break;
+                }
+                case GameStates.Game:
+                    {
+                        foreach (Geometry box in Geometry.map)
+                        {
+                            box.Draw(_spriteBatch);
+                        }
+                        foreach (Collidable collidable in collidableList)
+                        {
+                            collidable.Draw(_spriteBatch);
+                            _spriteBatch.Draw(pixel, new Rectangle(
+                                Camera.RelativePosition(collidable.Hitbox.Location.ToVector2()).ToPoint(),
+                                collidable.Hitbox.Size), Color.White);
+                        }
+                        break;
+                    }
+                case GameStates.PauseScreen:
+                    {
+                        break;
+                    }
+            }
+
             // TODO: Add your drawing code here
-            foreach (Geometry box in Geometry.map)
-            {
-                box.Draw(_spriteBatch);
-            }
-            foreach (Collidable collidable in collidableList)
-            {
-                collidable.Draw(_spriteBatch);
-                _spriteBatch.Draw(pixel, new Rectangle(
-                    Camera.RelativePosition(collidable.Hitbox.Location.ToVector2()).ToPoint(),
-                    collidable.Hitbox.Size), Color.White);
-            }
+            
 
             _spriteBatch.End();
             base.Draw(gameTime);
