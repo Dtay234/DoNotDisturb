@@ -108,6 +108,8 @@ namespace Do_Not_Disturb
 
                 case GameStates.Loading:
                     {
+                        Level level = new Level(_graphics.PreferredBackBufferHeight, _graphics.PreferredBackBufferWidth);
+                        level.Draw();
                         break;
                     }
 
