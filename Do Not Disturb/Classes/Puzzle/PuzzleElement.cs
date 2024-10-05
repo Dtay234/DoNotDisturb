@@ -9,7 +9,7 @@ namespace Do_Not_Disturb.Classes.Puzzle
 {
     internal class PuzzleElement
     {
-        Vector2 location;
+        protected Vector2 location;
         public PuzzleElement(Vector2 location)
         {
             this.location = location;

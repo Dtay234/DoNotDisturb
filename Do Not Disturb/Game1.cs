@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Do_Not_Disturb.Classes;
+using Do_Not_Disturb.Classes.Puzzle;
 using System.Collections.Generic;
 
 namespace Do_Not_Disturb
@@ -49,8 +50,8 @@ namespace Do_Not_Disturb
 
             //objects.Add(new Bubble(new Vector2(300, 600), new Rectangle(100000, 10000, 20, 20)));
 
-            _graphics.PreferredBackBufferHeight = 1000;
-            _graphics.PreferredBackBufferWidth = 1000;
+            new HangingSheet(new Vector2(200, 600), 5, 5);
+            
             _graphics.PreferredBackBufferHeight = 1080;
             _graphics.PreferredBackBufferWidth = 1920;
             _graphics.ApplyChanges();
