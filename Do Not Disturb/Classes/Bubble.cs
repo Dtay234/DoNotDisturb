@@ -14,7 +14,8 @@ namespace Do_Not_Disturb.Classes
         {
             Spawn,
             Wobble,
-            Pop
+            Pop,
+            None
         }
 
         private Animations animation;
@@ -38,6 +39,13 @@ namespace Do_Not_Disturb.Classes
             
             timer -= gameTime.ElapsedGameTime.TotalSeconds;
             this.hitbox = new Rectangle(position.ToPoint(), hitbox.Size);
+            if (Game1.Collide(this.hitbox))
+            {
+                hitbox = new Rectangle(0, 0, 0, 0);
+                popped = true;
+                anim.ChangeAnimation(Animations.Pop, 0, true);
+                anim.ChangeAnimation(Animations.None, 0, false);
+            }
 
         }
 
@@ -55,6 +63,8 @@ namespace Do_Not_Disturb.Classes
                 (obj).Velocity = new Vector2((obj).Velocity.X, -40);
                 hitbox = new Rectangle(0,0,0,0);
                 popped = true;
+                anim.ChangeAnimation(Animations.Pop, 0, true);
+                anim.ChangeAnimation(Animations.None, 0, false);
             }
         }
 

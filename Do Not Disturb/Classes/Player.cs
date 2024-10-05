@@ -47,7 +47,7 @@ namespace Do_Not_Disturb.Classes
 
         }
 
-        public void Update(GameTime gameTime, KeyboardState kState)
+        public void Update(GameTime gameTime, KeyboardState kState, KeyboardState prev)
         {
             if (Grounded)
             {
@@ -56,6 +56,11 @@ namespace Do_Not_Disturb.Classes
             else
             {
                 acceleration.Y = gravity;
+            }
+
+            if (kState.IsKeyDown(Keys.T) && !prev.IsKeyDown(Keys.T)) 
+            {
+                ShootBubble();
             }
 
             //Horizontal movement
@@ -185,7 +190,7 @@ namespace Do_Not_Disturb.Classes
                 
 
             }
-
+            new Bubble(bubblePos, new Rectangle(0, 0, 40, 40));
         }
      
 

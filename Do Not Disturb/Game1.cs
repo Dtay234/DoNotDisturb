@@ -18,7 +18,7 @@ namespace Do_Not_Disturb
     {
         public static SpriteFont font;
         public static Texture2D pixel;
-        private static List<GameObject> objects = new();
+        public static List<GameObject> objects = new();
         public static Texture2D title;
         public static Texture2D loading;
 
@@ -54,7 +54,7 @@ namespace Do_Not_Disturb
             _graphics.PreferredBackBufferHeight = 1080;
             _graphics.PreferredBackBufferWidth = 1920;
             _graphics.ApplyChanges();
-            objects.Add(new Player(new Vector2(500, 350)));
+            new Player(new Vector2(500, 350));
 
             Camera.globalOffset = new Vector2(_graphics.PreferredBackBufferWidth / 2, _graphics.PreferredBackBufferHeight / 2);
 
@@ -117,13 +117,20 @@ namespace Do_Not_Disturb
                         {
                             if (obj is Player)
                             {
-                                ((Player)obj).Update(gameTime, kbs);
+                                ((Player)obj).Update(gameTime, kbs, prevKBS);
                             }
+                            
                             else
                             {
                                 obj.Update(gameTime);
                             }
 
+                        }
+
+                        GameObject temp;
+                        if ((temp = objects.Find(x => x is Bubble && ((Bubble)x).popped)) != null)
+                        {
+                            objects.Remove(temp);
                         }
 
                         break;
