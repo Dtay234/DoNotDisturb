@@ -30,7 +30,10 @@ namespace Do_Not_Disturb.Classes
         private PlayerMovement state;
         public static Animation<PlayerMovement> animation;
 
-        
+        public override int CollisionAccuracy
+        {
+            get { return 20;  }
+        }
 
         public Player(Vector2 position) : base (position, new Rectangle(0, 0, 75, 44))
         {
@@ -128,14 +131,20 @@ namespace Do_Not_Disturb.Classes
                 acceleration.X = 0;
             }
 
-            UpdateAnimations();
+            UpdateAnimations(kState);
             animation.Update(gameTime);
             base.Update(gameTime);
             
         }
         
-        public void UpdateAnimations()
+        public void UpdateAnimations(KeyboardState kb)
         {
+            if (!Grounded && state != PlayerMovement.Jumping)
+            {
+                animation.ChangeAnimation(PlayerMovement.Jumping, (int)faceDirection, true);
+                return;
+            }
+
             if (acceleration.X > 0 && velocity.X > 0)
             {
                 faceDirection = FaceDirection.Right;
@@ -145,7 +154,12 @@ namespace Do_Not_Disturb.Classes
                 faceDirection = FaceDirection.Left;
             }
 
-            if (velocity.X != 0 && state != PlayerMovement.Pushing)
+            if (kb.IsKeyDown(Keys.S) && state != PlayerMovement.Crouching)
+            {
+                animation.ChangeAnimation(PlayerMovement.Crouching, (int)faceDirection, true);
+            }
+
+            else if (velocity.X != 0 && state != PlayerMovement.Pushing)
             {
                 animation.ChangeAnimation(PlayerMovement.Walking, (int)faceDirection, true);
             }
@@ -153,6 +167,8 @@ namespace Do_Not_Disturb.Classes
             {
                 animation.ChangeAnimation(PlayerMovement.Standing, (int)faceDirection);
             }
+
+            
         }
         
 
