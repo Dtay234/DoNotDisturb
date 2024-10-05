@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using Do_Not_Disturb.Classes.Puzzle;
 
 namespace Do_Not_Disturb.Classes
 {
@@ -25,6 +26,29 @@ namespace Do_Not_Disturb.Classes
             new Geometry(new Rectangle(windowWidth, 0, 10, windowHeight), BlockTypes.NormalLongBlock);
             new Geometry(new Rectangle(0, 0, windowWidth, 10), BlockTypes.NormalLongBlock);
             new Geometry(new Rectangle(0, windowWidth, windowWidth, 10), BlockTypes.NormalLongBlock);
+            new HangingSheet(new Vector2(200, 600), 5, 5);
+            objects.Add(new Block(new Vector2(500, 500), new Rectangle(0, 0, 100, 100), BlockTypes.NormalLongBlock));
+            objects.Add(new Bubble(new Vector2(1000, 1950), new Rectangle(0, 0, 20, 20)));
+
+        }
+
+        public Level(String filename)
+        {
+            String[] allLines = File.ReadAllLines(filename);
+
+            int width = 0;
+            int height = 0;
+            bool inBlock = true;
+
+            foreach(String line in allLines)
+            {
+                string[] letters = line.Split(',');
+                foreach(String chr in letters)
+                {
+                    if()
+                }
+
+            }
 
         }
 
