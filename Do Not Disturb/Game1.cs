@@ -113,6 +113,12 @@ namespace Do_Not_Disturb
 
                 case GameStates.Game:
                 {
+                        if (kbs.IsKeyDown(Keys.R))
+                        {
+                            //restart
+                        }
+                        
+
                         foreach (GameObject obj in objects)
                         {
                             if (obj is Player)
