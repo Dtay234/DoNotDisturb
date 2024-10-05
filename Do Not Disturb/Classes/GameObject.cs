@@ -1,37 +1,97 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Do_Not_Disturb.Classes;
 
 namespace Do_Not_Disturb.Classes
 {
-    internal class Block : Collidable
+    public abstract class GameObject
     {
-        private BlockTypes type;
-        private const float maxXVelocity = 40;
-        private const float maxYVelocity = 60;
-        private const float gravity = 100;
-        public Block(Vector2 position, Rectangle hitbox, BlockTypes type) : base(position, hitbox)
+        protected enum FaceDirection
         {
-            this.type = type;
+            Left,
+            Right
+        }
+        protected Vector2 position;
+        protected Vector2 velocity;
+        protected Vector2 acceleration;
+        protected Rectangle hitbox;
+
+        protected float maxXVelocity = 100;
+        protected float maxYVelocity = 60;
+        protected float gravity = 70;
+
+        public bool Grounded
+        {
+            get
+            {
+                if (Game1.Collide(new Rectangle(hitbox.X, hitbox.Y + 5, hitbox.Width, hitbox.Height)))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
         }
 
-        public override void Update(GameTime gameTime)
+        public virtual int CollisionAccuracy
         {
-            if (Grounded)
+            get
             {
-                acceleration.Y = 0;
-            }
-            else
-            {
-                acceleration.Y = gravity;
-            }
 
-            float time = (float)gameTime.ElapsedGameTime.TotalSeconds;
+                // Min accuracy is 1
+                if (velocity.X == 0 &&
+                    velocity.Y == 0)
+                {
+                    return 1;
+                }
+
+                return (int)(velocity.Length() / 4f);  //Use the magnitude of the velocity to get the accuracy
+
+
+
+
+            }
+        }
+
+        public Vector2 Position
+        {
+            get { return position; }
+        }
+        public Vector2 Velocity
+        {
+            get { return velocity; }
+            set
+            {
+                velocity = value;
+            }
+        }
+        public Vector2 Acceleration
+        {
+            get { return acceleration; }
+            set
+            {
+                acceleration = value;
+            }
+        }
+        public Rectangle Hitbox { get { return hitbox; } }
+
+        public GameObject(Vector2 position, Rectangle hitbox)
+        {
+            this.position = position;
+            this.hitbox = hitbox;
+        }
+
+
+
+        public void Movement(GameTime gt)
+        {
+            float time = (float)gt.ElapsedGameTime.TotalSeconds;
 
             int iterationCounter = 1;       // Number of collision checks we've done
 
@@ -79,11 +139,14 @@ namespace Do_Not_Disturb.Classes
 
                 if (Game1.Collide(hitbox))        // Check if there was a collision
                 {
+                    if (Game1.ObjectCollide(hitbox) != null)
                     hitbox = new Rectangle(lastSafePosition, hitbox.Size);    // Revert hitbox position back to before collision
                     position = lastSafePosition.ToVector2();                      // Revert position
                     velocity.Y = 0;
                     break;
                 }
+
+                
 
                 iterationCounter++;
             }
@@ -119,54 +182,40 @@ namespace Do_Not_Disturb.Classes
                     hitbox.Width,
                     hitbox.Height);
 
-                if (Game1.Collide(hitbox))
+                Geometry geo = null;
+                GameObject obj = null;
+
+                if (Game1.Collide(hitbox, out geo, out obj))
                 {
                     hitbox = new Rectangle(lastSafePosition, hitbox.Size);
                     position = lastSafePosition.ToVector2();
-                    velocity.X = 0;
+                    
+
+                    if (geo != null)
+                    {
+                        velocity.X = 0;
+                    }
+                    if (obj != null && obj is Collidable)
+                    {
+                        ((Collidable)obj).OnCollision(this);
+                    }
+
                     break;
                 }
+
+                
+
                 iterationCounter++;
 
             }
-
-            int sign = 0;
-
-            /*
-            if (Grounded)
-            {
-                sign = Math.Sign(velocity.X);
-                acceleration.X = -Math.Sign(velocity.X) * 80;
-
-                // if velocity changes sign in this update, set it to 0
-                if (sign != Math.Sign(velocity.X + acceleration.X * gameTime.ElapsedGameTime.TotalSeconds)
-                    && sign != 0)
-                {
-                    acceleration.X = 0;
-                    velocity.X = 0;
-                }
-
-                // if velocity is small enough, set it to 0
-                if (velocity.X != 0
-                    && Math.Abs(velocity.X) < 1f)
-                {
-                    velocity.X = 0;
-                    acceleration.X = 0;
-                }
-            }
-            */
         }
 
-        public override void Draw(SpriteBatch sb)
-        {
-            
-        }
 
-        public override void OnCollision(GameObject obj)
-        {
-            velocity.X = obj.Velocity.X;
+        public abstract void Update(GameTime gameTime);
 
-            obj.Velocity = new Vector2(0, obj.Velocity.Y);
-                    }
+        public abstract void Draw(SpriteBatch sb);
+
+
+
     }
 }

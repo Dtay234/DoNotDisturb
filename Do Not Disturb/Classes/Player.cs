@@ -22,14 +22,12 @@ namespace Do_Not_Disturb.Classes
         Idle
 
     }
-    internal class Player : Collidable
+    internal class Player : GameObject
     {
         public static Texture2D spriteSheet;
         public static Keys lastPressed;
         private PlayerMovement state;
-        const float maxXVelocity = 100;
-        const float maxYVelocity = 60;
-        const float gravity = 70;
+        
 
         
 
@@ -46,11 +44,11 @@ namespace Do_Not_Disturb.Classes
 
         public void Update(GameTime gameTime, KeyboardState kState)
         {
-           if (Grounded)
+            if (Grounded)
             {
                 acceleration.Y = 0;
             }
-           else
+            else
             {
                 acceleration.Y = gravity;
             }
@@ -61,9 +59,9 @@ namespace Do_Not_Disturb.Classes
             {
                 // acceleration is higher if the player is moving in the opposite direction for smoother movement
                 if (Math.Sign(velocity.X) >= 0)
-                velocity.X = -maxXVelocity / 2;
+                    velocity.X = -maxXVelocity / 2;
                 acceleration.X = velocity.X > 0 ? -maxXVelocity * 5f : -maxXVelocity * 2f;
-               
+
                 //faceDirection = FaceDirection.Left;
             }
             else if (kState.IsKeyDown(Keys.D) &&
@@ -73,7 +71,7 @@ namespace Do_Not_Disturb.Classes
                 if (Math.Sign(velocity.X) <= 0)
                     velocity.X = maxXVelocity / 2;
                 acceleration.X = velocity.X < 0 ? maxXVelocity * 5f : maxXVelocity * 2f;
-                
+
                 //faceDirection = FaceDirection.Right;
             }
 
@@ -99,7 +97,7 @@ namespace Do_Not_Disturb.Classes
                     */
                 }
             }
-            
+
             //Fine tuning movement
             int sign = 0;
 
@@ -127,147 +125,12 @@ namespace Do_Not_Disturb.Classes
                 velocity.X = 0;
                 acceleration.X = 0;
             }
+
+
+
+            Movement(gameTime);
             
-            
-            
-
-            float time = (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-            int iterationCounter = 1;       // Number of collision checks we've done
-
-            Point lastSafePosition = new Point((int)position.X, (int)position.Y);        //Last point before a collision
-
-            if (!Grounded)
-            {
-                acceleration.Y = gravity * (1 + (100 - Math.Abs(velocity.Y)) / 50);
-            }
-
-            velocity += acceleration * time;                                   //Update velocity
-            Vector2 tempVelocity = new Vector2(velocity.X, velocity.Y);        //For if the player is airborne
-
-            if (velocity.X > maxXVelocity)
-            {
-                velocity.X = maxXVelocity;
-            }
-            if (velocity.X < -maxXVelocity)
-            {
-                velocity.X = -maxXVelocity;
-            }
-
-            //Vertical
-            while (iterationCounter <= CollisionAccuracy)                      //Scaling number of checks
-            {
-
-                if (!IsCollidingWithTerrain() && IsCollidingWithObject() == null)
-                {
-                    lastSafePosition = new Point((int)position.X, (int)position.Y);      //Store old position in case we collide
-                }
-
-                //Cap velocity
-                if (Math.Abs(velocity.Y) > maxYVelocity)
-                {
-                    velocity.Y = maxYVelocity * Math.Sign(tempVelocity.Y);
-                }
-
-                position.Y += tempVelocity.Y * (time * iterationCounter / CollisionAccuracy);     // Increment position
-
-                hitbox = new Rectangle(
-                    (int)Math.Round(position.X),
-                    (int)Math.Round(position.Y),
-                    hitbox.Width,
-                    hitbox.Height);                      // Update hitbox location
-
-                if (IsCollidingWithTerrain())        // Check if there was a collision
-                {
-                    hitbox = new Rectangle(lastSafePosition, hitbox.Size);    // Revert hitbox position back to before collision
-                    position = lastSafePosition.ToVector2();                      // Revert position
-                    velocity.Y = 0;
-                    break;
-                }
-
-                Collidable temp = IsCollidingWithObject();
-                if (temp != null)        // Check if there was a collision
-                {
-                    if (temp.active)
-                    {
-                        hitbox = new Rectangle(lastSafePosition, hitbox.Size);    // Revert hitbox position back to before collision
-                        position = lastSafePosition.ToVector2();                      // Revert position
-                        velocity.Y = 0;
-                    }
-                    
-                    
-                    temp.OnCollision(this);
-                    break;
-                }
-
-                iterationCounter++;
-            }
-
-
-            //Do the same thing but in the X direction
-            iterationCounter = 1;
-
-            while (!IsCollidingWithTerrain() && iterationCounter <= CollisionAccuracy)
-            {
-
-                if (!IsCollidingWithTerrain())
-                {
-                    lastSafePosition = new Point((int)position.X, (int)position.Y);
-                }
-
-                //Cap velocity
-                if (Math.Abs(velocity.X) > maxXVelocity)
-                {
-                    velocity.X = maxXVelocity * Math.Sign(velocity.X);
-                }
-
-                if (!Grounded)
-                {
-                    tempVelocity.X = velocity.X / 1.2f;
-                }
-
-                position.X += tempVelocity.X * (time * iterationCounter / CollisionAccuracy);
-
-                hitbox = new Rectangle(
-                    (int)Math.Round(position.X),
-                    (int)Math.Round(position.Y),
-                    hitbox.Width,
-                    hitbox.Height);
-
-                if (IsCollidingWithTerrain())
-                {
-                    hitbox = new Rectangle(lastSafePosition, hitbox.Size);
-                    position = lastSafePosition.ToVector2();
-                    velocity.X = 0;
-                    break;
-                }
-
-                Collidable temp = IsCollidingWithObject();
-                if (temp != null)        // Check if there was a collision
-                {
-                    if (temp.active)
-                    {
-                        hitbox = new Rectangle(lastSafePosition, hitbox.Size);    // Revert hitbox position back to before collision
-                        position = lastSafePosition.ToVector2();                      // Revert position
-                        velocity.X = 0;
-                    }
-                    
-                    temp.OnCollision(this);
-                    
-                    if (temp is Block)
-                    {
-                        hitbox = new Rectangle(lastSafePosition, hitbox.Size);    // Revert hitbox position back to before collision
-                        position = lastSafePosition.ToVector2();                      // Revert position
-                        temp.Acceleration = new Vector2(acceleration.X, temp.Acceleration.Y);
-                        acceleration.X = 0;
-                        velocity.X = 0;
-                    }
-
-
-                    break;
-                }
-
-
+        }
         
 
         public void ShootBubble()
@@ -279,7 +142,7 @@ namespace Do_Not_Disturb.Classes
             } else
             {
                 bubblePos = new Vector2(position.X + 50, position.Y);
-                iterationCounter++;
+                
 
             }
 

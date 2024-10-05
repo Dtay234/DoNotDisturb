@@ -17,7 +17,7 @@ namespace Do_Not_Disturb
     {
         public static SpriteFont font;
         public static Texture2D pixel;
-        public static List<Collidable> collidableList = new();
+        private static List<GameObject> objects = new();
         public static Texture2D title;
         public static Texture2D loading;
 
@@ -160,12 +160,12 @@ namespace Do_Not_Disturb
                         {
                             box.Draw(_spriteBatch);
                         }
-                        foreach (Collidable collidable in collidableList)
+                        foreach (GameObject obj in objects)
                         {
-                            collidable.Draw(_spriteBatch);
+                            obj.Draw(_spriteBatch);
                             _spriteBatch.Draw(pixel, new Rectangle(
-                                Camera.RelativePosition(collidable.Hitbox.Location.ToVector2()).ToPoint(),
-                                collidable.Hitbox.Size), Color.White);
+                                Camera.RelativePosition(obj.Hitbox.Location.ToVector2()).ToPoint(),
+                                obj.Hitbox.Size), Color.White);
                         }
                         break;
                     }
@@ -180,6 +180,61 @@ namespace Do_Not_Disturb
 
             _spriteBatch.End();
             base.Draw(gameTime);
+        }
+
+        public static bool Collide(Rectangle rect)
+        {
+            if (GeometryCollide(rect) != null || ObjectCollide(rect) != null)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public static bool Collide(Rectangle rect, out Geometry geo, out GameObject obj)
+        {
+            geo = GeometryCollide(rect);
+            obj = ObjectCollide(rect);
+
+            if (geo != null || obj != null)
+            {
+                return true;
+            }
+
+            geo = null;
+            obj = null;
+            return false;
+        }
+
+        public static Geometry GeometryCollide(Rectangle rect)
+        {
+            Geometry returned = null;
+
+            foreach (Geometry box in Geometry.map)
+            {
+                if(box.BoundBox.Intersects(rect))
+                {
+                    returned = box;
+                }
+            }
+
+            return returned;
+        }
+
+        public static GameObject ObjectCollide(Rectangle rect)
+        {
+            GameObject returned = null;
+
+            foreach (GameObject box in objects)
+            {
+                if (box.Hitbox.Intersects(rect))
+                {
+                    returned = box;
+                }
+            }
+
+            return returned;
         }
     }
 }

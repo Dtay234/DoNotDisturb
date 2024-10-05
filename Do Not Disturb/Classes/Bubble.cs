@@ -25,18 +25,11 @@ namespace Do_Not_Disturb.Classes
         public Bubble(Vector2 position, Rectangle hitbox) : base(position, hitbox)
         {
             timer = 10;
-            active = false;
         }
 
         public override void Update(GameTime gameTime)
         {
-            Collidable collision = null;
-            if ((collision = IsCollidingWithObject()) != null)
-            {
-                collision.Velocity = new Vector2(collision.Velocity.X, -40);
-                animation = Animations.Pop;
-                //Game1.collidableList.Remove(this);
-            }
+           
 
 
 
@@ -52,11 +45,11 @@ namespace Do_Not_Disturb.Classes
             
         }
 
-        public override void OnCollision(object thing = null)
+        public override void OnCollision(GameObject obj)
         {
-            if (thing != null && thing is Collidable)
+            if (obj != null)
             {
-                ((Collidable)thing).Velocity = new Vector2(((Collidable)thing).Velocity.X, -40);
+                (obj).Velocity = new Vector2((obj).Velocity.X, -40);
                 hitbox = new Rectangle(0,0,0,0);
             }
         }

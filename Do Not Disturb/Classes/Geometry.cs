@@ -10,14 +10,14 @@ using Microsoft.Xna.Framework.Content;
 
 namespace Do_Not_Disturb.Classes
 {
-    enum BlockTypes
+    public enum BlockTypes
     {
         ARedBlock,
         RBlueBlock,
         EGreenBlock,
         NormalLongBlock
     }
-    internal class Geometry
+    public class Geometry
     {
         
 
