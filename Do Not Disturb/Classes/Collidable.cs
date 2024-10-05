@@ -11,6 +11,11 @@ namespace Do_Not_Disturb.Classes
     
     public abstract class Collidable
     {
+        protected enum FaceDirection
+        {
+            Left,
+            Right
+        }
         protected Vector2 position;
         protected Vector2 velocity;
         protected Vector2 acceleration;

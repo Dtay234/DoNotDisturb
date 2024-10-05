@@ -1,10 +1,24 @@
-number=6
-default=32x32
+&Horizontal
 
-animations
-Look,6,#
-Walk,6,#
-Jump,8,#
-Crouch,8,#
-Pushing,5,#
-Idle,8,#
+@32x32,8:2
+
+// Standing,
+#,#,6,15      
+
+// LookBack
+#,#,6,15        
+
+// Walking
+#,#,8,5
+
+//Jumping
+#,#,8,5
+
+// Hiding
+#,#,5,15
+
+// Crouching
+#,#,8,5
+
+// Idle
+#,#,8,15
