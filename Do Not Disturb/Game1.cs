@@ -44,8 +44,6 @@ namespace Do_Not_Disturb
             
 
             //remove this later
-            new Geometry(new Rectangle(0, 700, 1000, 100), BlockTypes.NormalLongBlock);
-            new Geometry(new Rectangle(900, 0, 100, 1000), BlockTypes.NormalLongBlock);
 
             objects.Add(new Block(new Vector2(500, 500), new Rectangle(0, 0, 100, 100), BlockTypes.NormalLongBlock));
 
@@ -56,7 +54,7 @@ namespace Do_Not_Disturb
             _graphics.PreferredBackBufferHeight = 1080;
             _graphics.PreferredBackBufferWidth = 1920;
             _graphics.ApplyChanges();
-            objects.Add(new Player(new Vector2(0, 0), new Rectangle(0, 0, 96, 96)));
+            objects.Add(new Player(new Vector2(100, 100), new Rectangle(0, 0, 96, 96)));
 
             Camera.globalOffset = new Vector2(_graphics.PreferredBackBufferWidth / 2, _graphics.PreferredBackBufferHeight / 2);
 
@@ -108,13 +106,14 @@ namespace Do_Not_Disturb
 
                 case GameStates.Loading:
                     {
-                        Level level = new Level(_graphics.PreferredBackBufferHeight, _graphics.PreferredBackBufferWidth);
-                        level.Draw();
+                        
                         break;
                     }
 
                 case GameStates.Game:
                 {
+                        Level level = new Level(2000, 2000);
+                        level.Draw();
                         foreach (GameObject obj in objects)
                         {
                             if (obj is Player)

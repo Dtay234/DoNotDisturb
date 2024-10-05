@@ -25,7 +25,10 @@ namespace Do_Not_Disturb.Classes
 
         public void Draw()
         {
-            
+            new Geometry(new Rectangle(0, 0, 10, windowHeight), BlockTypes.NormalLongBlock);
+            new Geometry(new Rectangle(windowWidth, 0, 10, windowHeight), BlockTypes.NormalLongBlock); 
+            new Geometry(new Rectangle(0, 0, windowWidth, 10), BlockTypes.NormalLongBlock);
+            new Geometry(new Rectangle(0, windowWidth, windowWidth, 10), BlockTypes.NormalLongBlock);
 
         }
 
