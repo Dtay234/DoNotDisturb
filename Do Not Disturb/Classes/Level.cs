@@ -22,12 +22,12 @@ namespace Do_Not_Disturb.Classes
             this.windowWidth = windowWidth;
             this.objects = new List<GameObject>();
 
-            new Geometry(new Rectangle(0, 0, 10, windowHeight), BlockTypes.NormalLongBlock);
-            new Geometry(new Rectangle(windowWidth, 0, 10, windowHeight), BlockTypes.NormalLongBlock);
-            new Geometry(new Rectangle(0, 0, windowWidth, 10), BlockTypes.NormalLongBlock);
-            new Geometry(new Rectangle(0, windowWidth, windowWidth, 10), BlockTypes.NormalLongBlock);
+            new Geometry(new Rectangle(0, 0, 10, windowHeight), BlockTypes.ARedBlock);
+            new Geometry(new Rectangle(windowWidth, 0, 10, windowHeight), BlockTypes.ARedBlock);
+            new Geometry(new Rectangle(0, 0, windowWidth, 10), BlockTypes.ARedBlock);
+            new Geometry(new Rectangle(0, windowWidth, windowWidth, 10), BlockTypes.ARedBlock);
             
-            objects.Add(new Block(new Vector2(500, 500), new Rectangle(0, 0, 100, 100), BlockTypes.NormalLongBlock));
+            objects.Add(new Block(new Vector2(500, 500), new Rectangle(0, 0, 100, 100), BlockTypes.ARedBlock));
             objects.Add(new Bubble(new Vector2(1000, 1950), new Rectangle(0, 0, 20, 20)));
 
         }

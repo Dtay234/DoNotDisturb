@@ -45,7 +45,7 @@ namespace Do_Not_Disturb
 
             //remove this later
 
-            objects.Add(new Block(new Vector2(500, 500), new Rectangle(0, 0, 100, 100), BlockTypes.NormalLongBlock));
+            objects.Add(new Block(new Vector2(500, 500), new Rectangle(0, 0, 100, 100), BlockTypes.ARedBlock));
 
             //objects.Add(new Bubble(new Vector2(300, 600), new Rectangle(100000, 10000, 20, 20)));
 
@@ -65,7 +65,7 @@ namespace Do_Not_Disturb
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            Player.spriteSheet = Content.Load<Texture2D>("Images/RedPanda");
+            Player.spriteSheet = Content.Load<Texture2D>("Images/Red_Panda_Sprite_Sheet");
             pixel = Content.Load<Texture2D>("Images/WhitePixel");
             font = Content.Load<SpriteFont>("Fonts/File");
             title = Content.Load<Texture2D>("Images/Title");

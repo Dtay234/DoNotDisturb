@@ -80,7 +80,9 @@ namespace Do_Not_Disturb.Classes
         {
             foreach (BlockTypes block in Enum.GetValues(typeof(BlockTypes)))
             {
-                boxSprites.Add(block, Content.Load<Texture2D>("Images/" + block.ToString()));
+
+                //boxSprites.Add(block, Content.Load<Texture2D>("Images/" + block.ToString()));
+                boxSprites.Add(block, Content.Load<Texture2D>("Images/" + "ARedBlock"));
 
                 boxDimensions.Add(block, new Point(boxSprites[block].Width, boxSprites[block].Height));
                 
