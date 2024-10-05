@@ -25,19 +25,21 @@ namespace Do_Not_Disturb.Classes
 
 
     }
-    internal class Player
+    internal class Player : Collidable
     {
         public static Texture2D spriteSheet;
         public static Keys lastPressed;
         private PlayerMovement state;
         
-        private Vector2 position;
-        private Vector2 velocity;
-        private Vector2 acceleration;
+        
 
         public bool Grounded{ get { return false; } }
 
-        
+        public Player(Vector2 position, Rectangle rect) : base (position, rect)
+        {
+            acceleration.Y = 10;
+        }
+
         public void Update(GameTime gameTime)
         {
             bool pressed = false;
@@ -72,8 +74,6 @@ namespace Do_Not_Disturb.Classes
 
                 }
             }
-
-            acceleration.Y = 10;
 
             velocity += acceleration;
             position += velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
