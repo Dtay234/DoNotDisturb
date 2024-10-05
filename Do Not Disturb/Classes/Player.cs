@@ -43,6 +43,11 @@ namespace Do_Not_Disturb.Classes
             Camera.Focus = this;
         }
 
+        public override void Update(GameTime gt)
+        {
+
+        }
+
         public void Update(GameTime gameTime, KeyboardState kState)
         {
            if (Grounded)
@@ -241,7 +246,7 @@ namespace Do_Not_Disturb.Classes
 
         }
 
-        public void Draw(SpriteBatch sb)
+        public override void Draw(SpriteBatch sb)
         {
             sb.Draw(spriteSheet, new Rectangle(Camera.RelativePosition(position).ToPoint(), hitbox.Size), new Rectangle(0, 0, 32, 32), Color.White);
             sb.DrawString(Game1.font, velocity.X.ToString(), new Vector2(0,0), Color.Black);

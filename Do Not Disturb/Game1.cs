@@ -16,18 +16,15 @@ namespace Do_Not_Disturb
     public class Game1 : Game
     {
         public static SpriteFont font;
+        public static Texture2D pixel;
 
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private KeyboardState kbs;
         private KeyboardState prevKBS;
-<<<<<<< Updated upstream
-        private Player player;
         private GameStates gameState;
-=======
         public static List<Collidable> collidableList = new();
-      
->>>>>>> Stashed changes
+     
 
         public Game1()
         {
@@ -60,6 +57,7 @@ namespace Do_Not_Disturb
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             Player.spriteSheet = Content.Load<Texture2D>("Images/RedPanda");
+            pixel = Content.Load<Texture2D>("Images/WhitePixel");
             font = Content.Load<SpriteFont>("Fonts/File");
             Geometry.LoadBlocks(Content);
         }
@@ -73,7 +71,6 @@ namespace Do_Not_Disturb
 
             prevKBS = kbs;
             kbs = Keyboard.GetState();
-<<<<<<< Updated upstream
             
             switch (gameState){
                 case GameStates.Menu:
@@ -88,7 +85,18 @@ namespace Do_Not_Disturb
 
                 case GameStates.Game:
                 {
-                        player.Update(gameTime);
+                        foreach (Collidable collidable in collidableList)
+                        {
+                            if (collidable is Player)
+                            {
+                                ((Player)collidable).Update(gameTime, kbs);
+                            }
+                            else
+                            {
+                                collidable.Update(gameTime);
+                            }
+
+                        }
 
                         break;
                 }
@@ -99,21 +107,7 @@ namespace Do_Not_Disturb
                 }
             }
            
-=======
-           
-           foreach (Collidable collidable in collidableList)
-            {
-                if (collidable is Player)
-                {
-                    ((Player)collidable).Update(gameTime, kbs);
-                }
-                else
-                {
-                    collidable.Update(gameTime);
-                }
-                
-            }
->>>>>>> Stashed changes
+
 
             base.Update(gameTime);
         }
@@ -129,7 +123,11 @@ namespace Do_Not_Disturb
             {
                 box.Draw(_spriteBatch);
             }
-            player.Draw(_spriteBatch);
+            foreach (Collidable collidable in collidableList)
+            {
+                collidable.Draw(_spriteBatch);
+                _spriteBatch.Draw(pixel, collidable.Hitbox, Color.White);
+            }
 
             _spriteBatch.End();
             base.Draw(gameTime);

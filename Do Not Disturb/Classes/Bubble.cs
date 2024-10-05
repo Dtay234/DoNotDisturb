@@ -10,14 +10,37 @@ namespace Do_Not_Disturb.Classes
 {
     internal class Bubble : Collidable
     {
-        private Texture2D sprite;
-        private const float bubbleVelocityY = -40;
-        public Bubble(Vector2 position, Rectangle hitbox) : base(position, hitbox)
+        private enum Animations
         {
+            Spawn,
+            Wobble,
+            Pop
         }
 
-        public void Update(GameTime gameTime)
+        private Animations animation;
+        private Texture2D sprite;
+        private const float bubbleVelocityY = -40;
+        private double timer;
+
+        public Bubble(Vector2 position, Rectangle hitbox) : base(position, hitbox)
         {
+            timer = 10;
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            Collidable collision = null;
+            if ((collision = IsCollidingWithObject()) != null)
+            {
+                collision.Velocity = new Vector2(collision.Velocity.X, -40);
+                animation = Animations.Pop;
+                Game1.collidableList.Remove(this);
+            }
+
+
+
+            timer -= gameTime.ElapsedGameTime.TotalSeconds;
+
 
         }
 
@@ -30,11 +53,10 @@ namespace Do_Not_Disturb.Classes
             return false;
         }
 
-        public void Pop(Collidable collidable)
+
+        public override void Draw(SpriteBatch sb)
         {
-            collidabl
+            
         }
-
-
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,13 @@ namespace Do_Not_Disturb.Classes
     internal class Block : Collidable
     {
         private BlockTypes type;
-        public Block()
+        private const float maxXVelocity = 40;
+        private const float maxYVelocity = 60;
+        private const float gravity = 100;
+        public Block(Vector2 position, Rectangle hitbox, BlockTypes type) : base(position, hitbox)
+        {
+            this.type = type;
+        }
 
         public override void Update(GameTime gameTime)
         {
@@ -113,10 +120,34 @@ namespace Do_Not_Disturb.Classes
 
             }
 
+            int sign = 0;
+
             if (Grounded)
             {
-                
+                sign = Math.Sign(velocity.X);
+                acceleration.X = -Math.Sign(velocity.X) * 80;
+
+                // if velocity changes sign in this update, set it to 0
+                if (sign != Math.Sign(velocity.X + acceleration.X * gameTime.ElapsedGameTime.TotalSeconds)
+                    && sign != 0)
+                {
+                    acceleration.X = 0;
+                    velocity.X = 0;
+                }
+
+                // if velocity is small enough, set it to 0
+                if (velocity.X != 0
+                    && Math.Abs(velocity.X) < 1f)
+                {
+                    velocity.X = 0;
+                    acceleration.X = 0;
+                }
             }
+        }
+
+        public override void Draw(SpriteBatch sb)
+        {
+            
         }
     }
 }

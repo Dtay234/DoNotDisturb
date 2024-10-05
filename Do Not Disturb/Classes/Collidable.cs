@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Do_Not_Disturb.Classes
 {
@@ -74,7 +75,7 @@ namespace Do_Not_Disturb.Classes
         }
 
         
-
+       
         
         public bool IsCollidingWithTerrain()
         {
@@ -108,6 +109,24 @@ namespace Do_Not_Disturb.Classes
             return false;
         }
 
+        public Collidable IsCollidingWithObject()
+        {
+            foreach (Collidable collidable in Game1.collidableList)
+            {
+                if (collidable != this)
+                {
+                    if (collidable.Hitbox.Intersects(hitbox))
+                    {
+                        return collidable;
+                    }
+                }
+            }
+
+            return null;
+        }
+
         public abstract void Update(GameTime gameTime);
+
+        public abstract void Draw(SpriteBatch sb);
     }
 }
