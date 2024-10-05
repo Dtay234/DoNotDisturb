@@ -12,127 +12,19 @@ namespace Do_Not_Disturb.Classes
     internal class Block : Collidable
     {
         private BlockTypes type;
-        private const float maxXVelocity = 40;
-        private const float maxYVelocity = 60;
-        private const float gravity = 100;
         public Block(Vector2 position, Rectangle hitbox, BlockTypes type) : base(position, hitbox)
         {
             this.type = type;
+            gravity = 100;
         }
 
         public override void Update(GameTime gameTime)
         {
-            if (Grounded)
-            {
-                acceleration.Y = 0;
-            }
-            else
-            {
-                acceleration.Y = gravity;
-            }
-
-            float time = (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-            int iterationCounter = 1;       // Number of collision checks we've done
-
-            Point lastSafePosition = new Point((int)position.X, (int)position.Y);        //Last point before a collision
-
-            if (!Grounded)
-            {
-                acceleration.Y = gravity * (1 + (100 - Math.Abs(velocity.Y)) / 50);
-            }
-
-            velocity += acceleration * time;                                   //Update velocity
-            Vector2 tempVelocity = new Vector2(velocity.X, velocity.Y);        //For if the player is airborne
-
-            if (velocity.X > maxXVelocity)
-            {
-                velocity.X = maxXVelocity;
-            }
-            if (velocity.X < -maxXVelocity)
-            {
-                velocity.X = -maxXVelocity;
-            }
-
-            //Vertical
-            while (iterationCounter <= CollisionAccuracy)                      //Scaling number of checks
-            {
-
-                if (!Game1.Collide(hitbox))
-                {
-                    lastSafePosition = new Point((int)position.X, (int)position.Y);      //Store old position in case we collide
-                }
-
-                //Cap velocity
-                if (Math.Abs(velocity.Y) > maxYVelocity)
-                {
-                    velocity.Y = maxYVelocity * Math.Sign(tempVelocity.Y);
-                }
-
-                position.Y += tempVelocity.Y * (time * iterationCounter / CollisionAccuracy);     // Increment position
-
-                hitbox = new Rectangle(
-                    (int)Math.Round(position.X),
-                    (int)Math.Round(position.Y),
-                    hitbox.Width,
-                    hitbox.Height);                      // Update hitbox location
-
-                if (Game1.Collide(hitbox))        // Check if there was a collision
-                {
-                    hitbox = new Rectangle(lastSafePosition, hitbox.Size);    // Revert hitbox position back to before collision
-                    position = lastSafePosition.ToVector2();                      // Revert position
-                    velocity.Y = 0;
-                    break;
-                }
-
-                iterationCounter++;
-            }
-
-
-            //Do the same thing but in the X direction
-            iterationCounter = 1;
-
-            while (!Game1.Collide(hitbox) && iterationCounter <= CollisionAccuracy)
-            {
-
-                if (!Game1.Collide(hitbox))
-                {
-                    lastSafePosition = new Point((int)position.X, (int)position.Y);
-                }
-
-                //Cap velocity
-                if (Math.Abs(velocity.X) > maxXVelocity)
-                {
-                    velocity.X = maxXVelocity * Math.Sign(velocity.X);
-                }
-
-                if (!Grounded)
-                {
-                    tempVelocity.X = velocity.X / 1.2f;
-                }
-
-                position.X += tempVelocity.X * (time * iterationCounter / CollisionAccuracy);
-
-                hitbox = new Rectangle(
-                    (int)Math.Round(position.X),
-                    (int)Math.Round(position.Y),
-                    hitbox.Width,
-                    hitbox.Height);
-
-                if (Game1.Collide(hitbox))
-                {
-                    hitbox = new Rectangle(lastSafePosition, hitbox.Size);
-                    position = lastSafePosition.ToVector2();
-                    velocity.X = 0;
-                    break;
-                }
-                iterationCounter++;
-
-            }
+           base.Update(gameTime);
 
             int sign = 0;
 
-            /*
+            
             if (Grounded)
             {
                 sign = Math.Sign(velocity.X);
@@ -154,7 +46,7 @@ namespace Do_Not_Disturb.Classes
                     acceleration.X = 0;
                 }
             }
-            */
+            
         }
 
         public override void Draw(SpriteBatch sb)
@@ -162,11 +54,16 @@ namespace Do_Not_Disturb.Classes
             
         }
 
-        public override void OnCollision(GameObject obj)
+        public override void OnCollision_H(GameObject obj)
         {
-            velocity.X = obj.Velocity.X;
+            acceleration.X = obj.Velocity.X;
 
             obj.Velocity = new Vector2(0, obj.Velocity.Y);
                     }
+
+        public override void OnCollision_V(GameObject obj)
+        {
+            obj.Velocity = new Vector2(obj.Velocity.X, 0);
+        }
     }
 }

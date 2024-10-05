@@ -47,16 +47,16 @@ namespace Do_Not_Disturb
             new Geometry(new Rectangle(0, 700, 1000, 100), BlockTypes.NormalLongBlock);
             new Geometry(new Rectangle(900, 0, 100, 1000), BlockTypes.NormalLongBlock);
 
-            collidableList.Add(new Block(new Vector2(500, 500), new Rectangle(0, 0, 100, 100), BlockTypes.NormalLongBlock));
+            objects.Add(new Block(new Vector2(500, 500), new Rectangle(0, 0, 100, 100), BlockTypes.NormalLongBlock));
 
-            collidableList.Add(new Bubble(new Vector2(300, 600), new Rectangle(100000, 10000, 20, 20)));
+            //objects.Add(new Bubble(new Vector2(300, 600), new Rectangle(100000, 10000, 20, 20)));
 
             _graphics.PreferredBackBufferHeight = 1000;
             _graphics.PreferredBackBufferWidth = 1000;
             _graphics.PreferredBackBufferHeight = 1080;
             _graphics.PreferredBackBufferWidth = 1920;
             _graphics.ApplyChanges();
-            collidableList.Add(new Player(new Vector2(0, 0), new Rectangle(0, 0, 96, 96)));
+            objects.Add(new Player(new Vector2(0, 0), new Rectangle(0, 0, 96, 96)));
 
             Camera.globalOffset = new Vector2(_graphics.PreferredBackBufferWidth / 2, _graphics.PreferredBackBufferHeight / 2);
 
@@ -115,15 +115,15 @@ namespace Do_Not_Disturb
 
                 case GameStates.Game:
                 {
-                        foreach (Collidable collidable in collidableList)
+                        foreach (GameObject obj in objects)
                         {
-                            if (collidable is Player)
+                            if (obj is Player)
                             {
-                                ((Player)collidable).Update(gameTime, kbs);
+                                ((Player)obj).Update(gameTime, kbs);
                             }
                             else
                             {
-                                collidable.Update(gameTime);
+                                obj.Update(gameTime);
                             }
 
                         }
@@ -230,13 +230,29 @@ namespace Do_Not_Disturb
 
             foreach (GameObject box in objects)
             {
-                if (box.Hitbox.Intersects(rect))
+                if (box.Hitbox != rect && box.Hitbox.Intersects(rect))
                 {
                     returned = box;
                 }
             }
 
             return returned;
+        }
+
+        public static bool CheckGrounded(GameObject obj)
+        {
+            bool temp1 = GeometryCollide(new Rectangle(obj.Hitbox.Location + new Point(0, 5), obj.Hitbox.Size)) != null;
+            bool temp2 = false;
+            
+            foreach (GameObject box in objects)
+            {
+                if (obj != box && (ObjectCollide(new Rectangle(obj.Hitbox.Location + new Point(0, 5), obj.Hitbox.Size)) != null))
+                {
+                    temp2 = true;
+                }
+            }
+
+            return temp1 && temp2;
         }
     }
 }
