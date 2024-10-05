@@ -19,12 +19,14 @@ namespace Do_Not_Disturb
         public static Texture2D pixel;
         public static List<Collidable> collidableList = new();
         public static Texture2D title;
+        public static Texture2D loading;
 
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private KeyboardState kbs;
         private KeyboardState prevKBS;
         private GameStates gameState = GameStates.Menu;
+        private Animation animation;
         
      
 
@@ -63,7 +65,12 @@ namespace Do_Not_Disturb
             pixel = Content.Load<Texture2D>("Images/WhitePixel");
             font = Content.Load<SpriteFont>("Fonts/File");
             title = Content.Load<Texture2D>("Images/Title");
+            loading = Content.Load<Texture2D>("Images/LoadingSpriteSheet");
             Geometry.LoadBlocks(Content);
+
+            Vector2 loadingScreenPosition = new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
+
+           
         }
 
         protected override void Update(GameTime gameTime)
@@ -93,6 +100,11 @@ namespace Do_Not_Disturb
                     break;
                 }
 
+                case GameStates.Loading:
+                    {
+                        break;
+                    }
+
                 case GameStates.Game:
                 {
                         foreach (Collidable collidable in collidableList)
@@ -110,11 +122,7 @@ namespace Do_Not_Disturb
 
                         break;
                 }
-
-                case GameStates.Loading:
-                {
-                        break;
-                }
+               
             }
            
 
@@ -135,6 +143,11 @@ namespace Do_Not_Disturb
                         _spriteBatch.Draw(title, new Rectangle(150,150,652,260), Color.White);
                         break;
                 }
+                case GameStates.Loading:
+                    {
+                        
+                        break;
+                    }
                 case GameStates.Game:
                     {
                         foreach (Geometry box in Geometry.map)
