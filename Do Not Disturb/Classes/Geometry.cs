@@ -6,45 +6,48 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Graphics;
 using System.Net.Mime;
+using Microsoft.Xna.Framework.Content;
 
 namespace Do_Not_Disturb.Classes
 {
+    enum BlockTypes
+    {
+        ARedBlock,
+        RBlueBlock,
+        EGreenBlock,
+        NormalLongBlock
+    }
     internal class Geometry
     {
-        public enum BlockTypes
-        {
-            ARedBlock,
-            RBlueBlock,
-            EGreenBlock,
-
-        }
+        
 
         public static List<Geometry> map = new List<Geometry>();
-        public static Dictionary<BlockTypes, Texture2D> boxSprites;
+        public static Dictionary<BlockTypes, Texture2D> boxSprites = new();
         private Rectangle boundBox;
-        
+        private BlockTypes type;
 
         public Rectangle BoundBox
         {
             get { return boundBox; }
         }
 
-        public Geometry(Rectangle boundBox)
+        public Geometry(Rectangle boundBox, BlockTypes type)
         {
             this.boundBox = boundBox;
+            this.type = type;
             map.Add(this);
         }
 
         public void Draw(SpriteBatch sb)
         {
-            sb.Draw(Player.spriteSheet, BoundBox, Color.Red);
+            sb.Draw(boxSprites[type], BoundBox, null, Color.White);
         }
 
-        public static void LoadBlocks()
+        public static void LoadBlocks(ContentManager Content)
         {
             foreach (BlockTypes block in Enum.GetValues(typeof(BlockTypes)))
             {
-                
+                boxSprites.Add(block, Content.Load<Texture2D>("Images/" + block.ToString()));
             }
         }
     }

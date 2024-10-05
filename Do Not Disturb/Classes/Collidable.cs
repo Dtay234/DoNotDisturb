@@ -14,7 +14,10 @@ namespace Do_Not_Disturb.Classes
         protected Vector2 acceleration;
         protected Rectangle hitbox;
 
-        
+        public Vector2 Position
+        {
+            get { return position; }
+        }
         public Vector2 Velocity
         {
             get { return position; }
@@ -31,11 +34,40 @@ namespace Do_Not_Disturb.Classes
             this.hitbox = hitbox;
         }
 
-        /*
+
+
+        
         public bool IsCollidingWithTerrain()
         {
+            foreach (Geometry box in Geometry.map)
+            {
+                if (box.BoundBox.Intersects(Hitbox))
+                {
+                    
+                    return true;
+                }
+            }
 
+            
+
+            return false;
         }
-        */
+
+        public bool IsCollidingWithTerrain(Rectangle rect)
+        {
+            foreach (Geometry box in Geometry.map)
+            {
+                if (box.BoundBox.Intersects(rect))
+                {
+
+                    return true;
+                }
+            }
+
+
+
+            return false;
+        }
+
     }
 }

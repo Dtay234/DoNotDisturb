@@ -34,7 +34,7 @@ namespace Do_Not_Disturb
             // TODO: Add your initialization logic here
 
             //remove this later
-            new Geometry(new Rectangle(0, 700, 1000, 100));
+            new Geometry(new Rectangle(0, 700, 1000, 100), BlockTypes.NormalLongBlock);
             _graphics.PreferredBackBufferHeight = 1000;
             _graphics.PreferredBackBufferWidth = 1000;
             _graphics.ApplyChanges();
@@ -49,6 +49,7 @@ namespace Do_Not_Disturb
 
             Player.spriteSheet = Content.Load<Texture2D>("Images/RedPanda");
             font = Content.Load<SpriteFont>("Fonts/File");
+            Geometry.LoadBlocks(Content);
         }
 
         protected override void Update(GameTime gameTime)
@@ -56,7 +57,7 @@ namespace Do_Not_Disturb
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            player.Update(gameTime);
+            player.Update(gameTime, kbs);
 
             prevKBS = kbs;
             kbs = Keyboard.GetState();
