@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Graphics;
+using System.Net.Mime;
 
 namespace Do_Not_Disturb.Classes
 {
@@ -12,6 +13,9 @@ namespace Do_Not_Disturb.Classes
     {
         public enum BlockTypes
         {
+            ARedBlock,
+            RBlueBlock,
+            EGreenBlock,
 
         }
 
@@ -34,6 +38,14 @@ namespace Do_Not_Disturb.Classes
         public void Draw(SpriteBatch sb)
         {
             sb.Draw(Player.spriteSheet, BoundBox, Color.Red);
+        }
+
+        public static void LoadBlocks()
+        {
+            foreach (BlockTypes block in Enum.GetValues(typeof(BlockTypes)))
+            {
+                
+            }
         }
     }
 }
