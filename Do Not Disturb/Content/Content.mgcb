@@ -13,7 +13,7 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin C:/Users/dante/Downloads/ARedBlock.png
+#begin F:/Do Not Disturb Art/EGreenBlock.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -23,9 +23,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:C:/Users/dante/Downloads/ARedBlock.png;Images/ARedBlock.png
+/build:F:/Do Not Disturb Art/EGreenBlock.png;Images/EGreenBlock.png
 
-#begin C:/Users/dante/Downloads/NormalLongBlock.png
+#begin F:/Do Not Disturb Art/NormalLongBlock.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -35,9 +35,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:C:/Users/dante/Downloads/NormalLongBlock.png;Images/NormalLongBlock.png
+/build:F:/Do Not Disturb Art/NormalLongBlock.png;Images/NormalLongBlock.png
 
-#begin C:/Users/dante/Downloads/RBlueBlock.png
+#begin F:/Do Not Disturb Art/WhitePixel.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -47,7 +47,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:C:/Users/dante/Downloads/RBlueBlock.png;Images/RBlueBlock.png
+/build:F:/Do Not Disturb Art/WhitePixel.png;Images/WhitePixel.png
 
 #begin Fonts/File.spritefont
 /importer:FontDescriptionImporter
@@ -55,6 +55,18 @@
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
 /build:Fonts/File.spritefont
+
+#begin Images/ARedBlock.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Images/ARedBlock.png
 
 #begin Images/EGreenBlock.png
 /importer:TextureImporter
@@ -79,6 +91,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Images/NormalLongBlock.png
+
+#begin Images/RBlueBlock.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Images/RBlueBlock.png
 
 #begin Images/RedPanda.png
 /importer:TextureImporter
