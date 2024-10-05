@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System.Security.Principal;
+using System.Diagnostics;
 
 namespace Do_Not_Disturb.Classes
 {
@@ -47,6 +48,7 @@ namespace Do_Not_Disturb.Classes
             var kState = Keyboard.GetState();
 
             if (kState.IsKeyDown(Keys.A)) {
+
                 acceleration.X = -40;
                 lastPressed = Keys.A;
                 pressed = true;
@@ -78,6 +80,9 @@ namespace Do_Not_Disturb.Classes
 
             velocity += acceleration;
             position += velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            Debug.WriteLine(velocity.ToString());
+            Debug.WriteLine(velocity.ToPoint().ToString());
         }
        
         public void Draw()
