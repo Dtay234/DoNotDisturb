@@ -84,7 +84,7 @@ namespace Do_Not_Disturb.Classes
         public GameObject(Vector2 position, Rectangle hitbox)
         {
             this.position = position;
-            this.hitbox = hitbox;
+            this.hitbox = new Rectangle(position.ToPoint(), hitbox.Size);
         }
 
 

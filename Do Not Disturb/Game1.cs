@@ -244,13 +244,13 @@ namespace Do_Not_Disturb
             
             foreach (GameObject box in objects)
             {
-                if (obj != box && (ObjectCollide(new Rectangle(obj.Hitbox.Location + new Point(0, 5), obj.Hitbox.Size)) != null))
+                if (!obj.Equals(box) && (box.Hitbox.Intersects(new Rectangle(obj.Hitbox.Location + new Point(0, 5), obj.Hitbox.Size))))
                 {
                     temp2 = true;
                 }
             }
 
-            return temp1 && temp2;
+            return temp1 || temp2;
         }
     }
 }
