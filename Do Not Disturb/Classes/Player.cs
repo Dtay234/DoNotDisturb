@@ -112,6 +112,8 @@ namespace Do_Not_Disturb.Classes
                 acceleration.X = -Math.Sign(velocity.X) * 80;
             }
 
+           
+
             // if velocity changes sign in this update, set it to 0
             if (sign != Math.Sign(velocity.X + acceleration.X * gameTime.ElapsedGameTime.TotalSeconds)
                 && sign != 0)

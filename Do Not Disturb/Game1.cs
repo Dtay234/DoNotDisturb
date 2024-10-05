@@ -27,6 +27,7 @@ namespace Do_Not_Disturb
         private KeyboardState kbs;
         private KeyboardState prevKBS;
         private GameStates gameState = GameStates.Menu;
+        private Level lastLevel;
         
      
 
@@ -49,8 +50,8 @@ namespace Do_Not_Disturb
 
             //objects.Add(new Bubble(new Vector2(300, 600), new Rectangle(100000, 10000, 20, 20)));
 
-            
             Level level = new Level("../../../Content/levels/level0.csv");
+            lastLevel = level;
             _graphics.PreferredBackBufferHeight = 1080;
             _graphics.PreferredBackBufferWidth = 1920;
             _graphics.ApplyChanges();
@@ -156,6 +157,11 @@ namespace Do_Not_Disturb
                     }
                 case GameStates.Game:
                     {
+                        if (kbs.IsKeyDown(Keys.R))
+                        {
+                            ResetLevel();
+                        }
+
                         foreach (Geometry box in Geometry.map)
                         {
                             box.Draw(_spriteBatch);
@@ -251,6 +257,12 @@ namespace Do_Not_Disturb
             }
 
             return temp1 || temp2;
+        }
+
+        public void ResetLevel()
+        {
+           
+            lastLevel = new Level(lastLevel.GetFilePath());
         }
     }
 }
