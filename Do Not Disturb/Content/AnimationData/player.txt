@@ -1,0 +1,10 @@
+number=6
+default=32x32
+
+animations
+Look,6,#
+Walk,6,#
+Jump,8,#
+Crouch,8,#
+Pushing,5,#
+Idle,8,#
