@@ -79,6 +79,12 @@ namespace Do_Not_Disturb.Classes
             velocity += acceleration;
             position += velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
         }
+
+        public void Draw(SpriteBatch sb)
+        {
+            sb.Draw(spriteSheet, hitbox, new Rectangle(0, 0, 32, 32), Color.White);
+            sb.DrawString(Game1.font, position.X.ToString() + position.Y.ToString(), new Vector2(0,0), Color.Black);
+        }
        
         public void Draw()
         {
