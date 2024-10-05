@@ -246,7 +246,25 @@ namespace Do_Not_Disturb.Classes
 
         }
 
+<<<<<<< Updated upstream
         public override void Draw(SpriteBatch sb)
+=======
+        public void ShootBubble()
+        {
+            Vector2 bubblePos = new Vector2();
+            if(state.Equals(PlayerMovement.LookLeft) || state.Equals(PlayerMovement.CrouchLeft) || state.Equals(PlayerMovement.WalkLeft){
+                bubblePos = new Vector2(position.X - 50, position.Y);
+            } else
+            {
+                bubblePos = new Vector2(position.X + 50, position.Y);
+            }
+            Bubble bubby = new Bubble(bubblePos, new Rectangle(bubblePos.ToPoint(), new Point(20, 20)));
+            //bubby.Draw();
+
+        }
+
+        public void Draw(SpriteBatch sb)
+>>>>>>> Stashed changes
         {
             sb.Draw(spriteSheet, new Rectangle(Camera.RelativePosition(position).ToPoint(), hitbox.Size), new Rectangle(0, 0, 32, 32), Color.White);
             sb.DrawString(Game1.font, velocity.X.ToString(), new Vector2(0,0), Color.Black);
