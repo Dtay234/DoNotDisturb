@@ -21,6 +21,15 @@ namespace Do_Not_Disturb.Classes
 
         public override void Update(GameTime gameTime)
         {
+            if (Grounded)
+            {
+                acceleration.Y = 0;
+            }
+            else
+            {
+                acceleration.Y = gravity;
+            }
+
             float time = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             int iterationCounter = 1;       // Number of collision checks we've done
@@ -122,6 +131,7 @@ namespace Do_Not_Disturb.Classes
 
             int sign = 0;
 
+            /*
             if (Grounded)
             {
                 sign = Math.Sign(velocity.X);
@@ -143,6 +153,7 @@ namespace Do_Not_Disturb.Classes
                     acceleration.X = 0;
                 }
             }
+            */
         }
 
         public override void Draw(SpriteBatch sb)

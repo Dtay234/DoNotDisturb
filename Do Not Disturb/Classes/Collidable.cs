@@ -8,12 +8,14 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Do_Not_Disturb.Classes
 {
+    
     public abstract class Collidable
     {
         protected Vector2 position;
         protected Vector2 velocity;
         protected Vector2 acceleration;
         protected Rectangle hitbox;
+        public bool active = true;
 
         public bool Grounded
         {
@@ -65,6 +67,10 @@ namespace Do_Not_Disturb.Classes
         public Vector2 Acceleration
         {
             get { return acceleration; }
+            set
+            {
+                acceleration = value;
+            }
         }
         public Rectangle Hitbox { get { return hitbox; } }
 
@@ -128,5 +134,10 @@ namespace Do_Not_Disturb.Classes
         public abstract void Update(GameTime gameTime);
 
         public abstract void Draw(SpriteBatch sb);
+
+        public virtual void OnCollision(object thing = null)
+        {
+
+        }
     }
 }

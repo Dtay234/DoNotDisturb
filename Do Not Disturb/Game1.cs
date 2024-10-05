@@ -44,6 +44,10 @@ namespace Do_Not_Disturb
             new Geometry(new Rectangle(0, 700, 1000, 100), BlockTypes.NormalLongBlock);
             new Geometry(new Rectangle(900, 0, 100, 1000), BlockTypes.NormalLongBlock);
 
+            collidableList.Add(new Block(new Vector2(500, 500), new Rectangle(0, 0, 100, 100), BlockTypes.NormalLongBlock));
+
+            collidableList.Add(new Bubble(new Vector2(300, 600), new Rectangle(100000, 10000, 20, 20)));
+
             _graphics.PreferredBackBufferHeight = 1000;
             _graphics.PreferredBackBufferWidth = 1000;
             _graphics.ApplyChanges();
