@@ -19,7 +19,7 @@ namespace Do_Not_Disturb.Classes
         }
 
         private Animations animation;
-        private Texture2D sprite;
+        public static Texture2D sprite;
         private const float bubbleVelocityY = -40;
         private double timer;
         private Animation<Animations> anim;

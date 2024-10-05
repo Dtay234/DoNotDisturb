@@ -149,6 +149,10 @@ namespace Do_Not_Disturb.Classes
 
         public void Draw(SpriteBatch sb, Rectangle destination)
         {
+            if (spritesheet == null)
+            {
+                return;
+            }
 
             int x = animationFrame * data[currentAnimation].Item2;
             int y = 0;
@@ -168,8 +172,8 @@ namespace Do_Not_Disturb.Classes
 
             Rectangle source = new Rectangle(x, y, spriteSize[0], spriteSize[1]);
             
-
-            sb.Draw(Player.spriteSheet, 
+            
+            sb.Draw(spritesheet, 
                 new Rectangle(
                     Camera.RelativePosition(destination.Location.ToVector2()).ToPoint() - new Point(hitboxOffset[0], hitboxOffset[1]), 
                     new Point(spriteSize[0], spriteSize[1])),

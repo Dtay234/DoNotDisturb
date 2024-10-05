@@ -45,7 +45,7 @@ namespace Do_Not_Disturb
 
             //remove this later
 
-            objects.Add(new Block(new Vector2(500, 500), new Rectangle(0, 0, 100, 100), BlockTypes.ARedBlock));
+            new Block(new Vector2(500, 500), new Rectangle(0, 0, 100, 100), BlockTypes.ARedBlock);
 
             //objects.Add(new Bubble(new Vector2(300, 600), new Rectangle(100000, 10000, 20, 20)));
 
@@ -54,6 +54,8 @@ namespace Do_Not_Disturb
             _graphics.PreferredBackBufferHeight = 1080;
             _graphics.PreferredBackBufferWidth = 1920;
             _graphics.ApplyChanges();
+
+            Player.spriteSheet = Content.Load<Texture2D>("Images/RedPanda");
             new Player(new Vector2(500, 350));
 
             Camera.globalOffset = new Vector2(_graphics.PreferredBackBufferWidth / 2, _graphics.PreferredBackBufferHeight / 2);
@@ -70,6 +72,7 @@ namespace Do_Not_Disturb
             font = Content.Load<SpriteFont>("Fonts/File");
             title = Content.Load<Texture2D>("Images/Title");
             loading = Content.Load<Texture2D>("Images/LoadingSpriteSheet");
+            Bubble.sprite = Content.Load<Texture2D>("Images/BubbleSprite");
             Geometry.LoadBlocks(Content);
 
             Vector2 loadingScreenPosition = new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
@@ -113,8 +116,10 @@ namespace Do_Not_Disturb
                 case GameStates.Game:
                 {
                         
-                        foreach (GameObject obj in objects)
+                        for (int i = 0; i < objects.Count; i++) 
                         {
+                            GameObject obj = objects[i];
+
                             if (obj is Player)
                             {
                                 ((Player)obj).Update(gameTime, kbs, prevKBS);

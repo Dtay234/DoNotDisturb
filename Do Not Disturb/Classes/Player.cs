@@ -183,10 +183,10 @@ namespace Do_Not_Disturb.Classes
             Vector2 bubblePos = new Vector2();
             if(state.Equals(FaceDirection.Left))
             {
-                bubblePos = new Vector2(position.X - 50, position.Y);
+                bubblePos = new Vector2(position.X - 100, position.Y);
             } else
             {
-                bubblePos = new Vector2(position.X + 50, position.Y);
+                bubblePos = new Vector2(position.X + 100, position.Y);
                 
 
             }
