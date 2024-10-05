@@ -47,6 +47,7 @@ namespace Do_Not_Disturb.Classes
                 anim.ChangeAnimation(Animations.None, 0, false);
             }
 
+            anim.Update(gameTime);
         }
 
 
