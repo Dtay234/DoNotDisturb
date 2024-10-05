@@ -13,17 +13,13 @@ namespace Do_Not_Disturb.Classes
 {
     enum PlayerMovement
     {
-        LookLeft,
-        LookRight,
-        WalkLeft,
-        WalkRight,
-        JumpLeft,
-        JumpRight,
-        CrouchLeft,
-        CrouchRight,
-        Pushing,
-        Idle,
-
+        Standing,
+        LookBack,
+        Walking,
+        Jumping,
+        Hiding,
+        Crouching,
+        Idle
 
     }
     internal class Player : Collidable
@@ -251,7 +247,7 @@ namespace Do_Not_Disturb.Classes
         public void ShootBubble()
         {
             Vector2 bubblePos = new Vector2();
-            if(state.Equals(PlayerMovement.LookLeft) || state.Equals(PlayerMovement.CrouchLeft) || state.Equals(PlayerMovement.WalkLeft))
+            if(state.Equals(FaceDirection.Left))
             {
                 bubblePos = new Vector2(position.X - 50, position.Y);
             } else
