@@ -17,13 +17,14 @@ namespace Do_Not_Disturb
     {
         public static SpriteFont font;
         public static Texture2D pixel;
+        public static List<Collidable> collidableList = new();
 
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private KeyboardState kbs;
         private KeyboardState prevKBS;
-        private GameStates gameState;
-        public static List<Collidable> collidableList = new();
+        private GameStates gameState = GameStates.Game;
+        
      
 
         public Game1()
@@ -42,6 +43,7 @@ namespace Do_Not_Disturb
             //remove this later
             new Geometry(new Rectangle(0, 700, 1000, 100), BlockTypes.NormalLongBlock);
             new Geometry(new Rectangle(900, 0, 100, 1000), BlockTypes.NormalLongBlock);
+
             _graphics.PreferredBackBufferHeight = 1000;
             _graphics.PreferredBackBufferWidth = 1000;
             _graphics.ApplyChanges();
@@ -126,7 +128,9 @@ namespace Do_Not_Disturb
             foreach (Collidable collidable in collidableList)
             {
                 collidable.Draw(_spriteBatch);
-                _spriteBatch.Draw(pixel, collidable.Hitbox, Color.White);
+                _spriteBatch.Draw(pixel, new Rectangle(
+                    Camera.RelativePosition(collidable.Hitbox.Location.ToVector2()).ToPoint(),
+                    collidable.Hitbox.Size), Color.White);
             }
 
             _spriteBatch.End();

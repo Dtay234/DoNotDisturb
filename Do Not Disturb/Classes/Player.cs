@@ -132,17 +132,7 @@ namespace Do_Not_Disturb.Classes
                 acceleration.X = 0;
             }
             
-            /*
-            velocity += acceleration * (float)gameTime.ElapsedGameTime.TotalSeconds;
-            position += velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
-            */
-
             
-
-
-
-            //hitbox = new Rectangle((int)Math.Round(position.X), (int)Math.Round(position.Y), hitbox.Width, hitbox.Height);
-
             
 
             float time = (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -172,7 +162,7 @@ namespace Do_Not_Disturb.Classes
             while (iterationCounter <= CollisionAccuracy)                      //Scaling number of checks
             {
 
-                if (!IsCollidingWithTerrain())
+                if (!IsCollidingWithTerrain() && IsCollidingWithObject == null)
                 {
                     lastSafePosition = new Point((int)position.X, (int)position.Y);      //Store old position in case we collide
                 }
@@ -192,6 +182,15 @@ namespace Do_Not_Disturb.Classes
                     hitbox.Height);                      // Update hitbox location
 
                 if (IsCollidingWithTerrain())        // Check if there was a collision
+                {
+                    hitbox = new Rectangle(lastSafePosition, hitbox.Size);    // Revert hitbox position back to before collision
+                    position = lastSafePosition.ToVector2();                      // Revert position
+                    velocity.Y = 0;
+                    break;
+                }
+
+                Collidable temp = IsCollidingWithObject();
+                if (temp != null)        // Check if there was a collision
                 {
                     hitbox = new Rectangle(lastSafePosition, hitbox.Size);    // Revert hitbox position back to before collision
                     position = lastSafePosition.ToVector2();                      // Revert position
