@@ -23,9 +23,11 @@ namespace Do_Not_Disturb.Classes
         double timer;
         private Animation<Animations> animation;
         bool wound = false;
+        private bool sfx = false;
 
         public Car(Vector2 position) : base(position, new Rectangle(position.ToPoint(), new Point(163,73)))
         {
+            gravity = 90;
             animation = new("car.txt", sheet);
             maxXVelocity = 100;
             faceDirection = FaceDirection.Right;
@@ -38,6 +40,9 @@ namespace Do_Not_Disturb.Classes
             {
                 timer -= gameTime.ElapsedGameTime.TotalSeconds;
                 animation.ChangeAnimation(Animations.Wind, (int)faceDirection, false);
+
+                
+                
                 
             }
             else
@@ -56,7 +61,6 @@ namespace Do_Not_Disturb.Classes
                         velocity.X = maxXVelocity;
                         acceleration.X = maxXVelocity;
                     }
-                    
 
                     
                 }

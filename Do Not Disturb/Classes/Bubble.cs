@@ -20,7 +20,6 @@ namespace Do_Not_Disturb.Classes
 
         private Animations animation;
         public static Texture2D sprite;
-        private const float bubbleVelocityY = -40;
         private double timer;
         private Animation<Animations> anim;
         public bool popped = false;
@@ -61,7 +60,7 @@ namespace Do_Not_Disturb.Classes
         {
             if (obj != null)
             {
-                (obj).Velocity = new Vector2((obj).Velocity.X, -180);
+                (obj).Velocity = new Vector2((obj).Velocity.X, -200);
                 hitbox = new Rectangle(0,0,0,0);
                 popped = true;
                 anim.ChangeAnimation(Animations.Pop, 0, true);

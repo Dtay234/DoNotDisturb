@@ -25,6 +25,12 @@
 /processorParam:Quality=Best
 /build:Audio/TitlleMusic.mp3
 
+#begin Audio/ToyCar.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Audio/ToyCar.mp3
+
 #begin Fonts/File.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor

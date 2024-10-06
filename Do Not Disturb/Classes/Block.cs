@@ -17,7 +17,7 @@ namespace Do_Not_Disturb.Classes
         public Block(Vector2 position,  BlockTypes type) : base(position, new Rectangle(position.ToPoint(), new Point(66, 66)))
         {
             this.type = type;
-            gravity = 100;
+            gravity = 120;
             maxXVelocity = 50;
 
             var enumArr = Enum.GetValues(typeof(BlockTypes)).Cast<BlockTypes>().ToArray();
