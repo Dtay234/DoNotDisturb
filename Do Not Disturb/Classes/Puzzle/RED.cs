@@ -22,8 +22,6 @@ namespace Do_Not_Disturb.Classes.Puzzle
             R = new Block(rPos, BlockTypes.RBlueBlock);
             E = new Block(ePos, BlockTypes.EGreenBlock);
             D = new Block(dPos, BlockTypes.DYellowBlock);
-
-
         }
 
         public void Update(GameTime gameTime)
