@@ -51,7 +51,7 @@ namespace Do_Not_Disturb.Classes
 
         public void Update(GameTime gameTime, KeyboardState kState, KeyboardState prev)
         {
-                Game1.stallPopped += gameTime.ElapsedGameTime.TotalSeconds * 2;
+               
 
             if (Grounded)
             {

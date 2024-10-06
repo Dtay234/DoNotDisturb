@@ -45,7 +45,6 @@ namespace Do_Not_Disturb.Classes
                 popped = true;
                 anim.ChangeAnimation(Animations.Pop, 0, true);
                 anim.ChangeAnimation(Animations.None, 0, false);
-                Game1.stallPopped += 1;
             }
 
             anim.Update(gameTime);
@@ -67,7 +66,6 @@ namespace Do_Not_Disturb.Classes
                 popped = true;
                 anim.ChangeAnimation(Animations.Pop, 0, true);
                 anim.ChangeAnimation(Animations.None, 0, false);
-                Game1.stallPopped++;
             }
         }
 

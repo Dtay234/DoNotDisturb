@@ -25,7 +25,6 @@ namespace Do_Not_Disturb
         public static Texture2D title;
         public static Texture2D loading;
         public static float Scale = 1.5f;
-        public static double stallPopped;
  
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
