@@ -26,6 +26,8 @@ namespace Do_Not_Disturb.Classes
         {
             animation = new("car.txt", sheet);
             maxXVelocity = 100;
+            faceDirection = FaceDirection.Right;
+            animation.ChangeAnimation(Animations.Static, (int)faceDirection, true);
         }
 
         public override void Update(GameTime gameTime)
@@ -33,19 +35,34 @@ namespace Do_Not_Disturb.Classes
             if (timer > 0)
             {
                 timer -= gameTime.ElapsedGameTime.TotalSeconds;
-
+                animation.ChangeAnimation(Animations.Wind, (int)faceDirection, false);
             }
             else
             {
                 if (wound == true)
                 {
+                    animation.ChangeAnimation(Animations.Move, (int)faceDirection, true);
+                    
                     if (faceDirection == FaceDirection.Left)
                     {
                         velocity.X = -maxXVelocity;
+                        acceleration.X = -maxXVelocity;
                     }
                     else
                     {
                         velocity.X = maxXVelocity;
+                        acceleration.X = maxXVelocity;
+                    }
+                    
+
+                    
+                }
+
+                if (velocity.X != 0)
+                {
+                    foreach (GameObject obj in GetTower())
+                    {
+                        OnCollision_V(obj);
                     }
                 }
             }
@@ -65,8 +82,12 @@ namespace Do_Not_Disturb.Classes
                 wound = true;
             }
 
-
-            obj.Velocity = new Vector2(velocity.X, 0);
+            if (velocity.X == 0)
+            obj.Velocity = new Vector2(velocity.X + obj.Velocity.X, 0);
+            else
+            {
+                obj.Velocity = new Vector2(velocity.X, 0);
+            }
         }
 
         public override void Draw(SpriteBatch sb)

@@ -93,7 +93,7 @@ namespace Do_Not_Disturb.Classes
 
         public override void OnCollision_V(GameObject obj)
         {
-            obj.Velocity = new Vector2(Math.Max(obj.Velocity.X, velocity.X), 0);
+            obj.Velocity = new Vector2(obj.Velocity.X, 0);
         }
     }
 }

@@ -242,7 +242,20 @@ namespace Do_Not_Disturb.Classes
 
         public abstract void Draw(SpriteBatch sb);
 
+        public virtual List<GameObject> GetTower()
+        {
+            List<GameObject> list = new();
 
+            foreach (GameObject obj in Game1.objects) 
+            { 
+                if (obj != this && obj.hitbox.Intersects(new Rectangle(hitbox.X, hitbox.Y - 5, hitbox.Width, hitbox.Height)))
+                {
+                    list.Add(obj);
+                }
+            }
+
+            return list;
+        }
 
     }
 }
