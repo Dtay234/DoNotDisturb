@@ -22,7 +22,7 @@ namespace Do_Not_Disturb.Classes
         private Animation<Animations> animation;
         bool wound = false;
 
-        public Car(Vector2 position) : base(position, new Rectangle(position.ToPoint(), new Point(200, 100)))
+        public Car(Vector2 position) : base(position, new Rectangle(position.ToPoint(), new Point(163,73)))
         {
             animation = new("car.txt", sheet);
             maxXVelocity = 100;
