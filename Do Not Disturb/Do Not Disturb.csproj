@@ -11,6 +11,7 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Content\Audio\ToyCar.mp3" />
     <None Remove="Content\Images\AllBlocks.png" />
     <None Remove="Content\Images\Title.png" />
     <None Remove="Icon.ico" />

@@ -49,7 +49,7 @@ namespace Do_Not_Disturb
         private Texture2D Paused;
         private Song titleSong;
         private Song gameSong;
-        public static Song toyCar;
+        public static SoundEffect toyCar;
         private int levelIndex;
         private int maxLevelIndex;
 
@@ -124,7 +124,10 @@ namespace Do_Not_Disturb
             titleSong = Content.Load<Song>("Audio/TitlleMusic");
             Car.sheet = Content.Load<Texture2D>("Images/CarSheet");
             gameSong = Content.Load<Song>("Audio/GameMusic");
-            toyCar = Content.Load<Song>("Audio/ToyCar");
+            toyCar = Content.Load<SoundEffect>("Audio/ToyCar");
+
+
+            
 
             pressEnter = Content.Load<Texture2D>("Images/PressEnter");
             Paused = Content.Load<Texture2D>("Images/Paused");
@@ -132,6 +135,13 @@ namespace Do_Not_Disturb
             Vector2 loadingScreenPosition = new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
 
             
+        }
+
+        public void MediaPlayer_MediaStateChnage(object sender,System.EventArgs e)
+        {
+            MediaPlayer.Volume -= 0.1f;
+            MediaPlayer.Play(titleSong);
+            MediaPlayer.Play(gameSong);
         }
 
         protected override void Update(GameTime gameTime)
@@ -153,7 +163,10 @@ namespace Do_Not_Disturb
                             MediaPlayer.Play(titleSong);
                             MediaPlayer.IsRepeating = true;
                         }
-                     
+                      
+                        
+                      
+
                         kbs = Keyboard.GetState();
                         if (kbs.IsKeyDown(Keys.Enter))
                         {
@@ -188,18 +201,19 @@ namespace Do_Not_Disturb
                             MediaPlayer.Play(gameSong);
                             MediaPlayer.IsRepeating = true;
                         }
-                       
-                        if (kbs.IsKeyDown(Keys.R))
-                        {
-                            ResetLevel();
-                        }
 
                         if (kbs.IsKeyDown(Keys.P) && prevKBS.IsKeyUp(Keys.P))
                         {
                             gameState = GameStates.PauseScreen;
                             MediaPlayer.Pause();
-                            
+
                         }
+
+                        if (kbs.IsKeyDown(Keys.R))
+                        {
+                            ResetLevel();
+                        }
+
 
                         for (int i = 0; i < objects.Count; i++) 
                         {

@@ -27,7 +27,7 @@
 
 #begin Audio/ToyCar.mp3
 /importer:Mp3Importer
-/processor:SongProcessor
+/processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Audio/ToyCar.mp3
 
