@@ -110,35 +110,35 @@ namespace Do_Not_Disturb.Classes
                 animationFrame = 0;
             }
 
-            if (animationFrame == 0 && queue.Count > 0)
+            if (animationFrame == 0 && frameCounter == 0 && queue.Count > 0)
             {
-                ChangeAnimation(queue.Dequeue(), (int)faceDirection, false);
+                currentAnimation = queue.Dequeue();
             }
         }
 
         public void ChangeAnimation(T newAnimation, int i, bool reset = false)
         {
-            if (animationFrame != 0 && reset == false && queue.Count == 0)
+            if (reset)
             {
+                if (!currentAnimation.Equals(newAnimation))
+                {
+                    frameCounter = 0;
+                    animationFrame = 0;
+                    currentAnimation = newAnimation;
+                    timer = 0;
+                }
+                
+            }
+            else
+            {
+                if(queue.Count == 0)
                 queue.Enqueue(newAnimation);
-                return;
             }
+            
 
-            else if (!currentAnimation.Equals(newAnimation) && reset)
-            {
-                currentAnimation = newAnimation;
-                animationFrame = 0;
-                frameCounter = 0;
-                timer = 0;
-            }
+            
 
-            else if (!currentAnimation.Equals(newAnimation) && animationFrame == 0 && frameCounter == 0)
-            {
-                currentAnimation = newAnimation;
-                animationFrame = 0;
-                frameCounter = 0;
-                timer = 0;
-            }
+            
 
          
 
