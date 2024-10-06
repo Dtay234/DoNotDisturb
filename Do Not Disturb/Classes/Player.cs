@@ -23,7 +23,7 @@ namespace Do_Not_Disturb.Classes
         Pushing
 
     }
-    internal class Player : GameObject
+    internal class Player : Collidable
     {
         public static Texture2D spriteSheet;
         public static Keys lastPressed;
@@ -221,6 +221,33 @@ namespace Do_Not_Disturb.Classes
             //sb.Draw(spriteSheet, new Rectangle(Camera.RelativePosition(position).ToPoint(), hitbox.Size), new Rectangle(0, 0, 32, 32), Color.White);
             
             animation.Draw(sb, hitbox);
+        }
+
+        public override void OnCollision_H(GameObject obj)
+        {
+            if (Math.Sign(obj.Velocity.X * obj.Acceleration.X) >= 0)
+            {
+                velocity.X = obj.Acceleration.X / 4;
+                acceleration.X = obj.Acceleration.X / 2;
+
+                obj.Velocity = new Vector2(
+                    //maxXVelocity * Math.Sign(obj.Acceleration.X) / 3, 
+                    velocity.X,
+                    obj.Velocity.Y);
+            }
+
+        }
+
+        public override void OnCollision_V(GameObject obj)
+        {
+            if (velocity.X == 0)
+                obj.Velocity = new Vector2(velocity.X + obj.Velocity.X, 0);
+            else
+            {
+
+                obj.Velocity = new Vector2(velocity.X, velocity.Y < 0 ? velocity.Y : obj.Velocity.Y);
+            }
+
         }
 
     }

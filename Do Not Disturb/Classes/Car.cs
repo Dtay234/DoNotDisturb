@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
 
 namespace Do_Not_Disturb.Classes
 {
@@ -36,6 +38,7 @@ namespace Do_Not_Disturb.Classes
             {
                 timer -= gameTime.ElapsedGameTime.TotalSeconds;
                 animation.ChangeAnimation(Animations.Wind, (int)faceDirection, false);
+                
             }
             else
             {
@@ -78,7 +81,7 @@ namespace Do_Not_Disturb.Classes
         }
         public override void OnCollision_V(GameObject obj)
         {
-            if (!wound)
+            if (!wound && obj is Player)
             {
                 timer = 3;
                 wound = true;
