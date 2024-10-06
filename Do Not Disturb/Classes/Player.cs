@@ -35,7 +35,7 @@ namespace Do_Not_Disturb.Classes
             get { return 20;  }
         }
 
-        public Player(Vector2 position) : base (position, new Rectangle((int)position.X, (int)position.Y, 75, 44))
+        public Player(Vector2 position) : base (position, new Rectangle((int)position.X, (int)position.Y, 55, 47))
         {
             gravity = 70;
             Camera.Focus = this;
