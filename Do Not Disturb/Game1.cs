@@ -39,7 +39,6 @@ namespace Do_Not_Disturb
         private Texture2D background;
 
         private Song titleSong;
-        private double timer;
         private int levelIndex;
         private int maxLevelIndex;
 
@@ -102,6 +101,7 @@ namespace Do_Not_Disturb
             Geometry.tileset = Content.Load<Texture2D>("Images/AllBlocks");
             background = Content.Load<Texture2D>("Images/BackGround");
             titleSong = Content.Load<Song>("Audio/TitlleMusic");
+            Car.sheet = Content.Load<Texture2D>("Images/CarSheet");
 
             Vector2 loadingScreenPosition = new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
 
@@ -121,7 +121,7 @@ namespace Do_Not_Disturb
             switch (gameState){
                 case GameStates.Menu:
                 {
-                        timer += gameTime.ElapsedGameTime.TotalSeconds;
+                        
                         
                         if(titleSong.PlayCount == 0)
                         {
