@@ -393,6 +393,7 @@ namespace Do_Not_Disturb
                                 "\n   Space : Jump" +
                                 "\n   Left-click : Form a bubble to bounce around" +
                                 "\n   P : Pause" +
+                                "\n   R : Reset" +
                                 "\n\n   I : Open and close information page" +
                                 "\n   Esc : Quit" +
                                 "\n   ", new Vector2(300, 50), Color.White);;
