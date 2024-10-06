@@ -157,7 +157,7 @@ namespace Do_Not_Disturb.Classes
                 return;
             }
 
-            int x = animationFrame * data[currentAnimation].Item2;
+            int x = animationFrame * data[currentAnimation].Item1;
             int y = 0;
 
             foreach (KeyValuePair<T, Tuple<int,int,int,int>> item in data)

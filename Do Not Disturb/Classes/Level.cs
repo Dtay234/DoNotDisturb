@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework;
 using Do_Not_Disturb.Classes.Puzzle;
 using System.Data;
 using System.Reflection;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Do_Not_Disturb.Classes
 {
@@ -67,7 +68,7 @@ namespace Do_Not_Disturb.Classes
                     }
                     if (num == -2)
                     {
-                        if(Game1.objects.Exists(x => x is Player))
+                        if (Game1.objects.Exists(x => x is Player))
                         {
                             throw new Exception("Too many players!");
                         }
@@ -75,9 +76,9 @@ namespace Do_Not_Disturb.Classes
                         new Player(new Vector2(66 * col, 66 * row));
                         continue;
                     }
-                    
 
-                    
+
+
                     new Geometry(new Point(66*col, 66*row), enumArr[num]);
 
 
@@ -95,10 +96,11 @@ namespace Do_Not_Disturb.Classes
             return filePath;
         }
 
-        public void loadActualObjects(string filename)
+        public RED loadActualObjects(string filename)
         {
             string[] allLines = File.ReadAllLines(filename);
             string[] lines;
+            Vector2[] RED = new Vector2[3];
             for(int i = 1; i < allLines.Length; i++) { 
                 lines = allLines[i].Split(",");
                 int[] dimensions;
@@ -106,7 +108,9 @@ namespace Do_Not_Disturb.Classes
                 {
                     continue;
                 }
-                BlockTypes enumVal = enumArr[Array.IndexOf(enumArr, lines[0])];
+
+                BlockTypes enumVal = (BlockTypes)Enum.Parse(typeof(BlockTypes), lines[0]);
+
                 /*
                 if (lines[0].Contains("Hort"))
                 {
@@ -121,9 +125,27 @@ namespace Do_Not_Disturb.Classes
                     dimensions = new int[] { 1, 1 };
                 }
                 */
-                new Block(new Vector2(float.Parse(lines[1]), float.Parse(lines[2])) , enumVal);
+
+                if(enumVal == BlockTypes.RBlueBlock)
+                {
+                    RED[0] = new Vector2(float.Parse(lines[1]) * 66, float.Parse(lines[2]) * 66);
+
+                } else if(enumVal == BlockTypes.EGreenBlock)
+                {
+                    RED[1] = new Vector2(float.Parse(lines[1]) * 66, float.Parse(lines[2]) * 66);
+                } else if(enumVal == BlockTypes.DYellowBlock)
+                {
+                    RED[2] = new Vector2(float.Parse(lines[1]) * 66, float.Parse(lines[2]) * 66);
+                } else
+                {
+                  new Block(new Vector2(float.Parse(lines[1]) * 66, float.Parse(lines[2]) * 66), enumVal);
+
+                }
 
             }
+
+            return new RED(RED[0], RED[1], RED[2]);
+           
         }
 
 

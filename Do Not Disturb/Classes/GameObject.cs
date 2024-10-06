@@ -150,14 +150,7 @@ namespace Do_Not_Disturb.Classes
                     hitbox.Width,
                     hitbox.Height);                      // Update hitbox location
 
-                if (Game1.Collide(hitbox))        // Check if there was a collision
-                {
-                    if (Game1.ObjectCollide(hitbox) != null)
-                    hitbox = new Rectangle(lastSafePosition, hitbox.Size);    // Revert hitbox position back to before collision
-                    position = lastSafePosition.ToVector2();                      // Revert position
-                    velocity.Y = 0;
-                    break;
-                }
+                
 
                 Geometry geo = null;
                 GameObject obj = null;
