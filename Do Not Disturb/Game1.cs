@@ -55,6 +55,7 @@ namespace Do_Not_Disturb
             Player.spriteSheet = Content.Load<Texture2D>("Images/RedPanda");
 
             Level level = new Level("../../../Content/levels/level1.csv");
+            levelCompleteCondition = level.loadActualObjects("../../../Content/levels/level1_object.csv");
             lastLevel = level;
             _graphics.PreferredBackBufferHeight = 1080;
             _graphics.PreferredBackBufferWidth = 1920;
