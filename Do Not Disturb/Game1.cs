@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using Do_Not_Disturb.Classes;
 using Do_Not_Disturb.Classes.Puzzle;
 using System.Collections.Generic;
@@ -34,6 +35,9 @@ namespace Do_Not_Disturb
         private static RED levelCompleteCondition;
 
         private Texture2D background;
+
+        private Song titleSong;
+        private double timer;
 
         public Game1()
         {
@@ -83,10 +87,11 @@ namespace Do_Not_Disturb
             Bubble.sprite = Content.Load<Texture2D>("Images/BubbleSprite");
             Geometry.tileset = Content.Load<Texture2D>("Images/AllBlocks");
             background = Content.Load<Texture2D>("Images/BackGround");
+            titleSong = Content.Load<Song>("Audio/TitlleMusic");
 
             Vector2 loadingScreenPosition = new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
 
-           
+            
         }
 
         protected override void Update(GameTime gameTime)
@@ -102,10 +107,21 @@ namespace Do_Not_Disturb
             switch (gameState){
                 case GameStates.Menu:
                 {
-                    kbs = Keyboard.GetState();
+                        timer += gameTime.ElapsedGameTime.TotalSeconds;
+                        
+                        if(titleSong.PlayCount == 0)
+                        {
+                            MediaPlayer.Play(titleSong);
+                            MediaPlayer.IsRepeating = true;
+                        }
+                        
+
+                        
+                        kbs = Keyboard.GetState();
                         if (kbs.IsKeyDown(Keys.Enter))
                         {
                             gameState = GameStates.Game;
+                            MediaPlayer.Stop();
                         }
                      prevKBS = kbs;
                     break;
