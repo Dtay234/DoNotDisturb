@@ -305,6 +305,8 @@ namespace Do_Not_Disturb
 
 
                         }
+
+                        _spriteBatch.Draw(pixel, new Rectangle(0, 0, 2000, 2000), Color.Gray);
                         break;
                     }
             }
