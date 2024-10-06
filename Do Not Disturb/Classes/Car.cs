@@ -66,7 +66,7 @@ namespace Do_Not_Disturb.Classes
             }
 
 
-            obj.Velocity = new Vector2(Math.Max(obj.Velocity.X, velocity.X), 0);
+            obj.Velocity = new Vector2(velocity.X, 0);
         }
 
         public override void Draw(SpriteBatch sb)
