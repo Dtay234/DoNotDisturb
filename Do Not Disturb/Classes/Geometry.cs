@@ -13,9 +13,12 @@ namespace Do_Not_Disturb.Classes
 {
     public enum BlockTypes
     {
-        ARedBlock = 1,
+        ARedBlock,
+        AYellowBlock,
+        ABlueBlock,
         RBlueBlock,
         EGreenBlock,
+        DYellowBlock,
         LeftHorLongBlock,
         RightHorLongBlock,
         BotVertLongBlock,
