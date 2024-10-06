@@ -196,7 +196,7 @@ namespace Do_Not_Disturb.Classes
 
         public void ShootBubble()
         {
-            if (Game1.objects.Exists(x => x is Bubble))
+            if (Game1.objects.Exists(x => x is Bubble && !((Bubble)x).popped))
             {
                 return;
             }
@@ -211,7 +211,7 @@ namespace Do_Not_Disturb.Classes
                 
 
             }
-            new Bubble(bubblePos - new Vector2(35,35), new Rectangle(0, 0, 70, 70), 
+            new Bubble(bubblePos - new Vector2(35,35), new Rectangle(0, 0, 90, 70), 
                 faceDirection);
         }
      

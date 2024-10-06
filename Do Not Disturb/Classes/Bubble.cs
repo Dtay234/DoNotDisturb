@@ -23,29 +23,34 @@ namespace Do_Not_Disturb.Classes
         private double timer;
         private Animation<Animations> anim;
         public bool popped = false;
+        private bool active = false;
 
         public Bubble(Vector2 position, Rectangle hitbox, FaceDirection face) : base(position, hitbox)
         {
-            timer = 10;
+            timer = 0.5;
             gravity = 0;
             anim = new Animation<Animations>("bubble.txt", sprite);
+            faceDirection = face;
             anim.ChangeAnimation(Animations.Spawn, (int)faceDirection, true);
             anim.ChangeAnimation(Animations.Wobble, (int)faceDirection, false);
-            faceDirection = face;
+            
         }
 
         public override void Update(GameTime gameTime)
         {
             
             timer -= gameTime.ElapsedGameTime.TotalSeconds;
+            if (timer <= 0)
+            {
+                active = true;
+            }
             
             this.hitbox = new Rectangle(position.ToPoint(), hitbox.Size);
             if (Game1.Collide(this.hitbox))
             {
                 hitbox = new Rectangle(0, 0, 0, 0);
                 popped = true;
-                anim.ChangeAnimation(Animations.Pop, 0, true);
-                anim.ChangeAnimation(Animations.None, 0, false);
+                
             }
 
             anim.Update(gameTime);
