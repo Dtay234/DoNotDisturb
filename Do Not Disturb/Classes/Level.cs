@@ -42,27 +42,39 @@ namespace Do_Not_Disturb.Classes
         public Level(String filename)
         {
             filePath = filename;
-            String[] allLines = File.ReadAllLines(filename);
+  
+            
+
+        }
+
+        public string GetFilePath()
+        {
+            return filePath;
+        }
+
+        public void loadWorld()
+        {
+            String[] allLines = File.ReadAllLines(this.filePath);
 
             int width = 0;
             int height = 0;
             bool inBlock = true;
 
-            
-            for(int row = 0; row < allLines.Length; row++)
+
+            for (int row = 0; row < allLines.Length; row++)
             {
-                if(row == 0)
+                if (row == 0)
                 {
                     levelNumber = Int32.Parse(allLines[row][0].ToString());
                     continue;
                 }
                 string[] letters = allLines[row].Split(',');
 
-                
-                for(int col = 0; col < letters.Length; col++)
+
+                for (int col = 0; col < letters.Length; col++)
                 {
                     int num = Int32.Parse(letters[col]);
-                    if(num == -1)
+                    if (num == -1)
                     {
                         continue;
                     }
@@ -79,23 +91,15 @@ namespace Do_Not_Disturb.Classes
 
 
 
-                    new Geometry(new Point(66*col, 66*row), enumArr[num]);
+                    new Geometry(new Point(66 * col, 66 * row), enumArr[num]);
 
 
-                    
+
 
                 }
 
             }
-            
-
         }
-
-        public string GetFilePath()
-        {
-            return filePath;
-        }
-
         public RED loadActualObjects(string filename)
         {
             string[] allLines = File.ReadAllLines(filename);

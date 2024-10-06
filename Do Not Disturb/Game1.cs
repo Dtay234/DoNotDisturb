@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Media;
 using Do_Not_Disturb.Classes;
 using Do_Not_Disturb.Classes.Puzzle;
 using System.Collections.Generic;
+using System.Reflection.Emit;
 
 namespace Do_Not_Disturb
 {
@@ -59,6 +60,7 @@ namespace Do_Not_Disturb
             Player.spriteSheet = Content.Load<Texture2D>("Images/RedPanda");
 
             Level level = new Level("../../../Content/levels/level1.csv");
+            level.loadWorld();
             levelCompleteCondition = level.loadActualObjects("../../../Content/levels/level1_object.csv");
             lastLevel = level;
             _graphics.PreferredBackBufferHeight = 1080;
@@ -317,8 +319,13 @@ namespace Do_Not_Disturb
 
         public void ResetLevel()
         {
-           
-            lastLevel = new Level(lastLevel.GetFilePath());
+            for(int _ = 0; _ < 1000; _++) {
+                objects.Clear();
+                Geometry.map.Clear();
+                lastLevel.loadWorld();
+                levelCompleteCondition = lastLevel.loadActualObjects("../../../Content/levels/level1_object.csv");
+            }
+
         }
     }
 }
