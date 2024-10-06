@@ -383,20 +383,19 @@ namespace Do_Not_Disturb
 
                             _spriteBatch.Draw(pixel, new Rectangle(300, 50, 1250, 1000), Color.Black);
 
-                            _spriteBatch.DrawString(font, "\n   Hi! Welcome to Do Not Disturb, where we follow \n   the imagination of a young child as they \n   play with their stuffed red panda RED. \n   (Yes. It is all caps) \n   " +
-                                "Explore the map and find the blocks in the level, \n   and put all three of those blocks together to make RED's name. \n   All you have to do is get all three of them to touch.\n   " +
-                                "Jump around, move things, and most of all have fun! \n   " +
-                                "" +
-                                "Controls:" +
+                            _spriteBatch.DrawString(font, "\n   NO PARENTS ALLOWED!! \n   All you need to have fun is your panda friend Red. \n" +
+                                "   Spell his name with blocks to complete the level." + "\n\n   No one can make you leave your world of whimsy." + 
+                                "\n\n" +
+                                "   Controls:" +
                                 "\n   A : Move Left" +
                                 "\n   D : Move Right" +
                                 "\n   S : Crouch Down" +
                                 "\n   Space : Jump" +
-                                "\n   T : Form a bubble \n   (You AND the blocks can be bounced by the bubble!)" +
-                                "\n   P : Pause the game!" +
-                                "\n   I : Pull up this information page again (And close it)" +
-                                "\n" +
-                                "\n   Most importantly of all, explore and have fun!", new Vector2(300, 50), Color.White);
+                                "\n   T : Form a bubble to bounce around" +
+                                "\n   P : Pause" +
+                                "\n\n   I : Open and close information page" +
+                                "\n   Esc : Exit" +
+                                "\n   ", new Vector2(300, 50), Color.White);;
                                 break;
                 case GameStates.PauseScreen:
                     {
