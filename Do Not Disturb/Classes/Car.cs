@@ -25,6 +25,7 @@ namespace Do_Not_Disturb.Classes
         bool wound = false;
         bool sound = true;
         private bool sfx = false;
+        bool immediate = true;
 
         public Car(Vector2 position) : base(position, new Rectangle(position.ToPoint(), new Point(163,73)))
         {
@@ -42,13 +43,15 @@ namespace Do_Not_Disturb.Classes
                 timer -= gameTime.ElapsedGameTime.TotalSeconds;
                 animation.ChangeAnimation(Animations.Wind, (int)faceDirection, false);
 
-                while(sound == true)
+                while(sound == true )
                 {
                     Game1.toyCar.Play();
                     sound = false;
                 }
                 
-                
+
+
+
             }
             else
             {

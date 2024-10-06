@@ -9,6 +9,7 @@ using System.Reflection.Emit;
 using System.Threading;
 using System.IO;
 using Microsoft.Xna.Framework.Audio;
+using System.Reflection;
 
 namespace Do_Not_Disturb
 {
@@ -51,6 +52,8 @@ namespace Do_Not_Disturb
         private Song titleSong;
         private Song gameSong;
         public static SoundEffect toyCar;
+        public static SoundEffectInstance toyCarInstance;
+
         private int levelIndex;
         private int maxLevelIndex;
 
@@ -126,9 +129,10 @@ namespace Do_Not_Disturb
             Car.sheet = Content.Load<Texture2D>("Images/CarSheet");
             gameSong = Content.Load<Song>("Audio/GameMusic");
             toyCar = Content.Load<SoundEffect>("Audio/ToyCar");
+            toyCarInstance = toyCar.CreateInstance();
 
 
-            
+
 
             pressEnter = Content.Load<Texture2D>("Images/PressEnter");
             Paused = Content.Load<Texture2D>("Images/Paused");
@@ -138,10 +142,15 @@ namespace Do_Not_Disturb
             
         }
 
-        public void MediaPlayer_MediaStateChnage(object sender,System.EventArgs e)
+        public void TitleSong(object sender, System.EventArgs e)
         {
             MediaPlayer.Volume -= 0.1f;
             MediaPlayer.Play(titleSong);
+        }
+
+        public void GameSong(object sender, System.EventArgs e)
+        {
+            MediaPlayer.Volume -= 0.1f;
             MediaPlayer.Play(gameSong);
         }
 
@@ -163,8 +172,8 @@ namespace Do_Not_Disturb
                 {       
                         if(titleSong.PlayCount == 0)
                         {
-                            MediaPlayer.Play(titleSong);
-                            MediaPlayer.IsRepeating = true;
+                            
+                            TitleSong(gameTime, System.EventArgs.Empty);
                         }
                       
                         kbs = Keyboard.GetState();
@@ -216,8 +225,7 @@ namespace Do_Not_Disturb
                 {
                         if (gameSong.PlayCount == 0)
                         {
-                            MediaPlayer.Play(gameSong);
-                            MediaPlayer.IsRepeating = true;
+                            GameSong(gameTime, System.EventArgs.Empty);
                         }
 
                         if (kbs.IsKeyDown(Keys.P) && prevKBS.IsKeyUp(Keys.P))
@@ -233,15 +241,14 @@ namespace Do_Not_Disturb
                             MediaPlayer.Pause();
                             
                         }
-
-                        if(kbs.IsKeyDown(Keys.I) && prevKBS.IsKeyUp(Keys.I))
+                        
+                        if (kbs.IsKeyDown(Keys.R) && prevKBS.IsKeyUp(Keys.R))
                         {
-                            gameState = GameStates.Information;
-                            MediaPlayer.Pause();
+                           ResetLevel();
                         }
 
 
-                        for (int i = 0; i < objects.Count; i++) 
+                            for (int i = 0; i < objects.Count; i++) 
                         {
                             GameObject obj = objects[i];
 
