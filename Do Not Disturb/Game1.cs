@@ -75,7 +75,7 @@ namespace Do_Not_Disturb
             loading = Content.Load<Texture2D>("Images/LoadingSpriteSheet");
             Bubble.sprite = Content.Load<Texture2D>("Images/BubbleSprite");
             Geometry.tileset = Content.Load<Texture2D>("Images/AllBlocks");
-            background = Content.Load<Texture2D>("Images/Background");
+            background = Content.Load<Texture2D>("Images/BackGround");
 
             Vector2 loadingScreenPosition = new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
 
