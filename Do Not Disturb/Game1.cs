@@ -6,6 +6,7 @@ using Do_Not_Disturb.Classes;
 using Do_Not_Disturb.Classes.Puzzle;
 using System.Collections.Generic;
 using System.Reflection.Emit;
+using System.Threading;
 
 namespace Do_Not_Disturb
 {
@@ -56,7 +57,7 @@ namespace Do_Not_Disturb
             {
                 Level level = new Level("../../../Content/levels/level" + i + ".csv", "../../../Content/levels/level" + i + "_object.csv");
                 levelList.Add(level);
-                maxLevelIndex += 1;
+                maxLevelIndex ++;
             }
             levelIndex = 0;
             // TODO: Add your initialization logic here
@@ -85,9 +86,10 @@ namespace Do_Not_Disturb
 
         protected override void LoadContent()
         {
-            lastLevel = levelList[levelIndex];
+            
             lastLevel.loadWorld();
             levelCompleteCondition = lastLevel.loadActualObjects();
+            levelCompleteCondition.LevelComplete += newLevel;
 
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
@@ -329,15 +331,31 @@ namespace Do_Not_Disturb
             return temp1 || temp2;
         }
 
+        public void newLevel()
+        {
+            Thread.Sleep(5000);
+            objects.Clear();
+            Geometry.map.Clear();
+            
+            if (levelIndex == maxLevelIndex)
+            {
+                levelIndex = 0;
+            } else
+            {
+                levelIndex++;
+            }
+
+            lastLevel = levelList[levelIndex];
+            lastLevel.loadWorld();
+            levelCompleteCondition = lastLevel.loadActualObjects();
+        }
         public void ResetLevel()
         {
-            for(int _ = 0; _ < 1000; _++) {
                 objects.Clear();
                 Geometry.map.Clear();
                 lastLevel.loadWorld();
                 levelCompleteCondition = lastLevel.loadActualObjects();
-            }
-
+           
         }
     }
 }
