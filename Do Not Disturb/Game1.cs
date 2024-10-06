@@ -117,7 +117,11 @@ namespace Do_Not_Disturb
 
                 case GameStates.Game:
                 {
-                        
+                        if (kbs.IsKeyDown(Keys.R))
+                        {
+                            ResetLevel();
+                        }
+
                         for (int i = 0; i < objects.Count; i++) 
                         {
                             GameObject obj = objects[i];
@@ -154,11 +158,11 @@ namespace Do_Not_Disturb
 
         protected override void Draw(GameTime gameTime)
         {
-            //GraphicsDevice.Clear(Color.DeepSkyBlue);
+            GraphicsDevice.Clear(Color.White);
 
             _spriteBatch.Begin();
 
-            _spriteBatch.Draw(background, background.Bounds, Color.White);
+            
 
             switch (gameState)
             {
@@ -174,10 +178,18 @@ namespace Do_Not_Disturb
                     }
                 case GameStates.Game:
                     {
-                        if (kbs.IsKeyDown(Keys.R))
-                        {
-                            ResetLevel();
-                        }
+                        _spriteBatch.Draw(background,
+                                new Rectangle(
+                                    _graphics.PreferredBackBufferWidth / 2 - background.Width,
+                                    _graphics.PreferredBackBufferHeight / 2 - background.Height,
+                                    background.Width * 2, background.Height * 2),
+                                background.Bounds,
+                                Color.White,
+                                0f, Vector2.Zero,
+                                SpriteEffects.None,
+                                0);
+
+                        
 
                         foreach (Geometry box in Geometry.map)
                         {
@@ -185,10 +197,14 @@ namespace Do_Not_Disturb
                         }
                         foreach (GameObject obj in objects)
                         {
+                            
+
                             obj.Draw(_spriteBatch);
                             _spriteBatch.Draw(pixel, new Rectangle(
                                 Camera.RelativePosition(obj.Hitbox.Location.ToVector2()).ToPoint(),
                                 obj.Hitbox.Size), Color.White);
+
+                            
                         }
                         break;
                     }
@@ -198,7 +214,6 @@ namespace Do_Not_Disturb
                     }
             }
 
-            // TODO: Add your drawing code here
             
 
             _spriteBatch.End();
