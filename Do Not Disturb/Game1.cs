@@ -37,9 +37,7 @@ namespace Do_Not_Disturb
         private Texture2D background;
 
         private Song titleSong;
-        private double timer;
         private Song gameSong;
-        private double timer2;
 
         public Game1()
         {
@@ -110,7 +108,6 @@ namespace Do_Not_Disturb
             switch (gameState){
                 case GameStates.Menu:
                 {
-                        timer += gameTime.ElapsedGameTime.TotalSeconds;
                         
                         if(titleSong.PlayCount == 0)
                         {
@@ -156,7 +153,7 @@ namespace Do_Not_Disturb
                             
                         }
 
-                        timer2 += gameTime.ElapsedGameTime.TotalSeconds;
+                        
 
                         if (gameSong.PlayCount == 0)
                         {
