@@ -84,11 +84,12 @@ namespace Do_Not_Disturb
             }
 
             Player.spriteSheet = Content.Load<Texture2D>("Images/RedPanda");
+            Car.sheet = Content.Load<Texture2D>("Images/CarSheet");
             levelIndex = 1;
             NextLevel();
             
             
-            Car.sheet = Content.Load<Texture2D>("Images/CarSheet");
+            
 
 
             lastLevel = levelList[levelIndex];
