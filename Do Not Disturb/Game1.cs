@@ -200,11 +200,13 @@ namespace Do_Not_Disturb
                         foreach (GameObject obj in objects)
                         {
                             
-
+                            
                             obj.Draw(_spriteBatch);
+                            /*
                             _spriteBatch.Draw(pixel, new Rectangle(
                                 Camera.RelativePosition(obj.Hitbox.Location.ToVector2()).ToPoint(),
                                 obj.Hitbox.Size), Color.White);
+                            */
 
                             
                         }
