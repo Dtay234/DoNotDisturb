@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Reflection.Emit;
 using System.Threading;
 using System.IO;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Do_Not_Disturb
 {
@@ -40,6 +41,7 @@ namespace Do_Not_Disturb
         private Texture2D background;
 
         private Song titleSong;
+        private Song gameSong;
         private int levelIndex;
         private int maxLevelIndex;
 
@@ -113,6 +115,7 @@ namespace Do_Not_Disturb
             background = Content.Load<Texture2D>("Images/BackGround");
             titleSong = Content.Load<Song>("Audio/TitlleMusic");
             Car.sheet = Content.Load<Texture2D>("Images/CarSheet");
+            gameSong = Content.Load<Song>("Audio/GameMusic");
 
             Vector2 loadingScreenPosition = new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
 
@@ -131,17 +134,13 @@ namespace Do_Not_Disturb
             
             switch (gameState){
                 case GameStates.Menu:
-                {
-                        
-                        
+                {       
                         if(titleSong.PlayCount == 0)
                         {
                             MediaPlayer.Play(titleSong);
                             MediaPlayer.IsRepeating = true;
                         }
-                        
-
-                        
+                     
                         kbs = Keyboard.GetState();
                         if (kbs.IsKeyDown(Keys.Enter))
                         {
@@ -154,7 +153,13 @@ namespace Do_Not_Disturb
 
                 case GameStates.PauseScreen:
                 {
-                    break;
+                        if (kbs.IsKeyDown(Keys.P) && prevKBS.IsKeyUp(Keys.P))
+                        {
+                            gameState = GameStates.Game;
+                            MediaPlayer.Resume();
+                        }
+
+                        break;
                 }
 
                 case GameStates.Loading:
@@ -165,9 +170,21 @@ namespace Do_Not_Disturb
 
                 case GameStates.Game:
                 {
+                        if (gameSong.PlayCount == 0)
+                        {
+                            MediaPlayer.Play(gameSong);
+                            MediaPlayer.IsRepeating = true;
+                        }
+                       
                         if (kbs.IsKeyDown(Keys.R))
                         {
                             ResetLevel();
+                        }
+
+                        if (kbs.IsKeyDown(Keys.P) && prevKBS.IsKeyUp(Keys.P))
+                        {
+                            gameState = GameStates.PauseScreen;
+                            MediaPlayer.Pause();
                         }
 
                         for (int i = 0; i < objects.Count; i++) 
