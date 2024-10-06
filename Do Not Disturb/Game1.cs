@@ -204,13 +204,7 @@ namespace Do_Not_Disturb
                     }
                     break;
 
-                case GameStates.Information:
-                    if( kbs.IsKeyDown(Keys.I) && prevKBS.IsKeyUp(Keys.I))
-                    {
-                        gameState = GameStates.Game;
-                        MediaPlayer.Resume();
-                    }
-                    break;
+                
 
                 case GameStates.Loading:
                     {
