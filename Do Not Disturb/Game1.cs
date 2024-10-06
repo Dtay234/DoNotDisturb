@@ -60,6 +60,7 @@ namespace Do_Not_Disturb
                 maxLevelIndex ++;
             }
             levelIndex = 0;
+            objects = new();
             // TODO: Add your initialization logic here
 
             //remove this later
