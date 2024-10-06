@@ -21,6 +21,11 @@ namespace Do_Not_Disturb
     }
     public class Game1 : Game
     {
+        private enum Animations
+        {
+            Default,
+            None
+        }
         public static SpriteFont font;
         public static Texture2D pixel;
         public static List<GameObject> objects = new();
@@ -35,11 +40,13 @@ namespace Do_Not_Disturb
         private GameStates gameState = GameStates.Menu;
         private Level lastLevel;
         private List<Level> levelList = new List<Level>();
+        private Animation<Animations> anim;
 
         private RED levelCompleteCondition;
 
         private Texture2D background;
-
+        private Texture2D pressEnter;
+        private Texture2D Paused;
         private Song titleSong;
         private Song gameSong;
         private Song toyCar;
@@ -57,6 +64,10 @@ namespace Do_Not_Disturb
 
         protected override void Initialize()
         {
+            loading = Content.Load<Texture2D>("Images/LoadingSpriteSheet");
+            anim = new Animation<Animations>("loadScreen.txt", loading);
+            //anim.ChangeAnimation(Animations.None, 0, false);
+
             try
             {
                 int i = 1;
@@ -74,7 +85,7 @@ namespace Do_Not_Disturb
             }
 
             Player.spriteSheet = Content.Load<Texture2D>("Images/RedPanda");
-            levelIndex = -1;
+            levelIndex = 1;
             NextLevel();
             
             
@@ -114,6 +125,8 @@ namespace Do_Not_Disturb
             gameSong = Content.Load<Song>("Audio/GameMusic");
             toyCar = Content.Load<Song>("Audio/ToyCar");
 
+            pressEnter = Content.Load<Texture2D>("Images/PressEnter");
+            Paused = Content.Load<Texture2D>("Images/Paused");
 
             Vector2 loadingScreenPosition = new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
 
@@ -125,6 +138,7 @@ namespace Do_Not_Disturb
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            anim.Update(gameTime);
             
 
             prevKBS = kbs;
@@ -230,12 +244,15 @@ namespace Do_Not_Disturb
 
             switch (gameState)
             {
+
                 case GameStates.Menu:
 
                 {
                         _spriteBatch.Draw(background, new Rectangle(0, 0, 1920, 1080), Color.White);
 
                         _spriteBatch.Draw(title, new Rectangle(750,600,652,260), Color.White);
+
+                        _spriteBatch.Draw(pressEnter, new Rectangle(750, 900, 226, 72), Color.White);
                         
                         break;
                 }
@@ -295,6 +312,8 @@ namespace Do_Not_Disturb
 
 
 
+
+
                         foreach (Geometry box in Geometry.map)
                         {
                             box.Draw(_spriteBatch);
@@ -314,11 +333,12 @@ namespace Do_Not_Disturb
                         }
 
                         _spriteBatch.Draw(pixel, new Rectangle(0, 0, 2000, 2000), Color.Gray);
+                        _spriteBatch.Draw(Paused, new Rectangle(960 - (116 * 2), 540 - (47 * 2) - 30, 116 * 4, 47 * 4), Color.White);
                         break;
                     }
             }
 
-            
+            anim.DrawScreen(_spriteBatch, new Rectangle(0, 0, 1920, 1080), 0);
 
             _spriteBatch.End();
             base.Draw(gameTime);
@@ -397,6 +417,10 @@ namespace Do_Not_Disturb
 
         public void NextLevel()
         {
+            anim.ChangeAnimation(Animations.Default, 0, true);
+            //anim.ChangeAnimation(Animations.None, 0, false);
+
+            //Thread.Sleep(1000);
             objects.Clear();
             Geometry.map.Clear();
 
