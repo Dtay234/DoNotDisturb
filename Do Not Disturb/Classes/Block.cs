@@ -19,16 +19,30 @@ namespace Do_Not_Disturb.Classes
             this.type = type;
             gravity = 100;
             maxXVelocity = 50;
+            int[] factors;
+
+            if (type.ToString().Contains("Hor"))
+            {
+                factors = new int[] { 2, 1 };
+            } else if (type.ToString().Contains("Vert"))
+            {
+                factors = new int[] { 1, 2 };
+            } else
+            {
+                factors = new int[] { 1, 1 };
+            }
 
             var enumArr = Enum.GetValues(typeof(BlockTypes)).Cast<BlockTypes>().ToArray();
             for (int i = 0; i < enumArr.Length; i++)
             {
                 if (enumArr[i] == type)
                 {
-                    this.source = new Rectangle((i % 10) * 66, (i / 10) * 66, 66, 66);
+                    this.source = new Rectangle((i % 10) * 66 , (i / 10) * 66, 66 * factors[0] , 66 * factors[1]);
                     break;
                 }
             }
+            hitbox.Height = hitbox.Height * factors[1];
+            hitbox.Width = hitbox.Width * factors[0];
         }
 
         public override void Update(GameTime gameTime)
