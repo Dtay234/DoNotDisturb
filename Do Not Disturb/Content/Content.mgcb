@@ -188,38 +188,3 @@
 /processorParam:TextureFormat=Color
 /build:Images/WhitePixel.png
 
-#begin levels/level0.csv
-/importer:
-/processor:
-/build:levels/level0.csv
-
-#begin levels/level1_object.csv
-/importer:
-/processor:
-/build:levels/level1_object.csv
-
-#begin levels/level1.csv
-/importer:
-/processor:
-/build:levels/level1.csv
-
-#begin levels/level2_object.csv
-/importer:
-/processor:
-/build:levels/level2_object.csv
-
-#begin levels/level2.csv
-/importer:
-/processor:
-/build:levels/level2.csv
-
-#begin levels/level3_object.csv
-/importer:
-/processor:
-/build:levels/level3_object.csv
-
-#begin levels/level3.csv
-/importer:
-/processor:
-/build:levels/level3.csv
-
