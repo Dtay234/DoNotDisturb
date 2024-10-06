@@ -20,6 +20,8 @@ namespace Do_Not_Disturb.Classes
         private string filePath;
         private int levelNumber;
 
+        public static BlockTypes[] enumArr = Enum.GetValues(typeof(BlockTypes)).Cast<BlockTypes>().ToArray();
+
         public Level(int windowHeight, int windowWidth)
         {
             this.windowHeight = windowHeight;
@@ -31,7 +33,7 @@ namespace Do_Not_Disturb.Classes
                // new Geometry(new Point(100i, ))
             }
             
-            new Block(new Vector2(500, 500), new Rectangle(0, 0, 100, 100), BlockTypes.ARedBlock);
+            new Block(new Vector2(500, 500), BlockTypes.ARedBlock);
             new Bubble(new Vector2(1000, 1950), new Rectangle(0, 0, 20, 20));
 
         }
@@ -64,8 +66,8 @@ namespace Do_Not_Disturb.Classes
                     }
                     
 
-                    BlockTypes enumValue = Enum.GetValues(typeof(BlockTypes)).Cast<BlockTypes>().ToArray()[num];
-                    new Geometry(new Point(66*col, 66*row), enumValue);
+                    
+                    new Geometry(new Point(66*col, 66*row), enumArr[num]);
 
 
                     
@@ -80,6 +82,37 @@ namespace Do_Not_Disturb.Classes
         public string GetFilePath()
         {
             return filePath;
+        }
+
+        public void loadActualObjects(string filename)
+        {
+            string[] allLines = File.ReadAllLines(filename);
+            string[] lines;
+            for(int i = 1; i < allLines.Length; i++) { 
+                lines = allLines[i].Split(",");
+                int[] dimensions;
+                if (lines[0].Equals("Player"))
+                {
+                    continue;
+                }
+                BlockTypes enumVal = enumArr[Array.IndexOf(enumArr, lines[0])];
+                /*
+                if (lines[0].Contains("Hort"))
+                {
+                    dimensions = new int[] { 2, 1 };
+                }
+                else if ()
+                {
+
+                }
+                else
+                {
+                    dimensions = new int[] { 1, 1 };
+                }
+                */
+                new Block(new Vector2(float.Parse(lines[1]), float.Parse(lines[2])) , enumVal);
+
+            }
         }
 
 

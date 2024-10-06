@@ -19,9 +19,9 @@ namespace Do_Not_Disturb.Classes.Puzzle
 
         public RED(Vector2 rPos, Vector2 ePos, Vector2 dPos) 
         {
-            R = new Block(rPos, new Rectangle(0, 0, 66, 66), BlockTypes.RBlueBlock);
-            E = new Block(ePos, new Rectangle(0, 0, 66, 66), BlockTypes.EGreenBlock);
-            D = new Block(dPos, new Rectangle(0, 0, 66, 66), BlockTypes.EGreenBlock);
+            R = new Block(rPos, BlockTypes.RBlueBlock);
+            E = new Block(ePos, BlockTypes.EGreenBlock);
+            D = new Block(dPos, BlockTypes.EGreenBlock);
 
 
         }

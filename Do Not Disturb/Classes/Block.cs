@@ -12,7 +12,7 @@ namespace Do_Not_Disturb.Classes
     internal class Block : Collidable
     {
         private BlockTypes type;
-        public Block(Vector2 position, Rectangle hitbox, BlockTypes type) : base(position, hitbox)
+        public Block(Vector2 position,  BlockTypes type) : base(position, new Rectangle(position.ToPoint(), new Point(66, 66)))
         {
             this.type = type;
             gravity = 100;
