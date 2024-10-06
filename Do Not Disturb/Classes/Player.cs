@@ -41,6 +41,7 @@ namespace Do_Not_Disturb.Classes
             Camera.Focus = this;
             Camera.OriginalFocus = this.position;
             animation = new("player.txt", spriteSheet);
+            animation.ChangeAnimation(PlayerMovement.Idle, (int)faceDirection, false);
             maxXVelocity = 50;
         }
 
@@ -153,7 +154,7 @@ namespace Do_Not_Disturb.Classes
         {
             if (!Grounded)
             {
-                if (state != PlayerMovement.Pushing)
+                if (state != PlayerMovement.Pushing && state != PlayerMovement.Idle)
                 { animation.ChangeAnimation(PlayerMovement.Jumping, (int)faceDirection, true); 
                     state = PlayerMovement.Jumping; }
                 if (state == PlayerMovement.Jumping)
