@@ -191,6 +191,7 @@ namespace Do_Not_Disturb
                         {
                             gameState = GameStates.PauseScreen;
                             MediaPlayer.Pause();
+                            
                         }
 
                         for (int i = 0; i < objects.Count; i++) 
@@ -239,8 +240,12 @@ namespace Do_Not_Disturb
             {
 
                 case GameStates.Menu:
+
                 {
-                        _spriteBatch.Draw(title, new Rectangle(150,150,652,260), Color.White);
+                        _spriteBatch.Draw(background, new Rectangle(0, 0, 1920, 1080), Color.White);
+
+                        _spriteBatch.Draw(title, new Rectangle(750,600,652,260), Color.White);
+                        
                         break;
                 }
                 case GameStates.Loading:
@@ -285,6 +290,39 @@ namespace Do_Not_Disturb
                     }
                 case GameStates.PauseScreen:
                     {
+                        Point parallaxOffset = Camera.Parallax(8).ToPoint();
+                        _spriteBatch.Draw(background,
+                                new Rectangle(
+                                    _graphics.PreferredBackBufferWidth / 2 - (int)(background.Width * 1.5f + parallaxOffset.X),
+                                    _graphics.PreferredBackBufferHeight / 2 - (int)(background.Height * 1.5f + parallaxOffset.Y),
+                                    background.Width * 3, background.Height * 3),
+                                background.Bounds,
+                                Color.White,
+                                0f, Vector2.Zero,
+                                SpriteEffects.None,
+                                0);
+
+
+
+                        foreach (Geometry box in Geometry.map)
+                        {
+                            box.Draw(_spriteBatch);
+                        }
+                        foreach (GameObject obj in objects)
+                        {
+
+
+                            obj.Draw(_spriteBatch);
+                            /*
+                            _spriteBatch.Draw(pixel, new Rectangle(
+                                Camera.RelativePosition(obj.Hitbox.Location.ToVector2()).ToPoint(),
+                                obj.Hitbox.Size), Color.White);
+                            */
+
+
+                        }
+
+                        _spriteBatch.Draw(pixel, new Rectangle(0, 0, 2000, 2000), Color.Gray);
                         break;
                     }
             }
