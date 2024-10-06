@@ -39,7 +39,8 @@ namespace Do_Not_Disturb
         private RED levelCompleteCondition;
 
         private Texture2D background;
-
+        private Texture2D pressEnter;
+        private Texture2D Paused;
         private Song titleSong;
         private Song gameSong;
         private int levelIndex;
@@ -111,6 +112,8 @@ namespace Do_Not_Disturb
             titleSong = Content.Load<Song>("Audio/TitlleMusic");
             Car.sheet = Content.Load<Texture2D>("Images/CarSheet");
             gameSong = Content.Load<Song>("Audio/GameMusic");
+            pressEnter = Content.Load<Texture2D>("Images/PressEnter");
+            Paused = Content.Load<Texture2D>("Images/Paused");
 
             Vector2 loadingScreenPosition = new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
 
@@ -233,6 +236,8 @@ namespace Do_Not_Disturb
                         _spriteBatch.Draw(background, new Rectangle(0, 0, 1920, 1080), Color.White);
 
                         _spriteBatch.Draw(title, new Rectangle(750,600,652,260), Color.White);
+
+                        _spriteBatch.Draw(pressEnter, new Rectangle(750, 900, 226, 72), Color.White);
                         
                         break;
                 }
@@ -292,6 +297,8 @@ namespace Do_Not_Disturb
 
 
 
+
+
                         foreach (Geometry box in Geometry.map)
                         {
                             box.Draw(_spriteBatch);
@@ -311,6 +318,7 @@ namespace Do_Not_Disturb
                         }
 
                         _spriteBatch.Draw(pixel, new Rectangle(0, 0, 2000, 2000), Color.Gray);
+                        _spriteBatch.Draw(Paused, new Rectangle(960 - (116 * 2), 540 - (47 * 2) - 30, 116 * 4, 47 * 4), Color.White);
                         break;
                     }
             }
