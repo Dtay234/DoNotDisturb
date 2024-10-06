@@ -18,7 +18,8 @@ namespace Do_Not_Disturb.Classes
         private int windowHeight;
         private int windowWidth;
         private List<GameObject> objects;
-        private string filePath;
+        private string filePath_world;
+        private string filePath_objects;
         private int levelNumber;
 
         public static BlockTypes[] enumArr = Enum.GetValues(typeof(BlockTypes)).Cast<BlockTypes>().ToArray();
@@ -39,22 +40,22 @@ namespace Do_Not_Disturb.Classes
 
         }
 
-        public Level(String filename)
+        public Level(String filename_world, string filename_objects)
         {
-            filePath = filename;
-  
+            filePath_world = filename_world;
+            filePath_objects = filename_objects;
             
 
         }
 
         public string GetFilePath()
         {
-            return filePath;
+            return filePath_world;
         }
 
         public void loadWorld()
         {
-            String[] allLines = File.ReadAllLines(this.filePath);
+            String[] allLines = File.ReadAllLines(this.filePath_world);
 
             int width = 0;
             int height = 0;
@@ -100,9 +101,9 @@ namespace Do_Not_Disturb.Classes
 
             }
         }
-        public RED loadActualObjects(string filename)
+        public RED loadActualObjects()
         {
-            string[] allLines = File.ReadAllLines(filename);
+            string[] allLines = File.ReadAllLines(filePath_objects);
             string[] lines;
             Vector2[] RED = new Vector2[3];
             for(int i = 1; i < allLines.Length; i++) { 
@@ -115,20 +116,6 @@ namespace Do_Not_Disturb.Classes
 
                 BlockTypes enumVal = (BlockTypes)Enum.Parse(typeof(BlockTypes), lines[0]);
 
-                /*
-                if (lines[0].Contains("Hort"))
-                {
-                    dimensions = new int[] { 2, 1 };
-                }
-                else if ()
-                {
-
-                }
-                else
-                {
-                    dimensions = new int[] { 1, 1 };
-                }
-                */
 
                 if(enumVal == BlockTypes.RBlueBlock)
                 {

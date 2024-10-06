@@ -31,6 +31,7 @@ namespace Do_Not_Disturb
         private KeyboardState prevKBS;
         private GameStates gameState = GameStates.Menu;
         private Level lastLevel;
+        private List<Level> levelList = new List<Level>();
 
         private static RED levelCompleteCondition;
 
@@ -38,6 +39,9 @@ namespace Do_Not_Disturb
 
         private Song titleSong;
         private double timer;
+        private int levelIndex;
+        private int maxLevelIndex;
+
 
         public Game1()
         {
@@ -48,9 +52,14 @@ namespace Do_Not_Disturb
 
         protected override void Initialize()
         {
+            for (int i = 1; i <= 2; i++)
+            {
+                Level level = new Level("../../../Content/levels/level" + i + ".csv", "../../../Content/levels/level" + i + "_object.csv");
+                levelList.Add(level);
+                maxLevelIndex += 1;
+            }
+            levelIndex = 0;
             // TODO: Add your initialization logic here
-
-             levelCompleteCondition = new RED(new Vector2(225, 700), new Vector2(300, 700), new Vector2(425, 700));
 
             //remove this later
 
@@ -59,10 +68,9 @@ namespace Do_Not_Disturb
             //objects.Add(new Bubble(new Vector2(300, 600), new Rectangle(100000, 10000, 20, 20)));
             Player.spriteSheet = Content.Load<Texture2D>("Images/RedPanda");
 
-            Level level = new Level("../../../Content/levels/level1.csv");
-            level.loadWorld();
-            levelCompleteCondition = level.loadActualObjects("../../../Content/levels/level1_object.csv");
-            lastLevel = level;
+            
+
+            lastLevel = levelList[levelIndex];
             _graphics.PreferredBackBufferHeight = 1080;
             _graphics.PreferredBackBufferWidth = 1920;
             _graphics.ApplyChanges();
@@ -77,6 +85,10 @@ namespace Do_Not_Disturb
 
         protected override void LoadContent()
         {
+            lastLevel = levelList[levelIndex];
+            lastLevel.loadWorld();
+            levelCompleteCondition = lastLevel.loadActualObjects();
+
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             Player.spriteSheet = Content.Load<Texture2D>("Images/RedPanda");
@@ -323,7 +335,7 @@ namespace Do_Not_Disturb
                 objects.Clear();
                 Geometry.map.Clear();
                 lastLevel.loadWorld();
-                levelCompleteCondition = lastLevel.loadActualObjects("../../../Content/levels/level1_object.csv");
+                levelCompleteCondition = lastLevel.loadActualObjects();
             }
 
         }
