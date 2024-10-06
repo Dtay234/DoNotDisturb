@@ -228,8 +228,12 @@ namespace Do_Not_Disturb
             switch (gameState)
             {
                 case GameStates.Menu:
+
                 {
-                        _spriteBatch.Draw(title, new Rectangle(150,150,652,260), Color.White);
+                        _spriteBatch.Draw(background, new Rectangle(0, 0, 1920, 1080), Color.White);
+
+                        _spriteBatch.Draw(title, new Rectangle(750,600,652,260), Color.White);
+                        
                         break;
                 }
                 case GameStates.Loading:
