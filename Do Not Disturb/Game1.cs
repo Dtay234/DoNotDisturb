@@ -42,6 +42,7 @@ namespace Do_Not_Disturb
 
         private Song titleSong;
         private Song gameSong;
+        private Song toyCar;
         private int levelIndex;
         private int maxLevelIndex;
 
@@ -111,6 +112,8 @@ namespace Do_Not_Disturb
             titleSong = Content.Load<Song>("Audio/TitlleMusic");
             Car.sheet = Content.Load<Texture2D>("Images/CarSheet");
             gameSong = Content.Load<Song>("Audio/GameMusic");
+            toyCar = Content.Load<Song>("Audio/ToyCar");
+
 
             Vector2 loadingScreenPosition = new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
 
