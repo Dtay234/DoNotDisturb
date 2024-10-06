@@ -21,6 +21,7 @@ namespace Do_Not_Disturb
         public static List<GameObject> objects = new();
         public static Texture2D title;
         public static Texture2D loading;
+        public static float Scale = 1.5f;
 
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;

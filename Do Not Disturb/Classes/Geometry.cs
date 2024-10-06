@@ -111,7 +111,7 @@ namespace Do_Not_Disturb.Classes
         {
             Vector2 temp = Camera.RelativePosition(boundBox.Location.ToVector2());
             sb.Draw(tileset, 
-                new Rectangle(temp.ToPoint(), BoundBox.Size), 
+                new Rectangle(temp.ToPoint().X, temp.ToPoint().Y, (int)(BoundBox.Width * Game1.Scale), (int)(BoundBox.Height * Game1.Scale)), 
                 source, 
                 Color.White);
         }
