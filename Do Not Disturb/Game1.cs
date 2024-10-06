@@ -223,6 +223,8 @@ namespace Do_Not_Disturb
                         
                         break;
                     }
+                case GameStates.PauseScreen:
+                    
                 case GameStates.Game:
                     {
                         Point parallaxOffset = Camera.Parallax(8).ToPoint();
@@ -258,10 +260,7 @@ namespace Do_Not_Disturb
                         }
                         break;
                     }
-                case GameStates.PauseScreen:
-                    {
-                        break;
-                    }
+                
             }
 
             
