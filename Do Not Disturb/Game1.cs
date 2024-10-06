@@ -251,9 +251,9 @@ namespace Do_Not_Disturb
                 {
                         _spriteBatch.Draw(background, new Rectangle(0, 0, 1920, 1080), Color.White);
 
-                        _spriteBatch.Draw(title, new Rectangle(750,600,652,260), Color.White);
+                        _spriteBatch.Draw(title, new Rectangle(665,600,652,260), Color.White);
 
-                        _spriteBatch.Draw(pressEnter, new Rectangle(750, 900, 226, 72), Color.White);
+                        _spriteBatch.Draw(pressEnter, new Rectangle(740, 900, 226 * 2, 72 * 2), Color.White);
                         
                         break;
                 }
