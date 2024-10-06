@@ -39,6 +39,7 @@ namespace Do_Not_Disturb.Classes
         {
             gravity = 70;
             Camera.Focus = this;
+            Camera.OriginalFocus = this.position;
             animation = new("player.txt", spriteSheet);
             maxXVelocity = 50;
         }

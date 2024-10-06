@@ -178,10 +178,11 @@ namespace Do_Not_Disturb
                     }
                 case GameStates.Game:
                     {
+                        Point parallaxOffset = Camera.Parallax(4).ToPoint();
                         _spriteBatch.Draw(background,
                                 new Rectangle(
-                                    _graphics.PreferredBackBufferWidth / 2 - background.Width,
-                                    _graphics.PreferredBackBufferHeight / 2 - background.Height,
+                                    _graphics.PreferredBackBufferWidth / 2 - background.Width * 1 + parallaxOffset.X,
+                                    _graphics.PreferredBackBufferHeight / 2 - background.Height * 1 + parallaxOffset.Y,
                                     background.Width * 2, background.Height * 2),
                                 background.Bounds,
                                 Color.White,
