@@ -52,6 +52,7 @@ namespace Do_Not_Disturb
             //new Block(new Vector2(500, 500), new Rectangle(0, 0, 100, 100), BlockTypes.ARedBlock);
 
             //objects.Add(new Bubble(new Vector2(300, 600), new Rectangle(100000, 10000, 20, 20)));
+            Player.spriteSheet = Content.Load<Texture2D>("Images/RedPanda");
 
             Level level = new Level("../../../Content/levels/level1.csv");
             lastLevel = level;
@@ -59,8 +60,8 @@ namespace Do_Not_Disturb
             _graphics.PreferredBackBufferWidth = 1920;
             _graphics.ApplyChanges();
 
-            Player.spriteSheet = Content.Load<Texture2D>("Images/RedPanda");
-            new Player(new Vector2(500, 650));
+            
+            
 
             Camera.globalOffset = new Vector2(_graphics.PreferredBackBufferWidth / 2, _graphics.PreferredBackBufferHeight / 2);
 

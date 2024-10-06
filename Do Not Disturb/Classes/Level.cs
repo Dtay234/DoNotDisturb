@@ -65,6 +65,16 @@ namespace Do_Not_Disturb.Classes
                     {
                         continue;
                     }
+                    if (num == -2)
+                    {
+                        if(Game1.objects.Exists(x => x is Player))
+                        {
+                            throw new Exception("Too many players!");
+                        }
+
+                        new Player(new Vector2(66 * col, 66 * row));
+                        continue;
+                    }
                     
 
                     
