@@ -46,6 +46,7 @@ namespace Do_Not_Disturb.Classes
             get
             {
 
+                return 20;
                 // Min accuracy is 1
                 if (velocity.X == 0 &&
                     velocity.Y == 0)

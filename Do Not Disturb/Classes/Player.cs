@@ -37,9 +37,10 @@ namespace Do_Not_Disturb.Classes
 
         public Player(Vector2 position) : base (position, new Rectangle(0, 0, 75, 44))
         {
-            acceleration.Y = 70;
+            gravity = 70;
             Camera.Focus = this;
             animation = new("player.txt", spriteSheet);
+            maxXVelocity = 50;
         }
 
         public override void Update(GameTime gt)
@@ -68,18 +69,16 @@ namespace Do_Not_Disturb.Classes
                 !kState.IsKeyDown(Keys.D))
             {
                 // acceleration is higher if the player is moving in the opposite direction for smoother movement
-                if (Math.Sign(velocity.X) >= 0)
-                    velocity.X = -maxXVelocity / 2;
+                
                 acceleration.X = velocity.X > 0 ? -maxXVelocity * 5f : -maxXVelocity * 2f;
 
-                //faceDirection = FaceDirection.Left;
+                faceDirection = FaceDirection.Left;
             }
             else if (kState.IsKeyDown(Keys.D) &&
                 !kState.IsKeyDown(Keys.A))
             {
                 // acceleration is higher if the player is moving in the opposite direction for smoother movement
-                if (Math.Sign(velocity.X) <= 0)
-                    velocity.X = maxXVelocity / 2;
+                
                 acceleration.X = velocity.X < 0 ? maxXVelocity * 5f : maxXVelocity * 2f;
 
                 faceDirection = FaceDirection.Right;
@@ -91,7 +90,7 @@ namespace Do_Not_Disturb.Classes
             {
                 if (Grounded)
                 {
-                    velocity.Y = -50;
+                    velocity.Y = -70;
 
                     /*
                     //remove any buffered jumps from the list
@@ -146,7 +145,7 @@ namespace Do_Not_Disturb.Classes
         
         public void UpdateAnimations(KeyboardState kb)
         {
-            if (!Grounded && state != PlayerMovement.Jumping)
+            if (!Grounded)
             {
                 animation.ChangeAnimation(PlayerMovement.Jumping, (int)faceDirection, true);
                 return;
