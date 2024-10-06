@@ -91,7 +91,7 @@ namespace Do_Not_Disturb.Classes
             {
                 if (Grounded)
                 {
-                    velocity.Y = -70;
+                    velocity.Y = -55;
 
                     /*
                     //remove any buffered jumps from the list
@@ -148,7 +148,12 @@ namespace Do_Not_Disturb.Classes
         {
             if (!Grounded)
             {
-                animation.ChangeAnimation(PlayerMovement.Jumping, (int)faceDirection, true);
+                if (state != PlayerMovement.Pushing)
+                { animation.ChangeAnimation(PlayerMovement.Jumping, (int)faceDirection, true); 
+                    state = PlayerMovement.Jumping; }
+                if (state == PlayerMovement.Jumping)
+                { animation.ChangeAnimation(PlayerMovement.Pushing, (int)faceDirection, false); 
+                    state = PlayerMovement.Pushing; }
                 return;
             }
 
@@ -164,15 +169,18 @@ namespace Do_Not_Disturb.Classes
             if (kb.IsKeyDown(Keys.S) && state != PlayerMovement.Crouching)
             {
                 animation.ChangeAnimation(PlayerMovement.Crouching, (int)faceDirection, true);
+                state= PlayerMovement.Crouching;
             }
 
             else if (velocity.X != 0 && state != PlayerMovement.Pushing)
             {
                 animation.ChangeAnimation(PlayerMovement.Walking, (int)faceDirection, true);
+                state = PlayerMovement.Walking;
             }
             else
             {
                 animation.ChangeAnimation(PlayerMovement.Standing, (int)faceDirection);
+                state = PlayerMovement.Standing;
             }
 
             
@@ -182,17 +190,22 @@ namespace Do_Not_Disturb.Classes
 
         public void ShootBubble()
         {
-            Vector2 bubblePos = new Vector2();
-            if(state.Equals(FaceDirection.Left))
+            if (Game1.objects.Exists(x => x is Bubble))
             {
-                bubblePos = new Vector2(position.X - 100, position.Y);
+                return;
+            }
+
+            Vector2 bubblePos = new Vector2();
+            if(faceDirection == FaceDirection.Left)
+            {
+                bubblePos = new Vector2(position.X - 100, position.Y - 50);
             } else
             {
-                bubblePos = new Vector2(position.X + 100, position.Y);
+                bubblePos = new Vector2(position.X + 100, position.Y - 50);
                 
 
             }
-            new Bubble(bubblePos, new Rectangle(0, 0, 40, 40));
+            new Bubble(bubblePos, new Rectangle(0, 0, 84, 84));
         }
      
 
