@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Do_Not_Disturb.Classes.Puzzle;
 using System.Data;
+using System.Reflection;
 
 namespace Do_Not_Disturb.Classes
 {
@@ -17,16 +18,17 @@ namespace Do_Not_Disturb.Classes
         private int windowWidth;
         private List<GameObject> objects;
         private string filePath;
-        
+
         public Level(int windowHeight, int windowWidth)
         {
             this.windowHeight = windowHeight;
             this.windowWidth = windowWidth;
-
-            new Geometry(new Rectangle(0, 0, 10, windowHeight), BlockTypes.ARedBlock);
-            new Geometry(new Rectangle(windowWidth, 0, 10, windowHeight), BlockTypes.ARedBlock);
-            new Geometry(new Rectangle(0, 0, windowWidth, 10), BlockTypes.ARedBlock);
-            new Geometry(new Rectangle(0, windowWidth, windowWidth, 10), BlockTypes.ARedBlock);
+            int[] coords = {2, 0};
+             
+            new Geometry(new Rectangle(0, 0, 10, windowHeight), BlockTypes.ARedBlock, coords );
+            new Geometry(new Rectangle(windowWidth, 0, 10, windowHeight), BlockTypes.ARedBlock ,coords);
+            new Geometry(new Rectangle(0, 0, windowWidth, 10), BlockTypes.ARedBlock, coords);
+            new Geometry(new Rectangle(0, windowWidth, windowWidth, 10), BlockTypes.ARedBlock, coords);
             
             new Block(new Vector2(500, 500), new Rectangle(0, 0, 100, 100), BlockTypes.ARedBlock);
             new Bubble(new Vector2(1000, 1950), new Rectangle(0, 0, 20, 20));
@@ -58,7 +60,7 @@ namespace Do_Not_Disturb.Classes
                             break;
 
                         case "2":
-                            new Geometry(new Rectangle(col * 66, row * 66, 66, 66), BlockTypes.TopVertLongBlock);
+                            new Geometry(new Rectangle(col * 66, row * 66, 66, 66), BlockTypes.TopVertLongBlock, (Tuple<int, int>)(0, 2));
                             break;
 
                         case "4":

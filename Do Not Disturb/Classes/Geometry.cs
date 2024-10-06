@@ -60,6 +60,7 @@ namespace Do_Not_Disturb.Classes
         public static Dictionary<BlockTypes, Point> boxDimensions = new();
         private Rectangle boundBox;
         private BlockTypes type;
+        private int[] coords;
 
 
         public Rectangle BoundBox
@@ -67,11 +68,12 @@ namespace Do_Not_Disturb.Classes
             get { return boundBox; }
         }
 
-        public Geometry(Rectangle boundBox, BlockTypes type)
+        public Geometry(Rectangle boundBox, BlockTypes type, int[] coords)
         {
             this.boundBox = boundBox;
             this.type = type;
             map.Add(this);
+            this.coords = coords;
         }
 
         public void Draw(SpriteBatch sb)
