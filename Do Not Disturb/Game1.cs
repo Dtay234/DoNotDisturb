@@ -102,6 +102,7 @@ namespace Do_Not_Disturb
             Geometry.tileset = Content.Load<Texture2D>("Images/AllBlocks");
             background = Content.Load<Texture2D>("Images/BackGround");
             titleSong = Content.Load<Song>("Audio/TitlleMusic");
+            
 
             Vector2 loadingScreenPosition = new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
 
