@@ -387,9 +387,9 @@ namespace Do_Not_Disturb
                                 "\n   Space : Jump" +
                                 "\n   T : Form a bubble \n   (You AND the blocks can be bounced by the bubble!)" +
                                 "\n   P : Pause the game!" +
-                                "\n   I : Pull up this information page again" +
+                                "\n   I : Pull up this information page again (And close it)" +
                                 "\n" +
-                                "\n   1Most importantly of all, explore and have fun!", new Vector2(300, 50), Color.White);
+                                "\n   Most importantly of all, explore and have fun!", new Vector2(300, 50), Color.White);
                                 break;
                 case GameStates.PauseScreen:
                     {
