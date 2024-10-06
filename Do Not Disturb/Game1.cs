@@ -92,7 +92,7 @@ namespace Do_Not_Disturb
 
             Player.spriteSheet = Content.Load<Texture2D>("Images/RedPanda");
             Car.sheet = Content.Load<Texture2D>("Images/CarSheet");
-            levelIndex = -1;
+            levelIndex = 1;
             NextLevel();
             
             
@@ -391,10 +391,10 @@ namespace Do_Not_Disturb
                                 "\n   D : Move Right" +
                                 "\n   S : Crouch Down" +
                                 "\n   Space : Jump" +
-                                "\n   T : Form a bubble to bounce around" +
+                                "\n   Left-click : Form a bubble to bounce around" +
                                 "\n   P : Pause" +
                                 "\n\n   I : Open and close information page" +
-                                "\n   Esc : Exit" +
+                                "\n   Esc : Quit" +
                                 "\n   ", new Vector2(300, 50), Color.White);;
                                 break;
                 case GameStates.PauseScreen:
@@ -514,6 +514,13 @@ namespace Do_Not_Disturb
             //Thread.Sleep(1000);
             objects.Clear();
             Geometry.map.Clear();
+
+            if(levelIndex >= levelList.Count - 1)
+            {
+                levelIndex = -1;
+                gameState = GameStates.Menu;
+                return;
+            }
 
             levelIndex++;
             levelList[levelIndex].loadWorld();
