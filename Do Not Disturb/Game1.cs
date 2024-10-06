@@ -68,8 +68,8 @@ namespace Do_Not_Disturb
 
             //objects.Add(new Bubble(new Vector2(300, 600), new Rectangle(100000, 10000, 20, 20)));
             Player.spriteSheet = Content.Load<Texture2D>("Images/RedPanda");
+            Car.sheet = Content.Load<Texture2D>("Images/CarSheet");
 
-            
 
             lastLevel = levelList[levelIndex];
             _graphics.PreferredBackBufferHeight = 1080;
