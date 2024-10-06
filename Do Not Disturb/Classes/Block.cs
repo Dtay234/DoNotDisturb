@@ -16,6 +16,7 @@ namespace Do_Not_Disturb.Classes
         {
             this.type = type;
             gravity = 100;
+            maxXVelocity = 50;
         }
 
         public override void Update(GameTime gameTime)
@@ -51,19 +52,21 @@ namespace Do_Not_Disturb.Classes
 
         public override void Draw(SpriteBatch sb)
         {
-            
+            sb.DrawString(Game1.font, velocity.X.ToString(), new Vector2(200, 0), Color.Black);
         }
 
         public override void OnCollision_H(GameObject obj)
         {
-            acceleration.X = obj.Velocity.X;
-            if (velocity.X == 0)
+            if (Math.Sign(obj.Velocity.X * obj.Acceleration.X) >= 0)
             {
-                velocity.X = 1 * Math.Sign(acceleration.X);
+                velocity.X = obj.Acceleration.X / 4;
+
+                obj.Velocity = new Vector2(
+                    //maxXVelocity * Math.Sign(obj.Acceleration.X) / 3, 
+                    velocity.X,
+                    obj.Velocity.Y);
             }
             
-
-            obj.Velocity = new Vector2(0, obj.Velocity.Y);
         }
 
         public override void OnCollision_V(GameObject obj)

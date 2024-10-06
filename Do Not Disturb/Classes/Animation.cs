@@ -124,7 +124,7 @@ namespace Do_Not_Disturb.Classes
                 return;
             }
 
-            if (!currentAnimation.Equals(newAnimation) && reset)
+            else if (!currentAnimation.Equals(newAnimation) && reset)
             {
                 currentAnimation = newAnimation;
                 animationFrame = 0;
@@ -132,7 +132,7 @@ namespace Do_Not_Disturb.Classes
                 timer = 0;
             }
 
-            if (!currentAnimation.Equals(newAnimation) && animationFrame == 0)
+            else if (!currentAnimation.Equals(newAnimation) && animationFrame == 0)
             {
                 currentAnimation = newAnimation;
                 animationFrame = 0;
@@ -140,10 +140,13 @@ namespace Do_Not_Disturb.Classes
                 timer = 0;
             }
 
+         
+
+                faceDirection = (FaceDirection)i;
+            
 
 
-
-            faceDirection = (FaceDirection)i;
+            
             
         }
 

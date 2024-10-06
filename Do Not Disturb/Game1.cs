@@ -42,11 +42,11 @@ namespace Do_Not_Disturb
         {
             // TODO: Add your initialization logic here
 
-            
+            RED levelCompleteCondition = new RED(new Vector2(100, 200), new Vector2(250, 200), new Vector2(400, 200));
 
             //remove this later
 
-            new Block(new Vector2(500, 500), new Rectangle(0, 0, 100, 100), BlockTypes.ARedBlock);
+            //new Block(new Vector2(500, 500), new Rectangle(0, 0, 100, 100), BlockTypes.ARedBlock);
 
             //objects.Add(new Bubble(new Vector2(300, 600), new Rectangle(100000, 10000, 20, 20)));
 
@@ -138,6 +138,8 @@ namespace Do_Not_Disturb
                         {
                             objects.Remove(temp);
                         }
+
+
 
                         break;
                 }

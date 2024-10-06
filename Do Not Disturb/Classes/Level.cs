@@ -45,6 +45,7 @@ namespace Do_Not_Disturb.Classes
             int height = 0;
             bool inBlock = true;
 
+            
             for(int row = 0; row < allLines.Length; row++)
             {
                 if(row == 0)
@@ -72,6 +73,7 @@ namespace Do_Not_Disturb.Classes
                 }
 
             }
+            
 
         }
 
