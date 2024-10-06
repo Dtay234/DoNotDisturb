@@ -86,7 +86,8 @@ namespace Do_Not_Disturb.Classes
             obj.Velocity = new Vector2(velocity.X + obj.Velocity.X, 0);
             else
             {
-                obj.Velocity = new Vector2(velocity.X, 0);
+
+                obj.Velocity = new Vector2(velocity.X, velocity.Y < 0 ? velocity.Y : obj.Velocity.Y);
             }
         }
 
