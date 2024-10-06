@@ -18,6 +18,7 @@ namespace Do_Not_Disturb
         Game,
         PauseScreen,
         Loading,
+        Information
     }
     public class Game1 : Game
     {
@@ -86,7 +87,7 @@ namespace Do_Not_Disturb
 
             Player.spriteSheet = Content.Load<Texture2D>("Images/RedPanda");
             Car.sheet = Content.Load<Texture2D>("Images/CarSheet");
-            levelIndex = 1;
+            levelIndex = -1;
             NextLevel();
             
             
@@ -157,8 +158,16 @@ namespace Do_Not_Disturb
                         kbs = Keyboard.GetState();
                         if (kbs.IsKeyDown(Keys.Enter))
                         {
-                            gameState = GameStates.Game;
+                            if(levelIndex <= 0)
+                            {
+                                gameState = GameStates.Information;
+                            } else
+                            {
+                                gameState = GameStates.Game;
+                                
+                            }
                             MediaPlayer.Stop();
+
                         }
                      prevKBS = kbs;
                     break;
@@ -174,6 +183,14 @@ namespace Do_Not_Disturb
 
                         break;
                 }
+
+                case GameStates.Information:
+                    if( kbs.IsKeyDown(Keys.I) && prevKBS.IsKeyUp(Keys.I))
+                    {
+                        gameState = GameStates.Game;
+                        MediaPlayer.Resume();
+                    }
+                    break;
 
                 case GameStates.Loading:
                     {
@@ -199,6 +216,12 @@ namespace Do_Not_Disturb
                             gameState = GameStates.PauseScreen;
                             MediaPlayer.Pause();
                             
+                        }
+
+                        if(kbs.IsKeyDown(Keys.I) && prevKBS.IsKeyUp(Keys.I))
+                        {
+                            gameState = GameStates.Information;
+                            MediaPlayer.Pause();
                         }
 
                         for (int i = 0; i < objects.Count; i++) 
@@ -297,19 +320,56 @@ namespace Do_Not_Disturb
                         }
                         break;
                     }
+
+                case GameStates.Information:
+                    
+
+
+
+
+
+                            foreach (Geometry box in Geometry.map)
+                            {
+                                box.Draw(_spriteBatch);
+                            }
+                            foreach (GameObject obj in objects)
+                            {
+
+
+                                obj.Draw(_spriteBatch);
+                                /*
+                                _spriteBatch.Draw(pixel, new Rectangle(
+                                    Camera.RelativePosition(obj.Hitbox.Location.ToVector2()).ToPoint(),
+                                    obj.Hitbox.Size), Color.White);
+                                */
+
+
+                            }
+
+                          
+
+                            _spriteBatch.Draw(pixel, new Rectangle(0, 0, 2000, 2000), Color.Gray);
+
+                            _spriteBatch.Draw(pixel, new Rectangle(300, 50, 1250, 1000), Color.Black);
+
+                            _spriteBatch.DrawString(font, "\n   Hi! Welcome to Do Not Disturb, where we follow \n   the imagination of a young child as they \n   play with their stuffed red panda RED. \n   (Yes. It is all caps) \n   " +
+                                "Explore the map and find the blocks in the level, \n   and put all three of those blocks together to make RED's name. \n   All you have to do is get all three of them to touch.\n   " +
+                                "Jump around, move things, and most of all have fun! \n   " +
+                                "" +
+                                "Controls:" +
+                                "\n   A : Move Left" +
+                                "\n   D : Move Right" +
+                                "\n   S : Crouch Down" +
+                                "\n   Space : Jump" +
+                                "\n   T : Form a bubble \n   (You AND the blocks can be bounced by the bubble!)" +
+                                "\n   P : Pause the game!" +
+                                "\n   I : Pull up this information page again" +
+                                "\n" +
+                                "\n   1Most importantly of all, explore and have fun!", new Vector2(300, 50), Color.White);
+                                break;
                 case GameStates.PauseScreen:
                     {
-                        Point parallaxOffset = Camera.Parallax(8).ToPoint();
-                        _spriteBatch.Draw(background,
-                                new Rectangle(
-                                    _graphics.PreferredBackBufferWidth / 2 - (int)(background.Width * 1.5f + parallaxOffset.X),
-                                    _graphics.PreferredBackBufferHeight / 2 - (int)(background.Height * 1.5f + parallaxOffset.Y),
-                                    background.Width * 3, background.Height * 3),
-                                background.Bounds,
-                                Color.White,
-                                0f, Vector2.Zero,
-                                SpriteEffects.None,
-                                0);
+                        
 
 
 
