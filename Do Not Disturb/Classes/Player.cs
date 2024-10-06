@@ -51,6 +51,11 @@ namespace Do_Not_Disturb.Classes
 
         public void Update(GameTime gameTime, KeyboardState kState, KeyboardState prev)
         {
+            if(Game1.stallPopped < 5 && Game1.stallPopped > 0)
+            {
+                Game1.stallPopped += gameTime.ElapsedGameTime.TotalSeconds * 2;
+
+            }
             if (Grounded)
             {
                 acceleration.Y = 0;
@@ -62,11 +67,16 @@ namespace Do_Not_Disturb.Classes
 
             if (kState.IsKeyDown(Keys.T) && !prev.IsKeyDown(Keys.T)) 
             {
-                if (Game1.stallPopped)
+                if(Game1.stallPopped == 0 || Game1.stallPopped > 5)
                 {
-                    for(int _ = 0; _ < 100; _++) { }
-                }
                     ShootBubble();
+                    Game1.stallPopped = 0;
+                } else
+                {
+                    Game1.stallPopped += gameTime.ElapsedGameTime.TotalSeconds * 20;
+                }
+                
+                    
                 
             }
 
@@ -195,10 +205,12 @@ namespace Do_Not_Disturb.Classes
 
         public void ShootBubble()
         {
+
             if (Game1.objects.Exists(x => x is Bubble))
             {
                 return;
             }
+
 
             Vector2 bubblePos = new Vector2();
             if(faceDirection == FaceDirection.Left)

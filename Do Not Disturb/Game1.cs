@@ -33,13 +33,13 @@ namespace Do_Not_Disturb
         private GameStates gameState = GameStates.Menu;
         private Level lastLevel;
         private List<Level> levelList = new List<Level>();
-        public static bool stallPopped = false;
 
         private static RED levelCompleteCondition;
 
         private Texture2D background;
 
         private Song titleSong;
+        private double timer;
         private int levelIndex;
         private int maxLevelIndex;
 
@@ -60,7 +60,6 @@ namespace Do_Not_Disturb
                 maxLevelIndex ++;
             }
             levelIndex = 0;
-            objects = new();
             // TODO: Add your initialization logic here
 
             //remove this later
@@ -69,8 +68,8 @@ namespace Do_Not_Disturb
 
             //objects.Add(new Bubble(new Vector2(300, 600), new Rectangle(100000, 10000, 20, 20)));
             Player.spriteSheet = Content.Load<Texture2D>("Images/RedPanda");
-            Car.sheet = Content.Load<Texture2D>("Images/CarSheet");
 
+            
 
             lastLevel = levelList[levelIndex];
             _graphics.PreferredBackBufferHeight = 1080;
@@ -103,7 +102,7 @@ namespace Do_Not_Disturb
             Geometry.tileset = Content.Load<Texture2D>("Images/AllBlocks");
             background = Content.Load<Texture2D>("Images/BackGround");
             titleSong = Content.Load<Song>("Audio/TitlleMusic");
-            Car.sheet = Content.Load<Texture2D>("Images/CarSheet");
+            
 
             Vector2 loadingScreenPosition = new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
 
@@ -123,7 +122,7 @@ namespace Do_Not_Disturb
             switch (gameState){
                 case GameStates.Menu:
                 {
-                        
+                        timer += gameTime.ElapsedGameTime.TotalSeconds;
                         
                         if(titleSong.PlayCount == 0)
                         {
