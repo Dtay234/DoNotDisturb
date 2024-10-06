@@ -51,22 +51,53 @@ namespace Do_Not_Disturb.Classes
                     
                 }
                 string[] letters = allLines[row].Split(',');
+
                 
                 for(int col = 0; col < letters.Length; col++)
                 {
+                    int num = Int32.Parse(letters[col]);
+                    int[] coords = new int[] { num / 6, num % 6 };
+
+                    if (num == 0)
+                    {
+
+                    } else if(num == 1)
+                    {
+                        new Geometry(new Rectangle(col * 66, row * 66, 66, 66), BlockTypes.EGreenBlock, coords);
+
+                    }
+                    else if(num == 2)
+                    {
+                    
+                    } else if (num == 3)
+                    {
+
+                    } else if (num == 4)
+                    {
+
+                    } else if ((num == 5))
+                    {
+
+                    } else if((num == 6))
+                    {
+
+                    } else if(())
                     switch(letters[col])
                     {
                         case "-1":
                             break;
 
                         case "2":
-                            new Geometry(new Rectangle(col * 66, row * 66, 66, 66), BlockTypes.TopVertLongBlock, (Tuple<int, int>)(0, 2));
+                            
+
                             break;
 
                         case "4":
+                            coords;
                             break;
 
                         case "10":
+                            int[] coords = new int[] { num / 6, num % 6 };
                             new Geometry(new Rectangle(col * 66, row * 66, 66, 66), BlockTypes.LeftHorLongBlock);
                             break;
 
@@ -75,6 +106,7 @@ namespace Do_Not_Disturb.Classes
                             break;
 
                         case "12":
+                            int[] coords = { 0, 2 };
                             new Geometry(new Rectangle(col * 66, row * 66, 66, 66), BlockTypes.BotVertLongBlock);
                             break;
                     }
