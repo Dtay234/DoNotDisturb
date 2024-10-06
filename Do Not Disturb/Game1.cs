@@ -7,6 +7,7 @@ using Do_Not_Disturb.Classes.Puzzle;
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using System.Threading;
+using System.IO;
 
 namespace Do_Not_Disturb
 {
@@ -34,7 +35,7 @@ namespace Do_Not_Disturb
         private Level lastLevel;
         private List<Level> levelList = new List<Level>();
 
-        private static RED levelCompleteCondition;
+        private RED levelCompleteCondition;
 
         private Texture2D background;
 
@@ -50,16 +51,27 @@ namespace Do_Not_Disturb
             IsMouseVisible = true;
         }
 
+
         protected override void Initialize()
         {
-            for (int i = 1; i <= 2; i++)
+            try
             {
-                Level level = new Level("../../../Content/levels/level" + i + ".csv", "../../../Content/levels/level" + i + "_object.csv");
-                levelList.Add(level);
-                maxLevelIndex ++;
+                int i = 1;
+                while (true)
+                {
+                    StreamReader reader = new StreamReader("../../../Content/levels/level" + i + ".csv");
+                    Level level = new Level("../../../Content/levels/level" + i + ".csv", "../../../Content/levels/level" + i + "_object.csv");
+                    levelList.Add(level);
+                    i++;
+                }
             }
-            levelIndex = 0;
-            objects = new();
+            catch
+            {
+
+            }
+           
+            levelIndex = -1;
+            NextLevel();
             // TODO: Add your initialization logic here
 
             //remove this later
@@ -87,9 +99,7 @@ namespace Do_Not_Disturb
         protected override void LoadContent()
         {
             
-            lastLevel.loadWorld();
-            levelCompleteCondition = lastLevel.loadActualObjects();
-            levelCompleteCondition.LevelComplete += newLevel;
+            
 
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
@@ -332,31 +342,27 @@ namespace Do_Not_Disturb
             return temp1 || temp2;
         }
 
-        public void newLevel()
+        public void NextLevel()
         {
-            Thread.Sleep(5000);
+            Thread.Sleep(1000);
             objects.Clear();
             Geometry.map.Clear();
-            
-            if (levelIndex == maxLevelIndex)
-            {
-                levelIndex = 0;
-            } else
-            {
-                levelIndex++;
-            }
 
-            lastLevel = levelList[levelIndex];
-            lastLevel.loadWorld();
-            levelCompleteCondition = lastLevel.loadActualObjects();
+            levelIndex++;
+            levelList[levelIndex].loadWorld();
+            levelCompleteCondition = levelList[levelIndex].loadActualObjects();
+
+
+
+            levelCompleteCondition.LevelComplete += NextLevel;
+
         }
         public void ResetLevel()
         {
-                objects.Clear();
-                Geometry.map.Clear();
-                lastLevel.loadWorld();
-                levelCompleteCondition = lastLevel.loadActualObjects();
-           
+            levelIndex--;
+
+            NextLevel();
+
         }
     }
 }

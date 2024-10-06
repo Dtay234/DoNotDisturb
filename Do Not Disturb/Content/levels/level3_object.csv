@@ -2,4 +2,4 @@ object,position x,position y
 RBlueBlock,28,28
 EGreenBlock,48,29
 DYellowBlock,50,29
-OPlayer,48,36
+Player,48,36

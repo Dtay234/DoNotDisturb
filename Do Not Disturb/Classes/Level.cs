@@ -139,9 +139,10 @@ namespace Do_Not_Disturb.Classes
                 }
 
             }
+                RED comp = new RED(RED[0], RED[1], RED[2]);
+                return comp;
+            
 
-            return new RED(RED[0], RED[1], RED[2]);
-           
         }
 
 
