@@ -27,6 +27,10 @@ namespace Do_Not_Disturb.Classes
 
         public static Vector2 Parallax(float factor)
         {
+            if (Focus == null)
+            {
+                return Vector2.Zero;
+            }
             return -(Focus.Position - OriginalFocus) / factor;
         }
     }
