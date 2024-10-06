@@ -28,8 +28,8 @@ namespace Do_Not_Disturb
         private KeyboardState prevKBS;
         private GameStates gameState = GameStates.Menu;
         private Level lastLevel;
-        
-     
+
+        private Texture2D background;
 
         public Game1()
         {
@@ -42,22 +42,22 @@ namespace Do_Not_Disturb
         {
             // TODO: Add your initialization logic here
 
-            
+            RED levelCompleteCondition = new RED(new Vector2(100, 200), new Vector2(250, 200), new Vector2(400, 200));
 
             //remove this later
 
-            new Block(new Vector2(500, 500), new Rectangle(0, 0, 100, 100), BlockTypes.ARedBlock);
+            //new Block(new Vector2(500, 500), new Rectangle(0, 0, 100, 100), BlockTypes.ARedBlock);
 
             //objects.Add(new Bubble(new Vector2(300, 600), new Rectangle(100000, 10000, 20, 20)));
 
-            Level level = new Level("../../../Content/levels/level0.csv");
+            Level level = new Level("../../../Content/levels/level1.csv");
             lastLevel = level;
             _graphics.PreferredBackBufferHeight = 1080;
             _graphics.PreferredBackBufferWidth = 1920;
             _graphics.ApplyChanges();
 
             Player.spriteSheet = Content.Load<Texture2D>("Images/RedPanda");
-            new Player(new Vector2(500, 350));
+            new Player(new Vector2(500, 650));
 
             Camera.globalOffset = new Vector2(_graphics.PreferredBackBufferWidth / 2, _graphics.PreferredBackBufferHeight / 2);
 
@@ -74,7 +74,8 @@ namespace Do_Not_Disturb
             title = Content.Load<Texture2D>("Images/Title");
             loading = Content.Load<Texture2D>("Images/LoadingSpriteSheet");
             Bubble.sprite = Content.Load<Texture2D>("Images/BubbleSprite");
-            Geometry.LoadBlocks(Content);
+            Geometry.tileset = Content.Load<Texture2D>("Images/AllBlocks");
+            background = Content.Load<Texture2D>("Images/Background");
 
             Vector2 loadingScreenPosition = new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
 
@@ -139,6 +140,8 @@ namespace Do_Not_Disturb
                             objects.Remove(temp);
                         }
 
+
+
                         break;
                 }
                
@@ -151,9 +154,11 @@ namespace Do_Not_Disturb
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.DeepSkyBlue);
+            //GraphicsDevice.Clear(Color.DeepSkyBlue);
 
             _spriteBatch.Begin();
+
+            _spriteBatch.Draw(background, background.Bounds, Color.White);
 
             switch (gameState)
             {
