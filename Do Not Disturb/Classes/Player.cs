@@ -91,7 +91,7 @@ namespace Do_Not_Disturb.Classes
             {
                 if (Grounded)
                 {
-                    velocity.Y = -70;
+                    velocity.Y = -55;
 
                     /*
                     //remove any buffered jumps from the list
@@ -148,7 +148,10 @@ namespace Do_Not_Disturb.Classes
         {
             if (!Grounded)
             {
-                animation.ChangeAnimation(PlayerMovement.Jumping, (int)faceDirection, true);
+                if (state != PlayerMovement.Pushing)
+                { animation.ChangeAnimation(PlayerMovement.Jumping, (int)faceDirection, true); state = PlayerMovement.Jumping; }
+                if (state == PlayerMovement.Jumping)
+                { animation.ChangeAnimation(PlayerMovement.Pushing, (int)faceDirection, false); state = PlayerMovement.Pushing; }
                 return;
             }
 
@@ -164,15 +167,18 @@ namespace Do_Not_Disturb.Classes
             if (kb.IsKeyDown(Keys.S) && state != PlayerMovement.Crouching)
             {
                 animation.ChangeAnimation(PlayerMovement.Crouching, (int)faceDirection, true);
+                state= PlayerMovement.Crouching;
             }
 
             else if (velocity.X != 0 && state != PlayerMovement.Pushing)
             {
                 animation.ChangeAnimation(PlayerMovement.Walking, (int)faceDirection, true);
+                state = PlayerMovement.Walking;
             }
             else
             {
                 animation.ChangeAnimation(PlayerMovement.Standing, (int)faceDirection);
+                state = PlayerMovement.Standing;
             }
 
             

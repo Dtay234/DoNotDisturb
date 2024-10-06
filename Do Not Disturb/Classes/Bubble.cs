@@ -61,7 +61,7 @@ namespace Do_Not_Disturb.Classes
         {
             if (obj != null)
             {
-                (obj).Velocity = new Vector2((obj).Velocity.X, -160);
+                (obj).Velocity = new Vector2((obj).Velocity.X, -80 + -obj.Velocity.Y);
                 hitbox = new Rectangle(0,0,0,0);
                 popped = true;
                 anim.ChangeAnimation(Animations.Pop, 0, true);
