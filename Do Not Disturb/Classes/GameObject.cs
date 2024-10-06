@@ -10,7 +10,7 @@ namespace Do_Not_Disturb.Classes
 {
     public abstract class GameObject
     {
-        protected enum FaceDirection
+        public enum FaceDirection
         {
             Left,
             Right

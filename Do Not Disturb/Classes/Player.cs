@@ -204,14 +204,15 @@ namespace Do_Not_Disturb.Classes
             Vector2 bubblePos = new Vector2();
             if(faceDirection == FaceDirection.Left)
             {
-                bubblePos = new Vector2(position.X - 100, position.Y - 50);
+                bubblePos = new Vector2(position.X - 100, position.Y);
             } else
             {
-                bubblePos = new Vector2(position.X + 100, position.Y - 50);
+                bubblePos = new Vector2(position.X + 100, position.Y);
                 
 
             }
-            new Bubble(bubblePos, new Rectangle(0, 0, 84, 84));
+            new Bubble(bubblePos - new Vector2(35,35), new Rectangle(0, 0, 70, 70), 
+                faceDirection);
         }
      
 

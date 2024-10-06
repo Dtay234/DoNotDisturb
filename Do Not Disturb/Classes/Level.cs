@@ -24,21 +24,7 @@ namespace Do_Not_Disturb.Classes
 
         public static BlockTypes[] enumArr = Enum.GetValues(typeof(BlockTypes)).Cast<BlockTypes>().ToArray();
 
-        public Level(int windowHeight, int windowWidth)
-        {
-            this.windowHeight = windowHeight;
-            this.windowWidth = windowWidth;
-            int[] coords = {2, 0};
-             
-            for (int i = 0; i< 100; i++)
-            {
-               // new Geometry(new Point(100i, ))
-            }
-            
-            new Block(new Vector2(500, 500), BlockTypes.ARedBlock);
-            new Bubble(new Vector2(1000, 1950), new Rectangle(0, 0, 20, 20));
-
-        }
+        
 
         public Level(String filename_world, string filename_objects)
         {
