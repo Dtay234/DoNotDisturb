@@ -69,17 +69,12 @@ namespace Do_Not_Disturb
             {
 
             }
-           
+
+            Player.spriteSheet = Content.Load<Texture2D>("Images/RedPanda");
             levelIndex = -1;
             NextLevel();
-            // TODO: Add your initialization logic here
-
-            //remove this later
-
-            //new Block(new Vector2(500, 500), new Rectangle(0, 0, 100, 100), BlockTypes.ARedBlock);
-
-            //objects.Add(new Bubble(new Vector2(300, 600), new Rectangle(100000, 10000, 20, 20)));
-            Player.spriteSheet = Content.Load<Texture2D>("Images/RedPanda");
+            
+            
             Car.sheet = Content.Load<Texture2D>("Images/CarSheet");
 
 
