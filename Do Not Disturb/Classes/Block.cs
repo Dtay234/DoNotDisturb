@@ -11,12 +11,24 @@ namespace Do_Not_Disturb.Classes
 {
     internal class Block : Collidable
     {
+        Rectangle source;
         private BlockTypes type;
+
         public Block(Vector2 position,  BlockTypes type) : base(position, new Rectangle(position.ToPoint(), new Point(66, 66)))
         {
             this.type = type;
             gravity = 100;
             maxXVelocity = 50;
+
+            var enumArr = Enum.GetValues(typeof(BlockTypes)).Cast<BlockTypes>().ToArray();
+            for (int i = 0; i < enumArr.Length; i++)
+            {
+                if (enumArr[i] == type)
+                {
+                    this.source = new Rectangle((i % 10) * 66, (i / 10) * 66, 66, 66);
+                    break;
+                }
+            }
         }
 
         public override void Update(GameTime gameTime)
@@ -52,7 +64,11 @@ namespace Do_Not_Disturb.Classes
 
         public override void Draw(SpriteBatch sb)
         {
-            sb.DrawString(Game1.font, velocity.X.ToString(), new Vector2(200, 0), Color.Black);
+            Vector2 temp = Camera.RelativePosition(hitbox.Location.ToVector2());
+            sb.Draw(Geometry.tileset,
+                new Rectangle(temp.ToPoint().X, temp.ToPoint().Y, (int)(hitbox.Width * Game1.Scale), (int)(hitbox.Height * Game1.Scale)),
+                source,
+                Color.White);
         }
 
         public override void OnCollision_H(GameObject obj)

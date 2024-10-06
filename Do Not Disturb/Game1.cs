@@ -30,6 +30,8 @@ namespace Do_Not_Disturb
         private GameStates gameState = GameStates.Menu;
         private Level lastLevel;
 
+        private RED levelCompleteCondition;
+
         private Texture2D background;
 
         public Game1()
@@ -43,7 +45,7 @@ namespace Do_Not_Disturb
         {
             // TODO: Add your initialization logic here
 
-            RED levelCompleteCondition = new RED(new Vector2(100, 200), new Vector2(250, 200), new Vector2(400, 200));
+             levelCompleteCondition = new RED(new Vector2(225, 700), new Vector2(300, 700), new Vector2(425, 700));
 
             //remove this later
 
@@ -145,7 +147,7 @@ namespace Do_Not_Disturb
                             objects.Remove(temp);
                         }
 
-
+                        levelCompleteCondition.Update(gameTime);
 
                         break;
                 }
