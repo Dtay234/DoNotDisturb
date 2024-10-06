@@ -44,7 +44,6 @@ namespace Do_Not_Disturb.Classes
                 hitbox = new Rectangle(0, 0, 0, 0);
                 popped = true;
                 anim.ChangeAnimation(Animations.Pop, 0, true);
-                
                 anim.ChangeAnimation(Animations.None, 0, false);
                 Game1.stallPopped += 1;
             }
