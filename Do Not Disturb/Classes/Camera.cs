@@ -31,7 +31,7 @@ namespace Do_Not_Disturb.Classes
             {
                 return Vector2.Zero;
             }
-            return -(Focus.Position - OriginalFocus) / factor;
+            return new Vector2((-(Focus.Position - OriginalFocus) / factor).X, 0);
         }
     }
 }

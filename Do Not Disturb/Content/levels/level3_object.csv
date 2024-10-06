@@ -1,9 +1,9 @@
 object,position x,position y
-RBlueBlock,28,27
+RBlueBlock,29,27
 EGreenBlock,48,29
 DYellowBlock,50,29
 Car,28,29
 ABlueBlock,43,36
-LeftHorRedBlock,31,36
 Player,48,36
 ARedBlock,40,36
+LeftHorRedBlock,35,36

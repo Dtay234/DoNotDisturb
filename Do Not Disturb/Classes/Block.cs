@@ -50,6 +50,13 @@ namespace Do_Not_Disturb.Classes
 
         public override void Update(GameTime gameTime)
         {
+
+            GameObject obj = Game1.ObjectCollide(new Rectangle(hitbox.X, hitbox.Y + 5, hitbox.Width, hitbox.Height));
+            if (obj != null)
+            {
+                velocity.X = obj.Velocity.X;
+            }
+
            base.Update(gameTime);
 
             int sign = 0;
@@ -58,10 +65,10 @@ namespace Do_Not_Disturb.Classes
             
                 sign = Math.Sign(velocity.X);
 
-            int temp = 5;
+            int temp = 2;
             if(Grounded)
             {
-                temp = 80;
+                temp = 30;
             }
                 acceleration.X = -Math.Sign(velocity.X) * temp;
 
@@ -81,7 +88,7 @@ namespace Do_Not_Disturb.Classes
                     acceleration.X = 0;
                 }
             
-            
+                
         }
 
         public override void Draw(SpriteBatch sb)
