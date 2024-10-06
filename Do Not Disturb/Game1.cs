@@ -38,6 +38,8 @@ namespace Do_Not_Disturb
 
         private Song titleSong;
         private double timer;
+        private Song gameSong;
+        private double timer2;
 
         public Game1()
         {
@@ -88,6 +90,7 @@ namespace Do_Not_Disturb
             Geometry.tileset = Content.Load<Texture2D>("Images/AllBlocks");
             background = Content.Load<Texture2D>("Images/BackGround");
             titleSong = Content.Load<Song>("Audio/TitlleMusic");
+            gameSong = Content.Load<Song>("Audio/GameMusic");
 
             Vector2 loadingScreenPosition = new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
 
@@ -129,6 +132,12 @@ namespace Do_Not_Disturb
 
                 case GameStates.PauseScreen:
                 {
+                        MediaPlayer.Pause();
+                        if (kbs.IsKeyDown(Keys.P) && prevKBS.IsKeyUp(Keys.P))
+                        {
+                            MediaPlayer.Resume();
+                            gameState = GameStates.Game;
+                        }
                     break;
                 }
 
@@ -140,6 +149,21 @@ namespace Do_Not_Disturb
 
                 case GameStates.Game:
                 {
+                        if (kbs.IsKeyDown(Keys.P) && prevKBS.IsKeyUp(Keys.P))
+                        {
+                            MediaPlayer.Stop();
+                            gameState = GameStates.PauseScreen;
+                            
+                        }
+
+                        timer2 += gameTime.ElapsedGameTime.TotalSeconds;
+
+                        if (gameSong.PlayCount == 0)
+                        {
+                            MediaPlayer.Play(gameSong);
+                            MediaPlayer.IsRepeating = true;
+                        }
+
                         if (kbs.IsKeyDown(Keys.R))
                         {
                             ResetLevel();
