@@ -49,6 +49,7 @@ namespace Do_Not_Disturb
         private Texture2D Paused;
         private Song titleSong;
         private Song gameSong;
+        private Song toyCar;
         private int levelIndex;
         private int maxLevelIndex;
 
@@ -123,6 +124,8 @@ namespace Do_Not_Disturb
             titleSong = Content.Load<Song>("Audio/TitlleMusic");
             Car.sheet = Content.Load<Texture2D>("Images/CarSheet");
             gameSong = Content.Load<Song>("Audio/GameMusic");
+            toyCar = Content.Load<Song>("Audio/ToyCar");
+
             pressEnter = Content.Load<Texture2D>("Images/PressEnter");
             Paused = Content.Load<Texture2D>("Images/Paused");
 
