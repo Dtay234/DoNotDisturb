@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Do_Not_Disturb.Classes.Puzzle
 {
     public delegate void LevelCompleteHandler();
-    internal class RED
+    public class RED
     {
 
         public Block R;
