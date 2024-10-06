@@ -113,7 +113,11 @@ namespace Do_Not_Disturb.Classes
                 {
                     continue;
                 }
-
+                if (lines[0].Equals("Car"))
+                {
+                    new Car(new Vector2(float.Parse(lines[1]) * 66, float.Parse(lines[2]) * 66));
+                    continue;
+                }
                 BlockTypes enumVal = (BlockTypes)Enum.Parse(typeof(BlockTypes), lines[0]);
 
 
@@ -129,6 +133,7 @@ namespace Do_Not_Disturb.Classes
                     RED[2] = new Vector2(float.Parse(lines[1]) * 66, float.Parse(lines[2]) * 66);
                 } else
                 {
+                    
                   new Block(new Vector2(float.Parse(lines[1]) * 66, float.Parse(lines[2]) * 66), enumVal);
 
                 }
