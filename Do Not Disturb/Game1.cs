@@ -33,7 +33,7 @@ namespace Do_Not_Disturb
         private GameStates gameState = GameStates.Menu;
         private Level lastLevel;
         private List<Level> levelList = new List<Level>();
-        public static bool stallPopped = false;
+        public static double stallPopped = 0;
 
         private static RED levelCompleteCondition;
 
