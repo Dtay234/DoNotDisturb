@@ -62,7 +62,12 @@ namespace Do_Not_Disturb.Classes
 
             if (kState.IsKeyDown(Keys.T) && !prev.IsKeyDown(Keys.T)) 
             {
-                ShootBubble();
+                if (Game1.stallPopped)
+                {
+                    for(int _ = 0; _ < 100; _++) { }
+                }
+                    ShootBubble();
+                
             }
 
             //Horizontal movement
