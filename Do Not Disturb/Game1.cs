@@ -21,6 +21,7 @@ namespace Do_Not_Disturb
         public static List<GameObject> objects = new();
         public static Texture2D title;
         public static Texture2D loading;
+        public static float Scale = 1.5f;
 
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
@@ -28,8 +29,8 @@ namespace Do_Not_Disturb
         private KeyboardState prevKBS;
         private GameStates gameState = GameStates.Menu;
         private Level lastLevel;
-        
-     
+
+        private Texture2D background;
 
         public Game1()
         {
@@ -50,14 +51,14 @@ namespace Do_Not_Disturb
 
             //objects.Add(new Bubble(new Vector2(300, 600), new Rectangle(100000, 10000, 20, 20)));
 
-            Level level = new Level("../../../Content/levels/level0.csv");
+            Level level = new Level("../../../Content/levels/level1.csv");
             lastLevel = level;
             _graphics.PreferredBackBufferHeight = 1080;
             _graphics.PreferredBackBufferWidth = 1920;
             _graphics.ApplyChanges();
 
             Player.spriteSheet = Content.Load<Texture2D>("Images/RedPanda");
-            new Player(new Vector2(500, 350));
+            new Player(new Vector2(500, 650));
 
             Camera.globalOffset = new Vector2(_graphics.PreferredBackBufferWidth / 2, _graphics.PreferredBackBufferHeight / 2);
 
@@ -74,7 +75,8 @@ namespace Do_Not_Disturb
             title = Content.Load<Texture2D>("Images/Title");
             loading = Content.Load<Texture2D>("Images/LoadingSpriteSheet");
             Bubble.sprite = Content.Load<Texture2D>("Images/BubbleSprite");
-            Geometry.LoadBlocks(Content);
+            Geometry.tileset = Content.Load<Texture2D>("Images/AllBlocks");
+            background = Content.Load<Texture2D>("Images/BackGround");
 
             Vector2 loadingScreenPosition = new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
 
@@ -116,7 +118,11 @@ namespace Do_Not_Disturb
 
                 case GameStates.Game:
                 {
-                        
+                        if (kbs.IsKeyDown(Keys.R))
+                        {
+                            ResetLevel();
+                        }
+
                         for (int i = 0; i < objects.Count; i++) 
                         {
                             GameObject obj = objects[i];
@@ -153,9 +159,11 @@ namespace Do_Not_Disturb
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.DeepSkyBlue);
+            GraphicsDevice.Clear(Color.White);
 
             _spriteBatch.Begin();
+
+            
 
             switch (gameState)
             {
@@ -171,10 +179,19 @@ namespace Do_Not_Disturb
                     }
                 case GameStates.Game:
                     {
-                        if (kbs.IsKeyDown(Keys.R))
-                        {
-                            ResetLevel();
-                        }
+                        Point parallaxOffset = Camera.Parallax(4).ToPoint();
+                        _spriteBatch.Draw(background,
+                                new Rectangle(
+                                    _graphics.PreferredBackBufferWidth / 2 - background.Width * 1 + parallaxOffset.X,
+                                    _graphics.PreferredBackBufferHeight / 2 - background.Height * 1 + parallaxOffset.Y,
+                                    background.Width * 2, background.Height * 2),
+                                background.Bounds,
+                                Color.White,
+                                0f, Vector2.Zero,
+                                SpriteEffects.None,
+                                0);
+
+                        
 
                         foreach (Geometry box in Geometry.map)
                         {
@@ -182,10 +199,16 @@ namespace Do_Not_Disturb
                         }
                         foreach (GameObject obj in objects)
                         {
+                            
+                            
                             obj.Draw(_spriteBatch);
+                            /*
                             _spriteBatch.Draw(pixel, new Rectangle(
                                 Camera.RelativePosition(obj.Hitbox.Location.ToVector2()).ToPoint(),
                                 obj.Hitbox.Size), Color.White);
+                            */
+
+                            
                         }
                         break;
                     }
@@ -195,7 +218,6 @@ namespace Do_Not_Disturb
                     }
             }
 
-            // TODO: Add your drawing code here
             
 
             _spriteBatch.End();
