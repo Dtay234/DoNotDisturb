@@ -79,8 +79,8 @@ namespace Do_Not_Disturb.Classes
         
 
         public static List<Geometry> map = new List<Geometry>();
-        public static Dictionary<BlockTypes, Texture2D> boxSprites = new();
         public static Dictionary<BlockTypes, Point> boxDimensions = new();
+        public static Texture2D tileset;
         private Rectangle boundBox;
         private Rectangle source;
         private BlockTypes type;
@@ -100,7 +100,7 @@ namespace Do_Not_Disturb.Classes
             {
                 if (enumArr[i] == type)
                 {
-                    this.source = new Rectangle((i / 6) * 66, (i % 6) * 66, 66, 66);
+                    this.source = new Rectangle((i % 10) * 66, (i / 10) * 66, 66, 66);
                     break;
                 }
             }
@@ -110,23 +110,13 @@ namespace Do_Not_Disturb.Classes
         public void Draw(SpriteBatch sb)
         {
             Vector2 temp = Camera.RelativePosition(boundBox.Location.ToVector2());
-            sb.Draw(boxSprites[type], new Rectangle(temp.ToPoint(), BoundBox.Size), 
+            sb.Draw(tileset, 
+                new Rectangle(temp.ToPoint(), BoundBox.Size), 
                 source, 
                 Color.White);
         }
 
-        public static void LoadBlocks(ContentManager Content)
-        {
-            foreach (BlockTypes block in Enum.GetValues(typeof(BlockTypes)))
-            {
-
-                //boxSprites.Add(block, Content.Load<Texture2D>("Images/" + block.ToString()));
-                boxSprites.Add(block, Content.Load<Texture2D>("Images/" + "ARedBlock"));
-
-                boxDimensions.Add(block, new Point(boxSprites[block].Width, boxSprites[block].Height));
-                
-            }
-        }
+       
 
 
     }

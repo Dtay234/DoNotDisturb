@@ -51,6 +51,7 @@ namespace Do_Not_Disturb.Classes
                 if(row == 0)
                 {
                     levelNumber = Int32.Parse(allLines[row][0].ToString());
+                    continue;
                 }
                 string[] letters = allLines[row].Split(',');
 
