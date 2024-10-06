@@ -50,7 +50,7 @@ namespace Do_Not_Disturb.Classes
 
         }
 
-        public void Update(GameTime gameTime, KeyboardState kState, KeyboardState prev)
+        public void Update(GameTime gameTime, KeyboardState kState, KeyboardState prev, MouseState ms, MouseState prevMS)
         {
                
 
@@ -63,10 +63,9 @@ namespace Do_Not_Disturb.Classes
                 acceleration.Y = gravity;
             }
 
-            if (kState.IsKeyDown(Keys.T) && !prev.IsKeyDown(Keys.T)) 
+            if (ms.LeftButton == ButtonState.Pressed && prevMS.LeftButton != ButtonState.Pressed) 
             {
-                {
-                }
+                
                     ShootBubble();
                 
             }
@@ -196,7 +195,7 @@ namespace Do_Not_Disturb.Classes
 
         public void ShootBubble()
         {
-            if (Game1.objects.Exists(x => x is Bubble && !((Bubble)x).popped))
+            if (Game1.objects.Exists(x => x is Bubble && !((Bubble)x).popped) || Bubble.cooldown > 0)
             {
                 return;
             }

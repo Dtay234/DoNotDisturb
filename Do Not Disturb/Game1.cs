@@ -56,6 +56,8 @@ namespace Do_Not_Disturb
 
         private int levelIndex;
         private int maxLevelIndex;
+        private MouseState prevMS;
+        MouseState ms;
 
 
         public Game1()
@@ -160,12 +162,15 @@ namespace Do_Not_Disturb
                 Exit();
 
             anim.Update(gameTime);
-           
-            
 
+
+            prevMS = ms;
+            ms = Mouse.GetState();
 
             prevKBS = kbs;
             kbs = Keyboard.GetState();
+            
+             
             
             switch (gameState){
                 case GameStates.Menu:
@@ -223,6 +228,8 @@ namespace Do_Not_Disturb
 
                 case GameStates.Game:
                 {
+                        Bubble.cooldown -= gameTime.ElapsedGameTime.TotalSeconds;
+
                         if (gameSong.PlayCount == 0)
                         {
                             GameSong(gameTime, System.EventArgs.Empty);
@@ -254,7 +261,7 @@ namespace Do_Not_Disturb
 
                             if (obj is Player)
                             {
-                                ((Player)obj).Update(gameTime, kbs, prevKBS);
+                                ((Player)obj).Update(gameTime, kbs, prevKBS, ms, prevMS);
                             }
                             
                             else

@@ -25,6 +25,8 @@ namespace Do_Not_Disturb.Classes
         public bool popped = false;
         private bool active = false;
 
+        public static double cooldown = 0;
+
         public Bubble(Vector2 position, Rectangle hitbox, FaceDirection face) : base(position, hitbox)
         {
             timer = 0.5;
@@ -33,6 +35,8 @@ namespace Do_Not_Disturb.Classes
             faceDirection = face;
             anim.ChangeAnimation(Animations.Spawn, (int)faceDirection, true);
             anim.ChangeAnimation(Animations.Wobble, (int)faceDirection, false);
+
+
             
         }
 
@@ -40,6 +44,8 @@ namespace Do_Not_Disturb.Classes
         {
             
             timer -= gameTime.ElapsedGameTime.TotalSeconds;
+            
+
             if (timer <= 0)
             {
                 active = true;
@@ -65,11 +71,14 @@ namespace Do_Not_Disturb.Classes
 
         public override void OnCollision_H(GameObject obj)
         {
-            if (obj != null)
+            if (obj != null && active)
             {
                 (obj).Velocity = new Vector2((obj).Velocity.X, -200);
                 hitbox = new Rectangle(0,0,0,0);
                 popped = true;
+
+                cooldown = 2;
+
                 anim.ChangeAnimation(Animations.Pop, 0, true);
                 anim.ChangeAnimation(Animations.None, 0, false);
             }
