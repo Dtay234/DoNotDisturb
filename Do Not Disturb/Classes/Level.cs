@@ -18,6 +18,7 @@ namespace Do_Not_Disturb.Classes
         private int windowWidth;
         private List<GameObject> objects;
         private string filePath;
+        private int levelNumber;
 
         public Level(int windowHeight, int windowWidth)
         {
@@ -25,10 +26,10 @@ namespace Do_Not_Disturb.Classes
             this.windowWidth = windowWidth;
             int[] coords = {2, 0};
              
-            new Geometry(new Rectangle(0, 0, 10, windowHeight), BlockTypes.ARedBlock, coords );
-            new Geometry(new Rectangle(windowWidth, 0, 10, windowHeight), BlockTypes.ARedBlock ,coords);
-            new Geometry(new Rectangle(0, 0, windowWidth, 10), BlockTypes.ARedBlock, coords);
-            new Geometry(new Rectangle(0, windowWidth, windowWidth, 10), BlockTypes.ARedBlock, coords);
+            for (int i = 0; i< 100; i++)
+            {
+               // new Geometry(new Point(100i, ))
+            }
             
             new Block(new Vector2(500, 500), new Rectangle(0, 0, 100, 100), BlockTypes.ARedBlock);
             new Bubble(new Vector2(1000, 1950), new Rectangle(0, 0, 20, 20));
@@ -48,7 +49,7 @@ namespace Do_Not_Disturb.Classes
             {
                 if(row == 0)
                 {
-                    
+                    levelNumber = Int32.Parse(allLines[row][0].ToString());
                 }
                 string[] letters = allLines[row].Split(',');
 
@@ -56,60 +57,18 @@ namespace Do_Not_Disturb.Classes
                 for(int col = 0; col < letters.Length; col++)
                 {
                     int num = Int32.Parse(letters[col]);
-                    int[] coords = new int[] { num / 6, num % 6 };
-
-                    if (num == 0)
+                    if(num == -1)
                     {
-
-                    } else if(num == 1)
-                    {
-                        new Geometry(new Rectangle(col * 66, row * 66, 66, 66), BlockTypes.EGreenBlock, coords);
-
+                        continue;
                     }
-                    else if(num == 2)
-                    {
                     
-                    } else if (num == 3)
-                    {
 
-                    } else if (num == 4)
-                    {
+                    BlockTypes enumValue = Enum.GetValues(typeof(BlockTypes)).Cast<BlockTypes>().ToArray()[num];
+                    new Geometry(new Point(66*col, 66*row), enumValue);
 
-                    } else if ((num == 5))
-                    {
 
-                    } else if((num == 6))
-                    {
+                    
 
-                    } else if(())
-                    switch(letters[col])
-                    {
-                        case "-1":
-                            break;
-
-                        case "2":
-                            
-
-                            break;
-
-                        case "4":
-                            coords;
-                            break;
-
-                        case "10":
-                            int[] coords = new int[] { num / 6, num % 6 };
-                            new Geometry(new Rectangle(col * 66, row * 66, 66, 66), BlockTypes.LeftHorLongBlock);
-                            break;
-
-                        case "11":
-                            new Geometry(new Rectangle(col * 66, row * 66, 66, 66), BlockTypes.BotVertLongBlock);
-                            break;
-
-                        case "12":
-                            int[] coords = { 0, 2 };
-                            new Geometry(new Rectangle(col * 66, row * 66, 66, 66), BlockTypes.BotVertLongBlock);
-                            break;
-                    }
                 }
 
             }
