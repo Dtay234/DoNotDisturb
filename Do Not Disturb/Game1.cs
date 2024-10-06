@@ -30,7 +30,7 @@ namespace Do_Not_Disturb
         private GameStates gameState = GameStates.Menu;
         private Level lastLevel;
 
-        public static RED levelCompleteCondition;
+        private static RED levelCompleteCondition;
 
         private Texture2D background;
 
