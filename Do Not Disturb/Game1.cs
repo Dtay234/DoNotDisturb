@@ -87,7 +87,7 @@ namespace Do_Not_Disturb
 
             Player.spriteSheet = Content.Load<Texture2D>("Images/RedPanda");
             Car.sheet = Content.Load<Texture2D>("Images/CarSheet");
-            levelIndex = 1;
+            levelIndex = -1;
             NextLevel();
             
             
@@ -158,8 +158,16 @@ namespace Do_Not_Disturb
                         kbs = Keyboard.GetState();
                         if (kbs.IsKeyDown(Keys.Enter))
                         {
-                            gameState = GameStates.Game;
+                            if(levelIndex <= 0)
+                            {
+                                gameState = GameStates.Information;
+                            } else
+                            {
+                                gameState = GameStates.Game;
+                                
+                            }
                             MediaPlayer.Stop();
+
                         }
                      prevKBS = kbs;
                     break;
