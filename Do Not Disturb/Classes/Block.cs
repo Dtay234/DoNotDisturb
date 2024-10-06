@@ -38,8 +38,7 @@ namespace Do_Not_Disturb.Classes
             int sign = 0;
 
             
-            if (true)
-            {
+            
                 sign = Math.Sign(velocity.X);
                 acceleration.X = -Math.Sign(velocity.X) * 80;
 
@@ -58,7 +57,7 @@ namespace Do_Not_Disturb.Classes
                     velocity.X = 0;
                     acceleration.X = 0;
                 }
-            }
+            
             
         }
 
@@ -76,6 +75,7 @@ namespace Do_Not_Disturb.Classes
             if (Math.Sign(obj.Velocity.X * obj.Acceleration.X) >= 0)
             {
                 velocity.X = obj.Acceleration.X / 4;
+                acceleration.X = obj.Acceleration.X / 2;
 
                 obj.Velocity = new Vector2(
                     //maxXVelocity * Math.Sign(obj.Acceleration.X) / 3, 
