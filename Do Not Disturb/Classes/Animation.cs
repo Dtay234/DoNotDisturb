@@ -132,7 +132,7 @@ namespace Do_Not_Disturb.Classes
                 timer = 0;
             }
 
-            else if (!currentAnimation.Equals(newAnimation) && animationFrame == 0)
+            else if (!currentAnimation.Equals(newAnimation) && animationFrame == 0 && frameCounter == 0)
             {
                 currentAnimation = newAnimation;
                 animationFrame = 0;
@@ -150,7 +150,7 @@ namespace Do_Not_Disturb.Classes
             
         }
 
-        public void Draw(SpriteBatch sb, Rectangle destination)
+        public void Draw(SpriteBatch sb, Rectangle destination, int layer = 0)
         {
             if (spritesheet == null)
             {
@@ -176,6 +176,7 @@ namespace Do_Not_Disturb.Classes
             Rectangle source = new Rectangle(x, y, spriteSize[0], spriteSize[1]);
             
             
+            
             sb.Draw(spritesheet, 
                 new Rectangle(
                     Camera.RelativePosition(
@@ -186,7 +187,52 @@ namespace Do_Not_Disturb.Classes
                 0f,
                 Vector2.Zero,
                 faceDirection == FaceDirection.Right ? SpriteEffects.None : SpriteEffects.FlipHorizontally,
-                0);
+                layer);
+        }
+
+        public void DrawScreen(SpriteBatch sb, Rectangle destination, int layer = 0)
+        {
+            /*
+            if (spritesheet == null)
+            {
+                return;
+            }
+
+            int x = animationFrame * data[currentAnimation].Item1;
+            int y = 0;
+
+            foreach (KeyValuePair<T, Tuple<int, int, int, int>> item in data)
+            {
+                if (!item.Key.Equals(currentAnimation))
+                {
+                    y += item.Value.Item2;
+
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            Rectangle source = new Rectangle(x, y, spriteSize[0], spriteSize[1]);
+
+            sb.Draw(Game1.pixel, new Rectangle(0, 0, 1920, 1080), Color.White);
+            
+            sb.Draw(spritesheet,
+                new Rectangle(
+                    
+                        new Point(0,0),
+                    new Point((int)(spriteSize[0]), (int)(spriteSize[1]))),
+                source,
+                Color.White,
+                0f,
+                Vector2.Zero,
+                faceDirection == FaceDirection.Right ? SpriteEffects.None : SpriteEffects.FlipHorizontally,
+                layer);
+
+            sb.DrawString(Game1.font, source.X.ToString() + " - " + source.Y.ToString(), new Vector2(0, 0), Color.White);
+            
+            */
         }
     }
 }

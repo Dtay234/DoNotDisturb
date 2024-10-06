@@ -21,6 +21,11 @@ namespace Do_Not_Disturb
     }
     public class Game1 : Game
     {
+        private enum Animations
+        {
+            Default,
+            None
+        }
         public static SpriteFont font;
         public static Texture2D pixel;
         public static List<GameObject> objects = new();
@@ -35,6 +40,7 @@ namespace Do_Not_Disturb
         private GameStates gameState = GameStates.Menu;
         private Level lastLevel;
         private List<Level> levelList = new List<Level>();
+        private Animation<Animations> anim;
 
         private RED levelCompleteCondition;
 
@@ -56,6 +62,10 @@ namespace Do_Not_Disturb
 
         protected override void Initialize()
         {
+            loading = Content.Load<Texture2D>("Images/LoadingSpriteSheet");
+            anim = new Animation<Animations>("loadScreen.txt", loading);
+            //anim.ChangeAnimation(Animations.None, 0, false);
+
             try
             {
                 int i = 1;
@@ -122,6 +132,7 @@ namespace Do_Not_Disturb
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            anim.Update(gameTime);
             
 
             prevKBS = kbs;
@@ -226,6 +237,7 @@ namespace Do_Not_Disturb
 
             switch (gameState)
             {
+
                 case GameStates.Menu:
                 {
                         _spriteBatch.Draw(title, new Rectangle(150,150,652,260), Color.White);
@@ -277,7 +289,7 @@ namespace Do_Not_Disturb
                     }
             }
 
-            
+            anim.DrawScreen(_spriteBatch, new Rectangle(0, 0, 1920, 1080), 0);
 
             _spriteBatch.End();
             base.Draw(gameTime);
@@ -356,7 +368,10 @@ namespace Do_Not_Disturb
 
         public void NextLevel()
         {
-            Thread.Sleep(1000);
+            anim.ChangeAnimation(Animations.Default, 0, true);
+            //anim.ChangeAnimation(Animations.None, 0, false);
+
+            //Thread.Sleep(1000);
             objects.Clear();
             Geometry.map.Clear();
 

@@ -66,6 +66,8 @@ namespace Do_Not_Disturb.Classes
                     }
                 }
             }
+
+            animation.Update(gameTime);
             base.Update(gameTime);
         }
 
